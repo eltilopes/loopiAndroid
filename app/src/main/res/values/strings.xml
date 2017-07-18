@@ -5,4 +5,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="skip">PULAR</string>
+    <string name="login">LOGIN</string>
+    <string name="register">REGISTRAR</string>
+    <string name="criarConta">CRIAR CONTA</string>
+    <string name="entrar">ENTRAR</string>
+
+    <string name="material_icon_play_square">&#xea7a;</string>
+    <string name="material_icon_account">&#xe800;</string>
+
 </resources>

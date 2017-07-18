@@ -2,9 +2,9 @@
 
     <gradient
         android:angle="0"
-        android:centerColor="#ccf0592b"
-        android:endColor="#ccb62025"
-        android:startColor="#ccfcb64d"
+        android:centerColor="@color/material_teal_A200"
+        android:endColor="@color/material_teal_A400"
+        android:startColor="@color/material_teal_A700"
         android:type="linear" />
 
     <corners android:radius="2dp" />

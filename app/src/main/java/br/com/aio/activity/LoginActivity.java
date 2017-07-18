@@ -1,4 +1,4 @@
-package br.com.aio;
+package br.com.aio.activity;
 
 /**
  * Created by elton on 16/07/2017.
@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-    public class LoginActivity extends Activity implements OnClickListener {
+import br.com.aio.R;
+
+public class LoginActivity extends Activity implements OnClickListener {
 
         public static final String MEDIA = "Media";
 
