@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import br.com.aio.R;
 
@@ -13,7 +14,7 @@ import br.com.aio.R;
  * Created by elton on 17/07/2017.
  */
 
-public class CriarContaActivity extends Activity implements View.OnClickListener {
+public class ConviteActivity extends Activity implements View.OnClickListener {
 
     public static final String MEDIA = "Media";
 
@@ -27,7 +28,7 @@ public class CriarContaActivity extends Activity implements View.OnClickListener
     }
 
     private void setContentView(String category) {
-        setContentView(R.layout.activity_criar_conta);
+        setContentView(R.layout.activity_convite);
         TextView criarConta, entrar;
         criarConta = (TextView) findViewById(R.id.criarConta);
         entrar = (TextView) findViewById(R.id.entrar);
@@ -36,19 +37,28 @@ public class CriarContaActivity extends Activity implements View.OnClickListener
         entrar.setOnClickListener(this);
     }
 
+    public void entrar(View v) {
+        Intent newActivity0 = new Intent(ConviteActivity.this, LoginActivity.class);
+        startActivity(newActivity0);
+    }
+
+    public void criarConta(View v) {
+        Intent newActivity0 = new Intent(ConviteActivity.this, LoginActivity.class);
+        startActivity(newActivity0);
+    }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.criarConta:
-                Intent newActivity0 = new Intent(CriarContaActivity.this, LoginActivity.class);
-                startActivity(newActivity0);
-                break;
-            case R.id.entrar:
-                Intent newActivity = new Intent(CriarContaActivity.this, LoginActivity.class);
-                startActivity(newActivity);
-                break;
-        }
 
+        if (v instanceof TextView) {
+            TextView tv = (TextView) v;
+            switch(tv.getText().charAt(0)) {
+                case 'S':
+                    Intent newActivity0 = new Intent(ConviteActivity.this, LoginActivity.class);
+                    startActivity(newActivity0);
+                    break;
+            }
+            Toast.makeText(this, tv.getText(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
