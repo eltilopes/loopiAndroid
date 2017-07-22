@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.aio.R;
 
@@ -29,36 +28,26 @@ public class ConviteActivity extends Activity implements View.OnClickListener {
 
     private void setContentView(String category) {
         setContentView(R.layout.activity_convite);
-        TextView criarConta, entrar;
-        criarConta = (TextView) findViewById(R.id.criarConta);
-        entrar = (TextView) findViewById(R.id.entrar);
+        TextView continuar, naoTenhoConvite;
+        continuar = (TextView) findViewById(R.id.continuar);
+        naoTenhoConvite = (TextView) findViewById(R.id.naoTenhoConvite);
 
-        criarConta.setOnClickListener(this);
-        entrar.setOnClickListener(this);
-    }
-
-    public void entrar(View v) {
-        Intent newActivity0 = new Intent(ConviteActivity.this, LoginActivity.class);
-        startActivity(newActivity0);
-    }
-
-    public void criarConta(View v) {
-        Intent newActivity0 = new Intent(ConviteActivity.this, LoginActivity.class);
-        startActivity(newActivity0);
+        continuar.setOnClickListener(this);
+        naoTenhoConvite.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
-        if (v instanceof TextView) {
-            TextView tv = (TextView) v;
-            switch(tv.getText().charAt(0)) {
-                case 'S':
-                    Intent newActivity0 = new Intent(ConviteActivity.this, LoginActivity.class);
-                    startActivity(newActivity0);
-                    break;
-            }
-            Toast.makeText(this, tv.getText(), Toast.LENGTH_SHORT).show();
+        switch(v.getId()) {
+            case R.id.continuar:
+                Intent newActivity0 = new Intent(ConviteActivity.this, ConviteActivity.class);
+                startActivity(newActivity0);
+                break;
+            case R.id.naoTenhoConvite:
+                Intent newActivity = new Intent(ConviteActivity.this, NaoTenhoConviteActivity.class);
+                startActivity(newActivity);
+                break;
         }
+
     }
 }

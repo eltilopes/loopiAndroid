@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
+    android:background="@drawable/background_convite"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="24dp" >
@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_gravity="bottom"
         android:layout_marginTop="400dp">
@@ -26,39 +26,27 @@
             app:rippleColor="@color/main_color_grey_400" >
 
             <br.com.aio.fonts.RobotoTextView
-                android:id="@+id/criarConta"
+                android:id="@+id/continuar"
                 style="@style/ButtonStyle.RaisedEmpty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:background="@color/main_color_500"
                 android:minWidth="112dp"
-                android:text="@string/criarConta"
-                android:onClick="criarConta"
-                android:clickable="true"
+                android:text="@string/continuar"
                 android:textColor="#fff" />
         </br.com.aio.view.MaterialRippleLayout>
 
-        <br.com.aio.view.MaterialRippleLayout
-            style="@style/RippleStyle"
+        <br.com.aio.fonts.RobotoTextView
+            android:id="@+id/naoTenhoConvite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            app:rippleColor="@color/main_color_grey_400" >
+            android:layout_margin="0dp"
+            android:textColor="@color/main_color_50"
+            android:minWidth="112dp"
+            android:text="@string/naoTenhoConvite" />
 
-            <br.com.aio.fonts.RobotoTextView
-                android:id="@+id/entrar"
-                style="@style/ButtonStyle.RaisedEmpty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:background="@color/main_color_500"
-                android:minWidth="112dp"
-                android:text="@string/entrar"
-                android:onClick="entrar"
-                android:clickable="true"
-                android:textColor="#fff" />
-        </br.com.aio.view.MaterialRippleLayout>
     </LinearLayout>
+
 
 </LinearLayout>

@@ -24,7 +24,7 @@
             android:layout_weight="0"
             android:gravity="right|center_vertical"
             android:padding="8dp"
-            android:text="@string/material_icon_play_square"
+            android:text="@string/material_icon_account"
             android:textColor="@color/material_teal_400"
             android:textSize="160dp" />
 

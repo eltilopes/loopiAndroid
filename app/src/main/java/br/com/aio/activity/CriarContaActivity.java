@@ -41,7 +41,7 @@ public class CriarContaActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.criarConta:
-                Intent newActivity0 = new Intent(CriarContaActivity.this, LoginActivity.class);
+                Intent newActivity0 = new Intent(CriarContaActivity.this, ConviteActivity.class);
                 startActivity(newActivity0);
                 break;
             case R.id.entrar:
