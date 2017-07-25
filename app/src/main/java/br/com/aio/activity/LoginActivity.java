@@ -13,7 +13,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.aio.R;
 
@@ -54,16 +53,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 
         @Override
         public void onClick(View v) {
-
-            if (v instanceof TextView) {
-                TextView tv = (TextView) v;
-                switch(tv.getText().charAt(0)) {
-                    case 'S':
-                        Intent newActivity0 = new Intent(LoginActivity.this, ListagemActivity.class);
-                        startActivity(newActivity0);
-                        break;
-                }
-                Toast.makeText(this, tv.getText(), Toast.LENGTH_SHORT).show();
+            switch(v.getId()) {
+                case R.id.login:
+                    Intent newActivity0 = new Intent(LoginActivity.this, ListagemActivity.class);
+                    startActivity(newActivity0);
+                    break;
             }
+
         }
     }
