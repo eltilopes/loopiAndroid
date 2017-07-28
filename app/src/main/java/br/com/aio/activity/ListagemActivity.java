@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -42,12 +43,18 @@ public class ListagemActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private MyRecyclerViewAdapter adapter;
     private ProgressBar progressBar;
+    private LinearLayout buttonFiltro;
+    private LinearLayout buttonCategoria;
+    private LinearLayout buttonSubCategoria;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
+        setButtonFiltro();
+        setButtonCategoria();
+        setButtonSubCategoria();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -75,6 +82,38 @@ public class ListagemActivity extends AppCompatActivity
         new DownloadTask().execute(url);
     }
 
+    private void setButtonFiltro() {
+        View v = findViewById(R.id.button_filtro);
+        buttonFiltro = (LinearLayout) v;
+        buttonFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ListagemActivity.this, "Mostrar Filtro!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setButtonCategoria() {
+        View v = findViewById(R.id.button_categoria);
+        buttonCategoria = (LinearLayout) v;
+        buttonCategoria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ListagemActivity.this, "Mostrar Categoria!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setButtonSubCategoria() {
+        View v = findViewById(R.id.button_sub_categoria);
+        buttonSubCategoria = (LinearLayout) v;
+        buttonSubCategoria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ListagemActivity.this, "Mostrar Sub Categoria!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public class DownloadTask extends AsyncTask<String, Void, Integer> {
 
