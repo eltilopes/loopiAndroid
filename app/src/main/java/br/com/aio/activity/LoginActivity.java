@@ -43,12 +43,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 
             TextView login, register, skip;
             login = (TextView) findViewById(R.id.login);
-            register = (TextView) findViewById(R.id.register);
-            skip = (TextView) findViewById(R.id.skip);
 
             login.setOnClickListener(this);
-            register.setOnClickListener(this);
-            skip.setOnClickListener(this);
         }
 
         @Override

@@ -12,12 +12,16 @@
     <string name="criarConta">CRIAR CONTA</string>
     <string name="continuar">CONTINUAR</string>
     <string name="naoTenhoConvite">Não tenho convite</string>
+    <string name="esqueciMinhaSenha">Esqueci Minha Senha</string>
     <string name="entrar">ENTRAR</string>
     <string name="pedirConvite">PEDIR CONVITE</string>
 
-    <string name="username">USUÁRIO</string>
+    <string name="nomeCompleto">Nome Completo</string>
     <string name="email">E-MAIL</string>
     <string name="cpf">CPF</string>
+    <string name="senha">Senha</string>
+    <string name="codigoConvite">Código do Convite</string>
+    <string name="infoNaoTenhoConvite">Se você não tem um convie, não se preocupe. É só pedir uma lá embaixo!</string>
 
     <string name="material_icon_play_square">&#xea7a;</string>
     <!-- Material Design Icons -->

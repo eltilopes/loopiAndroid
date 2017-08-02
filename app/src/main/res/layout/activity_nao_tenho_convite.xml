@@ -4,32 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_blue_50"
+    android:background="@color/colorPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="32dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="32dp" >
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/register_travel_transparent_background"
         android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="22dp" >
+        android:padding="10dp" >
 
         <br.com.aio.fonts.RobotoTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/transparent_button_selector"
-            android:gravity="right"
-            android:text="@string/register"
+            android:gravity="center_horizontal"
+            android:text="@string/pedirConvite"
             android:textColor="@color/main_color_grey_700"
-            android:textSize="34sp"
+            android:textSize="24sp"
             app:typeface="robotoThin" />
 
         <LinearLayout
@@ -38,7 +33,7 @@
             android:gravity="center_vertical" >
 
             <br.com.aio.fonts.MaterialDesignIconsTextView
-                android:id="@+id/usuario"
+                android:id="@+id/nome_completo"
                 style="@style/TextViewAppearance.Title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
-                app:fletFloatingHint="@string/username"
+                app:fletFloatingHint="@string/nomeCompleto"
                 app:fletHintTextColor="@color/main_color_grey_300"
                 app:fletSingleLine="true"
                 app:fletTextBackground="@drawable/edit_text_background_accent"
@@ -132,7 +127,7 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="400dp">
+                android:layout_marginTop="40dp">
 
                 <br.com.aio.view.MaterialRippleLayout
                     style="@style/RippleStyle"
