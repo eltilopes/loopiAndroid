@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <br.com.aio.fonts.RobotoTextView
+            android:id="@+id/filtro_nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nome"
+            android:textColor="@color/main_color_grey_700"
+            android:textSize="20dp"
+            android:layout_margin="2dp"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp">
+
+            <RadioButton
+                android:id="@+id/radio_a_z"
+                style="@style/MyRadioButton"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorSingle"
+                android:text="A - Z"
+                android:padding="2dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_z_a"
+                style="@style/MyRadioButton"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorSingle"
+                android:text="Z - A"
+                android:padding="2dp"/>
+
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <br.com.aio.fonts.RobotoTextView
+            android:id="@+id/filtro_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/valor"
+            android:textColor="@color/main_color_grey_700"
+            android:textSize="20dp"
+            android:layout_margin="2dp"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp">
+
+            <RadioButton
+                android:id="@+id/radio_menor_valor"
+                style="@style/MyRadioButton"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorSingle"
+                android:text="Menor Valor"
+                android:padding="2dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_maior_valor"
+                style="@style/MyRadioButton"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorSingle"
+                android:text="Maior Valor"
+                android:padding="2dp"/>
+
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom"
+        android:layout_gravity="center|bottom">
+
+        <Button
+            android:id="@+id/dialog_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/material_deep_orange_200"
+            android:text="Cancel"/>
+
+        <Button
+            android:id="@+id/dialog_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/material_teal_200"
+            android:text="Agree"/>
+    </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

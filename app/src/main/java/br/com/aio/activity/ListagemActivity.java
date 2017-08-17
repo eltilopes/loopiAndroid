@@ -1,10 +1,9 @@
 package br.com.aio.activity;
 
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -58,15 +57,6 @@ public class ListagemActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,9 +78,15 @@ public class ListagemActivity extends AppCompatActivity
         buttonFiltro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ListagemActivity.this, "Mostrar Filtro!", Toast.LENGTH_SHORT).show();
+                mostrarFiltro();
             }
         });
+    }
+
+    public void mostrarFiltro() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_filtro);
+        dialog.show();
     }
 
     private void setButtonCategoria() {
@@ -224,17 +220,17 @@ public class ListagemActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_pedido) {
-            // Handle the camera action
+            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_profissional) {
-
+            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_configuracoes) {
-
+            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_problema) {
-
+            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_indicacao) {
-
+            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_switch) {
-
+            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

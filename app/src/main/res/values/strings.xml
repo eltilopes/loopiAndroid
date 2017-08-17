@@ -23,6 +23,10 @@
     <string name="codigoConvite">Código do Convite</string>
     <string name="infoNaoTenhoConvite">Se você não tem um convie, não se preocupe. É só pedir uma lá embaixo!</string>
 
+    <string name="valor">VALOR</string>
+    <string name="distancia">DISTÂNCIA</string>
+    <string name="nome">NOME</string>
+
     <string name="material_icon_play_square">&#xea7a;</string>
     <!-- Material Design Icons -->
     <string name="material_icon_account">&#xe800;</string>
@@ -70,6 +74,7 @@
     <string name="material_icon_party">&#xe937;</string>
     <string name="material_icon_star_outline">&#xeade;</string>
     <string name="material_icon_star">&#xeadf;</string>
+    <string name="material_icon_star_border">&#xeade;</string>
     <string name="material_icon_share">&#xeac0;</string>
     <string name="material_icon_skip_next">&#xeaca;</string>
     <string name="material_icon_skip_previous">&#xeacb;</string>

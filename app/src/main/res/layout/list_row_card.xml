@@ -14,47 +14,112 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dp">
-
-        <ImageView
-            android:id="@+id/thumbnail"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder"/>
-</RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder"/>
+             </RelativeLayout>
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:maxLines="3"
-            android:padding="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#444"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#444"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
 
 
-    </RelativeLayout>
-    </LinearLayout>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/stars"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|bottom"
+                android:layout_gravity="left|bottom"
+                android:orientation="horizontal">
+
+                <br.com.aio.fonts.MaterialDesignIconsTextView
+                    android:id="@+id/list_item_google_cards_media_like_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:padding="2dp"
+                    android:text="@string/material_icon_star_border"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16dp" />
+
+                <br.com.aio.fonts.MaterialDesignIconsTextView
+                    android:id="@+id/list_item_google_cards_media_like_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:padding="2dp"
+                    android:text="@string/material_icon_star_border"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16dp" />
+
+                <br.com.aio.fonts.MaterialDesignIconsTextView
+                    android:id="@+id/list_item_google_cards_media_like_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:padding="2dp"
+                    android:text="@string/material_icon_star_border"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16dp" />
+
+                <br.com.aio.fonts.MaterialDesignIconsTextView
+                    android:id="@+id/list_item_google_cards_media_like_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:padding="2dp"
+                    android:text="@string/material_icon_star"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16dp" />
+
+                <br.com.aio.fonts.MaterialDesignIconsTextView
+                    android:id="@+id/list_item_google_cards_media_like_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:padding="2dp"
+                    android:text="@string/material_icon_star"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16dp" />
+
+
+             </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
