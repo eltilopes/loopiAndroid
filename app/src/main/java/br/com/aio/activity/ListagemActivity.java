@@ -1,6 +1,7 @@
 package br.com.aio.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -222,7 +223,9 @@ public class ListagemActivity extends AppCompatActivity
         if (id == R.id.nav_pedido) {
             Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_profissional) {
-            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
+            Intent newActivity = new Intent(ListagemActivity.this, ProfissionalActivity.class);
+            startActivity(newActivity);
+
         } else if (id == R.id.nav_configuracoes) {
             Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_problema) {

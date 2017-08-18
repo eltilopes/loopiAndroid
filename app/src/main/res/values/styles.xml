@@ -1,6 +1,9 @@
 <resources>
 
-
+    <style name="ProfissionalTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">false</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -9,6 +12,7 @@
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
+        <item name="windowNoTitle">false</item>
         <item name="colorPrimary">@color/main_color_500</item>
         <item name="colorPrimaryDark">@color/main_color_700</item>
     </style>
