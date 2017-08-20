@@ -9,12 +9,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import br.com.aio.R;
+import br.com.aio.fonts.RobotoTextView;
 
 /**
  * Created by elton on 17/07/2017.
  */
 
 public class ProfissionalActivity extends AppCompatActivity {
+
+    private RobotoTextView nomePagina ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,8 @@ public class ProfissionalActivity extends AppCompatActivity {
 
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_title_bar, null);
-
+        nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
+        nomePagina.setText("Profissional");
         actionBar.setCustomView(v);
     }
 

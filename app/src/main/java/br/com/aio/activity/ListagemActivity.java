@@ -221,11 +221,11 @@ public class ListagemActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_pedido) {
-            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
+            Intent newActivity = new Intent(ListagemActivity.this, MeusPedidosActivity.class);
+            startActivity(newActivity);
         } else if (id == R.id.nav_profissional) {
             Intent newActivity = new Intent(ListagemActivity.this, ProfissionalActivity.class);
             startActivity(newActivity);
-
         } else if (id == R.id.nav_configuracoes) {
             Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_problema) {

@@ -27,6 +27,8 @@
         <activity android:name=".activity.NaoTenhoConviteActivity" />
         <activity android:name=".activity.ProfissionalActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.MeusPedidosActivity"
+            android:theme="@style/AppTheme"/>
 
     </application>
 
