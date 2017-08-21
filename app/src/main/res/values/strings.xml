@@ -15,6 +15,12 @@
     <string name="esqueciMinhaSenha">Esqueci Minha Senha</string>
     <string name="entrar">ENTRAR</string>
     <string name="pedirConvite">PEDIR CONVITE</string>
+    <string name="sair">SAIR</string>
+
+    <string name="meuPerfil">Meu Perfil</string>
+    <string name="receberNotificacoes">Receber Notificações</string>
+    <string name="indicadoPor">Indicado por</string>
+    <string name="verTermos">Ver Termos</string>
 
     <string name="nomeCompleto">Nome Completo</string>
     <string name="email">E-MAIL</string>

@@ -29,6 +29,8 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.MeusPedidosActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.ConfiguracoesActivity"
+            android:theme="@style/AppTheme"/>
 
     </application>
 
