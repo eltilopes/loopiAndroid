@@ -230,7 +230,8 @@ public class ListagemActivity extends AppCompatActivity
             Intent newActivity = new Intent(ListagemActivity.this, ConfiguracoesActivity.class);
             startActivity(newActivity);
         } else if (id == R.id.nav_problema) {
-            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
+            Intent newActivity = new Intent(ListagemActivity.this, RelateProblemaActivity.class);
+            startActivity(newActivity);
         } else if (id == R.id.nav_indicacao) {
             Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_switch) {

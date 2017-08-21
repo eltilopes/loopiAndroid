@@ -21,9 +21,12 @@
     <string name="receberNotificacoes">Receber Notificações</string>
     <string name="indicadoPor">Indicado por</string>
     <string name="verTermos">Ver Termos</string>
+    <string name="descreva">Descreva</string>
+    <string name="tipo">Tipo</string>
 
     <string name="nomeCompleto">Nome Completo</string>
     <string name="email">E-MAIL</string>
+    <string name="telefone">TELEFONE</string>
     <string name="cpf">CPF</string>
     <string name="senha">Senha</string>
     <string name="codigoConvite">Código do Convite</string>
@@ -155,6 +158,12 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+    </string-array>
+
+    <string-array name="list_tipo_problema">
+        <item>Financeiro</item>
+        <item>Usabilidade</item>
+        <item>Melhoria</item>
     </string-array>
 
     <string-array name="multi_select_list_preference_default_value" />

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="ProfissionalTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
@@ -40,7 +40,10 @@
     </style>
 
     <!-- Default application theme ends here -->
-
+    <style name="MySpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
+    </style>
 
     <!-- ActionBar related themes -->
     <style name="ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar">
