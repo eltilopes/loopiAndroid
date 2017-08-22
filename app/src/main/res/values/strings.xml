@@ -11,6 +11,7 @@
     <string name="register">REGISTRAR</string>
     <string name="criarConta">CRIAR CONTA</string>
     <string name="continuar">CONTINUAR</string>
+    <string name="compartilhar">COMPARTILHAR</string>
     <string name="naoTenhoConvite">Não tenho convite</string>
     <string name="esqueciMinhaSenha">Esqueci Minha Senha</string>
     <string name="entrar">ENTRAR</string>
@@ -31,13 +32,15 @@
     <string name="senha">Senha</string>
     <string name="codigoConvite">Código do Convite</string>
     <string name="infoNaoTenhoConvite">Se você não tem um convie, não se preocupe. É só pedir uma lá embaixo!</string>
+    <string name="cada_amigo">Cada amigo que indicar, você ganhará CashBack Friend de 0,5% do valor de cada transação</string>
 
     <string name="valor">VALOR</string>
     <string name="distancia">DISTÂNCIA</string>
     <string name="nome">NOME</string>
     <string name="cadastro">Cadastro</string>
     <string name="title_profissional">PROFISSIONAL</string>
-    <string name="title_anuncio">Crie seu Anúncio</string>
+    <string name="crie_anuncio">Crie seu Anúncio</string>
+    <string name="cash_back_friend">CashBack Friend</string>
 
     <string name="material_icon_play_square">&#xea7a;</string>
     <!-- Material Design Icons -->

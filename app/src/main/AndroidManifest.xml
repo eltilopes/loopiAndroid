@@ -33,6 +33,8 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.RelateProblemaActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.IndiqueCashBackActivity"
+            android:theme="@style/AppTheme"/>
 
     </application>
 

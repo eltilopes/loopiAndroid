@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color_grey_400"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/container_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/activity_transition_header"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_alignBottom="@+id/actions"
+                android:background="@color/divider_color"
+                android:transitionName="holder1" />
+
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorAccent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:cardview="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_margin="2dp"
+                        android:layout_weight="4"
+                        android:padding="20dp"
+                        cardview:cardCornerRadius="2dp"
+                        cardview:cardElevation="3dp"
+                        cardview:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="30dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:background="@drawable/border_layout"
+                                android:orientation="vertical" >
+
+                                <br.com.aio.fonts.MaterialDesignIconsTextView
+                                    android:id="@+id/logo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0"
+                                    android:gravity="right|center_vertical"
+                                    android:text="@string/material_icon_dollar"
+                                    android:textColor="@color/textColorAzul"
+                                    android:textSize="160dp" />
+
+                            </LinearLayout>
+
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:minWidth="112dp"
+                                android:layout_margin="10dp"
+                                android:text="@string/cada_amigo"
+                                android:textColor="@color/textColorAzul"
+                                android:textSize="15dp" />
+
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:minWidth="112dp"
+                                android:textAllCaps="true"
+                                android:layout_margin="10dp"
+                                android:text="@string/codigoConvite"
+                                android:textColor="@color/textColorAzul"
+                                android:textSize="10dp" />
+
+
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:layout_margin="5dp"
+                                android:padding="5dp"
+                                android:textStyle="bold"
+                                android:background="@drawable/border_text"
+                                android:text="A2X3F4"
+                                android:textColor="@color/textColorAzul"
+                                android:textSize="10dp" />
+
+
+                            <br.com.aio.view.MaterialRippleLayout
+                                style="@style/RippleStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                app:rippleColor="@color/main_color_grey_400" >
+
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:id="@+id/compartilhar"
+                                    style="@style/ButtonStyle.RaisedEmpty"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:background="@color/textColorAzul"
+                                    android:text="@string/compartilhar"
+                                    android:textColor="@android:color/white"/>
+                            </br.com.aio.view.MaterialRippleLayout>
+
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/actions"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/material_light_blue_800"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <br.com.aio.fonts.RobotoTextView
+                    android:id="@+id/title_anuncio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="112dp"
+                    android:text="@string/cash_back_friend"
+                    android:textColor="@android:color/white"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_alignBottom="@+id/actions"
+                android:background="@color/colorPrimary" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>
