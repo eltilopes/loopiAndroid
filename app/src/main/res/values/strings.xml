@@ -34,10 +34,13 @@
     <string name="codigoConvite">Código do Convite</string>
     <string name="infoNaoTenhoConvite">Se você não tem um convie, não se preocupe. É só pedir uma lá embaixo!</string>
     <string name="cada_amigo">Cada amigo que indicar, você ganhará CashBack Friend de 0,5% do valor de cada transação</string>
+    <string name="info_saque">* É necessário que o CPF/CNPJ do titular da conta bancária seja o mesmo CPF/CNPJ cadastrado no APP.</string>
 
     <string name="valor">VALOR</string>
     <string name="distancia">DISTÂNCIA</string>
     <string name="nome">NOME</string>
+    <string name="banco">BANCO</string>
+    <string name="finalidade">FINALIDADE</string>
     <string name="cadastro">Cadastro</string>
     <string name="title_profissional">PROFISSIONAL</string>
     <string name="crie_anuncio">Crie seu Anúncio</string>
@@ -173,6 +176,17 @@
         <item>Financeiro</item>
         <item>Usabilidade</item>
         <item>Melhoria</item>
+    </string-array>
+
+    <string-array name="list_bancos">
+        <item>001 - Banco do Brasil</item>
+        <item>140 - CEF</item>
+        <item>222 - Itaú</item>
+    </string-array>
+
+    <string-array name="list_finalidades">
+        <item>Crédito em C/C</item>
+        <item>La la land</item>
     </string-array>
 
     <string-array name="multi_select_list_preference_default_value" />
