@@ -220,7 +220,10 @@ public class ListagemActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_pedido) {
+        if (id == R.id.nav_extrato_saque) {
+            Intent newActivity = new Intent(ListagemActivity.this, ExtratoSaqueActivity.class);
+            startActivity(newActivity);
+        } else if (id == R.id.nav_pedido) {
             Intent newActivity = new Intent(ListagemActivity.this, MeusPedidosActivity.class);
             startActivity(newActivity);
         } else if (id == R.id.nav_profissional) {

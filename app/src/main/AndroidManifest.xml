@@ -35,6 +35,8 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.IndiqueCashBackActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.ExtratoSaqueActivity"
+            android:theme="@style/AppTheme"/>
 
     </application>
 
