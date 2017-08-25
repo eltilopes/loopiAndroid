@@ -11,6 +11,7 @@
     <string name="register">REGISTRAR</string>
     <string name="criarConta">CRIAR CONTA</string>
     <string name="continuar">CONTINUAR</string>
+    <string name="confirmar">CONFIRMAR</string>
     <string name="saque">SAQUE</string>
     <string name="compartilhar">COMPARTILHAR</string>
     <string name="naoTenhoConvite">Não tenho convite</string>
@@ -30,7 +31,7 @@
     <string name="email">E-MAIL</string>
     <string name="telefone">TELEFONE</string>
     <string name="cpf">CPF</string>
-    <string name="senha">Senha</string>
+    <string name="senha">SENHA</string>
     <string name="codigoConvite">Código do Convite</string>
     <string name="infoNaoTenhoConvite">Se você não tem um convie, não se preocupe. É só pedir uma lá embaixo!</string>
     <string name="cada_amigo">Cada amigo que indicar, você ganhará CashBack Friend de 0,5% do valor de cada transação</string>
