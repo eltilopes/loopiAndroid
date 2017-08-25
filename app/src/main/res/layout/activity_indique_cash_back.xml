@@ -135,7 +135,6 @@
                                     android:textColor="@android:color/white"/>
                             </br.com.aio.view.MaterialRippleLayout>
 
-
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
                 </LinearLayout>

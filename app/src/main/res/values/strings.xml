@@ -35,12 +35,15 @@
     <string name="infoNaoTenhoConvite">Se você não tem um convie, não se preocupe. É só pedir uma lá embaixo!</string>
     <string name="cada_amigo">Cada amigo que indicar, você ganhará CashBack Friend de 0,5% do valor de cada transação</string>
     <string name="info_saque">* É necessário que o CPF/CNPJ do titular da conta bancária seja o mesmo CPF/CNPJ cadastrado no APP.</string>
+    <string name="info_saque_minimo">** Saque mínimo de R$ 20,00.</string>
 
     <string name="valor">VALOR</string>
     <string name="distancia">DISTÂNCIA</string>
     <string name="nome">NOME</string>
     <string name="banco">BANCO</string>
     <string name="finalidade">FINALIDADE</string>
+    <string name="agencia">AGÊNCIA</string>
+    <string name="conta">CONTA</string>
     <string name="cadastro">Cadastro</string>
     <string name="title_profissional">PROFISSIONAL</string>
     <string name="crie_anuncio">Crie seu Anúncio</string>

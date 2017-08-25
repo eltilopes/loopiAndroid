@@ -1,6 +1,7 @@
 package br.com.aio.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,21 +10,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.aio.R;
 import br.com.aio.fonts.RobotoTextView;
+import br.com.aio.view.NumberTextWatcher;
 
 /**
  * Created by elton on 17/07/2017.
  */
 
-public class SaqueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SaqueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterView.OnClickListener {
 
     private RobotoTextView nomePagina ;
     private Spinner spinnerBancos;
     private Spinner spinnerFinalidades;
+    private EditText editTextValorSaque;
+    private TextView confirmarSaque;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,12 @@ public class SaqueActivity extends AppCompatActivity implements AdapterView.OnIt
         adapterFinalidades.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFinalidades.setAdapter(adapterFinalidades);
         spinnerFinalidades.setOnItemSelectedListener(this);
+
+        editTextValorSaque = (EditText) findViewById(R.id.valor_saque);
+        editTextValorSaque.addTextChangedListener(new NumberTextWatcher(editTextValorSaque, "#,###"));
+
+        confirmarSaque = (TextView) findViewById(R.id.solicitar_saque);
+        confirmarSaque.setOnClickListener(this);
     }
 
 
@@ -72,6 +84,17 @@ public class SaqueActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.solicitar_saque:
+                Intent newActivity0 = new Intent(SaqueActivity.this, SaqueActivity.class);
+                startActivity(newActivity0);
+                break;
+        }
 
     }
 }
