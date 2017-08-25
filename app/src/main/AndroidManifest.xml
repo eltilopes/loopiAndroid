@@ -41,6 +41,8 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.ConfirmarSaqueActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.SolicitacaoSaqueConfirmadaActivity"
+            android:theme="@style/AppTheme"/>
 
     </application>
 

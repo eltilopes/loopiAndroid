@@ -17,6 +17,7 @@
     <string name="naoTenhoConvite">Não tenho convite</string>
     <string name="esqueciMinhaSenha">Esqueci Minha Senha</string>
     <string name="entrar">ENTRAR</string>
+    <string name="enviar">ENVIAR</string>
     <string name="pedirConvite">PEDIR CONVITE</string>
     <string name="sair">SAIR</string>
 
@@ -37,6 +38,7 @@
     <string name="cada_amigo">Cada amigo que indicar, você ganhará CashBack Friend de 0,5% do valor de cada transação</string>
     <string name="info_saque">* É necessário que o CPF/CNPJ do titular da conta bancária seja o mesmo CPF/CNPJ cadastrado no APP.</string>
     <string name="info_saque_minimo">** Saque mínimo de R$ 20,00.</string>
+    <string name="info_confirmacao_saque">* Em 1 à 5 dias úteis o dinheiro será creditado em sua conta bancária.</string>
 
     <string name="valor">VALOR</string>
     <string name="distancia">DISTÂNCIA</string>
@@ -54,6 +56,8 @@
     <string name="historico">HISTÓRICO</string>
     <string name="saldo">Saldo CashBack</string>
     <string name="valor_movimentacao">VALOR</string>
+    <string name="solicitacao_saque">Solicitação de Saque</string>
+    <string name="confirmado">CONFIRMADO</string>
 
     <string name="material_icon_play_square">&#xea7a;</string>
     <!-- Material Design Icons -->

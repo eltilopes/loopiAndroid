@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import br.com.aio.R;
@@ -19,16 +18,15 @@ import br.com.aio.fonts.RobotoTextView;
  * Created by elton on 17/07/2017.
  */
 
-public class ConfirmarSaqueActivity extends AppCompatActivity implements AdapterView.OnClickListener {
+public class SolicitacaoSaqueConfirmadaActivity extends AppCompatActivity implements AdapterView.OnClickListener {
 
     private RobotoTextView nomePagina ;
-    private EditText editSenha;
-    private TextView confirmarSaque;
+    private TextView confirmado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirmar_saque);
+        setContentView(R.layout.activity_solicitacao_saque_confirmado);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -38,13 +36,11 @@ public class ConfirmarSaqueActivity extends AppCompatActivity implements Adapter
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_title_bar, null);
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
-        nomePagina.setText("Confirmar Saque");
+        nomePagina.setText("Solicitação Saque Confirmado");
         actionBar.setCustomView(v);
 
-        editSenha = (EditText) findViewById(R.id.senha);
-
-        confirmarSaque = (TextView) findViewById(R.id.confirmar_novamente);
-        confirmarSaque.setOnClickListener(this);
+        confirmado = (TextView) findViewById(R.id.solicitacao_confirmada);
+        confirmado.setOnClickListener(this);
     }
 
 
@@ -57,11 +53,10 @@ public class ConfirmarSaqueActivity extends AppCompatActivity implements Adapter
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.confirmar_novamente:
-                Intent newActivity0 = new Intent(ConfirmarSaqueActivity.this, SolicitacaoSaqueConfirmadaActivity.class);
+            case R.id.solicitacao_confirmada:
+                Intent newActivity0 = new Intent(SolicitacaoSaqueConfirmadaActivity.this, ListagemActivity.class);
                 startActivity(newActivity0);
                 break;
         }
-
     }
 }

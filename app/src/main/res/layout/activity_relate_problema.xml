@@ -123,10 +123,33 @@
                     <EditText
                         android:id="@+id/edit_text"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:inputType="text|textMultiLine"
+                        android:minHeight="200dp"
                         android:gravity="start"
                         android:hint="@string/descreva"/>
+
+                    <br.com.aio.view.MaterialRippleLayout
+                        style="@style/RippleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        app:rippleColor="@color/main_color_grey_400" >
+
+                        <br.com.aio.fonts.RobotoTextView
+                            android:id="@+id/solicitacao_confirmada"
+                            style="@style/ButtonStyle.RaisedEmpty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:background="@color/textColorAzul"
+                            android:text="@string/enviar"
+                            android:textColor="@android:color/white"/>
+                    </br.com.aio.view.MaterialRippleLayout>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>

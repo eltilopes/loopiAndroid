@@ -63,121 +63,65 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/textColorAzul"
                                 android:layout_margin="5dp"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:text="@string/banco" />
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="@string/solicitacao_saque" />
 
                             <br.com.aio.fonts.RobotoTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/textColorAzul"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
                                 android:layout_margin="5dp"
                                 android:paddingLeft="10dp"
                                 android:textStyle="bold"
-                                android:text="Banco do Basil" />
+                                android:text="@string/confirmado" />
+
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="R$ 25,00" />
 
                             <br.com.aio.fonts.RobotoTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/textColorAzul"
-                                android:layout_margin="5dp"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:text="@string/agencia" />
-
-                            <br.com.aio.fonts.RobotoTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/textColorAzul"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:layout_margin="5dp"
-                                android:paddingLeft="10dp"
-                                android:textStyle="bold"
-                                android:text="0458-8" />
-
-                            <br.com.aio.fonts.RobotoTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/textColorAzul"
-                                android:layout_margin="5dp"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:text="@string/conta" />
-
-                            <br.com.aio.fonts.RobotoTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/textColorAzul"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:layout_margin="5dp"
-                                android:paddingLeft="10dp"
-                                android:textStyle="bold"
-                                android:text="3265468-8" />
-
-                            <br.com.aio.fonts.RobotoTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/textColorAzul"
-                                android:layout_margin="5dp"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:text="@string/valor" />
-
-                            <br.com.aio.fonts.RobotoTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/textColorAzul"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:layout_margin="5dp"
-                                android:paddingLeft="10dp"
-                                android:textStyle="bold"
-                                android:text="R$ 21,58" />
-
-                            <br.com.aio.fonts.RobotoTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/textColorAzul"
-                                android:layout_margin="5dp"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:text="@string/senha" />
-
-                            <EditText
-                                android:id="@+id/senha"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_horizontal"
-                                android:gravity="left|center_horizontal"
-                                android:textColor="@color/textColorAzul"
-                                android:textSize="15dp"
-                                android:minWidth="70dp"
-                                android:maxLength="8"
-                                android:inputType="textPassword"
-                                android:layout_margin="5dp"
-                                android:paddingLeft="10dp"
-                                android:textStyle="bold"/>
+                                android:layout_marginTop="30dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:padding="10dp"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:text="@string/info_confirmacao_saque" />
 
                             <br.com.aio.view.MaterialRippleLayout
                                 style="@style/RippleStyle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="5dp"
                                 app:rippleColor="@color/main_color_grey_400" >
 
                                 <br.com.aio.fonts.RobotoTextView
-                                    android:id="@+id/confirmar_novamente"
+                                    android:id="@+id/solicitacao_confirmada"
                                     style="@style/ButtonStyle.RaisedEmpty"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:background="@color/textColorAzul"
-                                    android:text="@string/confirmar"
+                                    android:text="@string/continuar"
                                     android:textColor="@android:color/white"/>
                             </br.com.aio.view.MaterialRippleLayout>
 
