@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -34,6 +35,7 @@ import java.util.List;
 import br.com.aio.R;
 import br.com.aio.adapter.FeedItem;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.fonts.MaterialDesignIconsTextView;
 
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,7 +48,8 @@ public class ListagemActivity extends AppCompatActivity
     private LinearLayout buttonFiltro;
     private LinearLayout buttonCategoria;
     private LinearLayout buttonSubCategoria;
-
+    private TextView nomeUsuario;
+    private MaterialDesignIconsTextView imagemUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +68,34 @@ public class ListagemActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        nomeUsuario = (TextView) header.findViewById(R.id.nome_usuario);
+        nomeUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirMeuPerfil();
+            }
+        });
+        imagemUsuario = (MaterialDesignIconsTextView) header.findViewById(R.id.image_usuario);
+        imagemUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirMeuPerfil();
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         String url = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
         new DownloadTask().execute(url);
+    }
+
+    private void abrirMeuPerfil() {
+        Intent newActivity = new Intent(ListagemActivity.this, MeuPerfilActivity.class);
+        startActivity(newActivity);
+        fecharMenu();
     }
 
     private void setButtonFiltro() {
@@ -214,6 +239,11 @@ public class ListagemActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void fecharMenu(){
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -241,9 +271,7 @@ public class ListagemActivity extends AppCompatActivity
         } else if (id == R.id.nav_switch) {
             Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        fecharMenu();
         return true;
     }
 }

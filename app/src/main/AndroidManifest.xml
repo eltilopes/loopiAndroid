@@ -43,6 +43,8 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.SolicitacaoSaqueConfirmadaActivity"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.MeuPerfilActivity"
+            android:theme="@style/AppTheme"/>
 
     </application>
 

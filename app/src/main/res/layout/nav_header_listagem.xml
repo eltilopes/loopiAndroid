@@ -15,47 +15,54 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|bottom"
+            android:layout_gravity="left|bottom"
             android:orientation="vertical"
             android:layout_weight="1">
 
             <br.com.aio.fonts.MaterialDesignIconsTextView
-                android:id="@+id/imageView"
+                android:id="@+id/image_usuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/nav_header_vertical_spacing"
                 android:text="@string/material_icon_account"
+                android:gravity="left|bottom"
+                android:layout_gravity="left|bottom"
                 android:textColor="@color/material_blue_50"
+                android:layout_margin="5dp"
                 android:textSize="40dp"/>
 
-            <TextView
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/nome_usuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/nav_header_vertical_spacing"
-                android:text="Elton Lopes"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textColor="@color/white"
+                android:gravity="left|bottom"
+                android:layout_gravity="left|bottom"
+                android:layout_margin="5dp"
+                android:text="Elton Lopes" />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:gravity="right|bottom"
+            android:layout_gravity="right|bottom"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CashBack:"
-                android:gravity="right"
+                android:gravity="right|bottom"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="5dp"
                 android:textSize="14dp"
                 android:textColor="?android:textColorPrimary"/>
 
@@ -63,7 +70,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="R$ 54,00"
-                android:gravity="right"
+                android:gravity="right|bottom"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="5dp"
                 android:textSize="12dp"
                 android:textColor="?android:textColorPrimary"/>
         </LinearLayout>
