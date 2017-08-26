@@ -12,6 +12,7 @@
     <string name="criarConta">CRIAR CONTA</string>
     <string name="continuar">CONTINUAR</string>
     <string name="confirmar">CONFIRMAR</string>
+    <string name="solicitar">SOLICITAR</string>
     <string name="saque">SAQUE</string>
     <string name="compartilhar">COMPARTILHAR</string>
     <string name="naoTenhoConvite">Não tenho convite</string>
@@ -49,12 +50,17 @@
     <string name="conta">CONTA</string>
     <string name="cadastro">Cadastro</string>
     <string name="title_profissional">PROFISSIONAL</string>
+    <string name="para_onde">PARA ONDE ?</string>
     <string name="crie_anuncio">Crie seu Anúncio</string>
     <string name="cash_back_friend">CashBack Friend</string>
     <string name="tabela_movimentacoes">Dia | Histórico | Valor</string>
     <string name="dia">DIA</string>
+    <string name="ver_curriculo">Ver Currículo</string>
     <string name="historico">HISTÓRICO</string>
     <string name="saldo">Saldo CashBack</string>
+    <string name="cartao_credito">Cartão Crédito</string>
+    <string name="total">Total</string>
+    <string name="usar_saldo">Usar Saldo CashBack</string>
     <string name="valor_movimentacao">VALOR</string>
     <string name="solicitacao_saque">Solicitação de Saque</string>
     <string name="confirmado">CONFIRMADO</string>

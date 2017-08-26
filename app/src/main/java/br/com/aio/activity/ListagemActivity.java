@@ -36,6 +36,7 @@ import br.com.aio.R;
 import br.com.aio.adapter.FeedItem;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
+import br.com.aio.listener.RecyclerItemClickListener;
 
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -87,6 +88,17 @@ public class ListagemActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, mRecyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        abrirPedido();
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        abrirPedido();
+                    }
+                })
+        );
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         String url = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
         new DownloadTask().execute(url);
@@ -96,6 +108,11 @@ public class ListagemActivity extends AppCompatActivity
         Intent newActivity = new Intent(ListagemActivity.this, MeuPerfilActivity.class);
         startActivity(newActivity);
         fecharMenu();
+    }
+
+    private void abrirPedido() {
+        Intent newActivity = new Intent(ListagemActivity.this, SolicitarPedidoActivity.class);
+        startActivity(newActivity);
     }
 
     private void setButtonFiltro() {
