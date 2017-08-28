@@ -50,7 +50,7 @@
     <string name="conta">CONTA</string>
     <string name="cadastro">Cadastro</string>
     <string name="title_profissional">PROFISSIONAL</string>
-    <string name="para_onde">PARA ONDE ?</string>
+    <string name="localizacao">Localização</string>
     <string name="crie_anuncio">Crie seu Anúncio</string>
     <string name="cash_back_friend">CashBack Friend</string>
     <string name="tabela_movimentacoes">Dia | Histórico | Valor</string>
@@ -63,7 +63,14 @@
     <string name="usar_saldo">Usar Saldo CashBack</string>
     <string name="valor_movimentacao">VALOR</string>
     <string name="solicitacao_saque">Solicitação de Saque</string>
+    <string name="no_location_data_provided">Nenhum dado de localização fornecido</string>
+    <string name="service_not_available">Serviço não disponível</string>
+    <string name="invalid_lat_long_used">Endereço inválido</string>
+    <string name="no_address_found">Nenhuma localização encontrada</string>
+    <string name="digitar_endereco">Clique para digitar o endereço</string>
+
     <string name="confirmado">CONFIRMADO</string>
+    <string name="endereco">Endereço</string>
 
     <string name="material_icon_play_square">&#xea7a;</string>
     <!-- Material Design Icons -->

@@ -193,19 +193,39 @@
 
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="4dp"
+                            android:padding="4dp"
+                            android:background="@drawable/border_text">
 
-                            <EditText
-                                android:layout_width="match_parent"
+                            <br.com.aio.fonts.MaterialDesignIconsTextView
+                                android:id="@+id/logo"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/textColorAzul"
-                                android:layout_margin="5dp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:background="@drawable/border_text"
-                                android:hint="@string/para_onde"
+                                android:layout_marginLeft="10dp"
+                                android:padding="2dp"
+                                android:text="@string/material_icon_go"
+                                android:textColor="@color/textColorAzul"
+                                android:textSize="16dp" />
+
+                            <EditText
+                                android:id="@+id/mapa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/textColorAzul"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:padding="2dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:background="@color/white"
+                                android:hint="@string/localizacao"
                                 android:textSize="16dp"/>
 
                         </LinearLayout>

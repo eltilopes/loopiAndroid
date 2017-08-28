@@ -1,6 +1,7 @@
 package br.com.aio.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import br.com.aio.R;
@@ -21,6 +23,7 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
 
     private RobotoTextView nomePagina ;
     private ImageView imagemProfissional;
+    private EditText mapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,15 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
         nomePagina.setText("Solicitar Pedido");
         actionBar.setCustomView(v);
+
+        mapa = (EditText) findViewById(R.id.mapa);
+        mapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newActivity = new Intent(SolicitarPedidoActivity.this, MapsActivity.class);
+                startActivity(newActivity);
+            }
+        });
     }
 
     @Override
