@@ -15,15 +15,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,8 +55,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleApiClient mGoogleApiClient;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static String TAG = "MAP LOCATION";
-    Context mContext;
-    TextView mLocationMarkerText;
+    private Context mContext;
+    private TextView mLocationMarkerText;
     private LatLng mCenterLatLong;
 
 
@@ -72,11 +71,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected String mAreaOutput;
     protected String mCityOutput;
     protected String mStateOutput;
-    EditText mLocationAddress;
-    TextView mLocationText;
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
-    Toolbar mToolbar;
     private RobotoTextView nomePagina ;
+    private FloatingActionButton mLocationFab ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +83,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
+        mLocationFab = (FloatingActionButton) findViewById(R.id.Locality);
         mLocationMarkerText = (TextView) findViewById(R.id.locationMarkertext);
-        mLocationAddress = (EditText) findViewById(R.id.Address);
-        mLocationText = (TextView) findViewById(R.id.Locality);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -101,7 +96,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         nomePagina.setText("Sua Localização");
         actionBar.setCustomView(v);
 
-        mLocationText.setOnClickListener(new View.OnClickListener() {
+        mLocationFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -182,8 +177,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mLocation.setLongitude(mCenterLatLong.longitude);
 
                     startIntentService(mLocation);
-                    mLocationMarkerText.setText("Lat : " + mCenterLatLong.latitude + "," + "Long : " + mCenterLatLong.longitude);
-
+                    if (mStateOutput != null) mLocationMarkerText.setText(mStateOutput);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -354,7 +348,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
 
-            mLocationMarkerText.setText("Lat : " + location.getLatitude() + "," + "Long : " + location.getLongitude());
+            if (mStateOutput != null) mLocationMarkerText.setText(mStateOutput);
             startIntentService(location);
 
 
@@ -389,7 +383,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mCityOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_CITY);
             mStateOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_STREET);
 
-            displayAddressOutput();
+
 
             // Show a toast message if an address was found.
             if (resultCode == AppUtils.LocationConstants.SUCCESS_RESULT) {
@@ -403,20 +397,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    /**
-     * Updates the address in the UI.
-     */
-    protected void displayAddressOutput() {
-          mLocationAddress.setText(mAddressOutput);
-        try {
-            if (mAreaOutput != null)
-                mLocationAddress.setText(mAreaOutput);
-            if (mStateOutput != null)
-                mLocationAddress.setText(mStateOutput);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Creates an intent, adds location data to it as an extra, and starts the intent service for
