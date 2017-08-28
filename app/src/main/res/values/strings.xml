@@ -41,9 +41,12 @@
     <string name="info_saque_minimo">** Saque mínimo de R$ 20,00.</string>
     <string name="info_confirmacao_saque">* Em 1 à 5 dias úteis o dinheiro será creditado em sua conta bancária.</string>
 
+    <string name="aplicar">APLICAR</string>
     <string name="valor">VALOR</string>
     <string name="distancia">DISTÂNCIA</string>
     <string name="nome">NOME</string>
+    <string name="mais_proximo">Mais Próximo</string>
+    <string name="subcategoria">SUB CATEGORIA</string>
     <string name="banco">BANCO</string>
     <string name="finalidade">FINALIDADE</string>
     <string name="agencia">AGÊNCIA</string>
@@ -56,6 +59,7 @@
     <string name="tabela_movimentacoes">Dia | Histórico | Valor</string>
     <string name="dia">DIA</string>
     <string name="ver_curriculo">Ver Currículo</string>
+    <string name="filtro">FILTRO</string>
     <string name="historico">HISTÓRICO</string>
     <string name="saldo">Saldo CashBack</string>
     <string name="cartao_credito">Cartão Crédito</string>
@@ -197,6 +201,12 @@
         <item>Financeiro</item>
         <item>Usabilidade</item>
         <item>Melhoria</item>
+    </string-array>
+
+    <string-array name="list_sub_categoria">
+        <item>Médicos</item>
+        <item>Manicure</item>
+        <item>Restaurante</item>
     </string-array>
 
     <string-array name="list_bancos">

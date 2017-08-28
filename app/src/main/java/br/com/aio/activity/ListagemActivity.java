@@ -1,6 +1,7 @@
 package br.com.aio.activity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,8 +18,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +59,8 @@ public class ListagemActivity extends AppCompatActivity
     private LinearLayout buttonSubCategoria;
     private TextView nomeUsuario;
     private MaterialDesignIconsTextView imagemUsuario;
+    private Dialog dialogMostrarFiltro;
+    private Dialog dialogMostrarCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,9 +137,91 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     public void mostrarFiltro() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_filtro);
-        dialog.show();
+        dialogMostrarFiltro = new Dialog(this);
+        dialogMostrarFiltro.setTitle(R.string.filtro);
+        dialogMostrarFiltro.setContentView(R.layout.dialog_filtro);
+        dialogMostrarFiltro.show();
+
+        Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.subcategoria);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(),
+                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        CheckBox checkboxDistancia = (CheckBox) dialogMostrarFiltro.findViewById(R.id.checkbox_distancia);
+        checkboxDistancia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),
+                        "checkbox_distancia",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        RadioGroup radioGroup = (RadioGroup) dialogMostrarFiltro.findViewById(R.id.radio_group_valor);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb=(RadioButton) dialogMostrarFiltro.findViewById(checkedId);
+                Toast.makeText(getApplicationContext(), rb.getText(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        TextView aplicar = (TextView) dialogMostrarFiltro.findViewById(R.id.dialog_ok);
+        aplicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogMostrarFiltro.dismiss();
+            }
+        });
+
+    }
+
+    private void mostrarCategorias() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("Categorias");
+        String[] types = {"Saúde", "Alimentação", "Transporte", "Serviços"};
+        b.setItems(types, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                switch(which){
+                    case 0:
+                        Toast.makeText(ListagemActivity.this, "Gineco", Toast.LENGTH_SHORT);
+                        break;
+                    case 1:
+                        Toast.makeText(ListagemActivity.this, "dfhgsdf", Toast.LENGTH_SHORT);
+                        break;
+                    case 2:
+                        Toast.makeText(ListagemActivity.this, "sdfhgh", Toast.LENGTH_SHORT);
+                        break;
+                    case 3:
+                        Toast.makeText(ListagemActivity.this, "sghsfgh", Toast.LENGTH_SHORT);
+                        break;
+                }
+            }
+
+        });
+
+        b.show();
+
     }
 
     private void setButtonCategoria() {
@@ -138,7 +230,7 @@ public class ListagemActivity extends AppCompatActivity
         buttonCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ListagemActivity.this, "Mostrar Categoria!", Toast.LENGTH_SHORT).show();
+               mostrarCategorias();
             }
         });
     }
