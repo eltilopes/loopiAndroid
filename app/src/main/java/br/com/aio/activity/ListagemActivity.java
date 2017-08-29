@@ -1,7 +1,6 @@
 package br.com.aio.activity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -60,7 +59,7 @@ public class ListagemActivity extends AppCompatActivity
     private TextView nomeUsuario;
     private MaterialDesignIconsTextView imagemUsuario;
     private Dialog dialogMostrarFiltro;
-    private Dialog dialogMostrarCategoria;
+    private Dialog dialogSubCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,11 +136,12 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     public void mostrarFiltro() {
+        //dialogMostrarFiltro = new Dialog(this, R.style.MyDialogTheme);
         dialogMostrarFiltro = new Dialog(this);
-        dialogMostrarFiltro.setTitle(R.string.filtro);
+        dialogMostrarFiltro.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogMostrarFiltro.setContentView(R.layout.dialog_filtro);
         dialogMostrarFiltro.show();
-
+        TextView alertTitle=(TextView)dialogMostrarFiltro.getWindow().getDecorView().findViewById(R.id.dialog_title);
         Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.subcategoria);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
@@ -192,35 +192,30 @@ public class ListagemActivity extends AppCompatActivity
 
     }
 
-    private void mostrarCategorias() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("Categorias");
-        String[] types = {"Saúde", "Alimentação", "Transporte", "Serviços"};
-        b.setItems(types, new DialogInterface.OnClickListener() {
-
+    private void mostrarSubCategorias() {
+        dialogSubCategoria = new Dialog(this);
+        dialogSubCategoria.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSubCategoria.setContentView(R.layout.dialog_sub_categoria);
+        dialogSubCategoria.show();
+        TextView alertTitle=(TextView)dialogSubCategoria.getWindow().getDecorView().findViewById(R.id.dialog_title);
+        Spinner spinner = (Spinner) dialogSubCategoria.findViewById(R.id.subcategoria);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                switch(which){
-                    case 0:
-                        Toast.makeText(ListagemActivity.this, "Gineco", Toast.LENGTH_SHORT);
-                        break;
-                    case 1:
-                        Toast.makeText(ListagemActivity.this, "dfhgsdf", Toast.LENGTH_SHORT);
-                        break;
-                    case 2:
-                        Toast.makeText(ListagemActivity.this, "sdfhgh", Toast.LENGTH_SHORT);
-                        break;
-                    case 3:
-                        Toast.makeText(ListagemActivity.this, "sghsfgh", Toast.LENGTH_SHORT);
-                        break;
-                }
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(),
+                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_SHORT).show();
             }
 
-        });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-        b.show();
+            }
+        });
 
     }
 
@@ -230,7 +225,7 @@ public class ListagemActivity extends AppCompatActivity
         buttonCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mostrarCategorias();
+               mostrarSubCategorias();
             }
         });
     }
@@ -241,7 +236,7 @@ public class ListagemActivity extends AppCompatActivity
         buttonSubCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ListagemActivity.this, "Mostrar Sub Categoria!", Toast.LENGTH_SHORT).show();
+                mostrarSubCategorias();
             }
         });
     }
