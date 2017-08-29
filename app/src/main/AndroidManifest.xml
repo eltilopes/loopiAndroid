@@ -53,6 +53,10 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.MapsActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".activity.CadastroServicoActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.CadastroProfissionalActivity"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

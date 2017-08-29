@@ -361,7 +361,7 @@ public class ListagemActivity extends AppCompatActivity
             Intent newActivity = new Intent(ListagemActivity.this, MeusPedidosActivity.class);
             startActivity(newActivity);
         } else if (id == R.id.nav_profissional) {
-            Intent newActivity = new Intent(ListagemActivity.this, ProfissionalActivity.class);
+            Intent newActivity = new Intent(ListagemActivity.this, CadastroServicoActivity.class);
             startActivity(newActivity);
         } else if (id == R.id.nav_configuracoes) {
             Intent newActivity = new Intent(ListagemActivity.this, ConfiguracoesActivity.class);
