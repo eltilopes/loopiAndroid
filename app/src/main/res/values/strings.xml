@@ -17,6 +17,7 @@
     <string name="compartilhar">COMPARTILHAR</string>
     <string name="naoTenhoConvite">Não tenho convite</string>
     <string name="renda_extra">Ganhe uma Renda Extra</string>
+    <string name="documentos_necessarios">Documentos Necessários</string>
     <string name="cadastre_servico">Cadastre um Serviço</string>
     <string name="esqueciMinhaSenha">Esqueci Minha Senha</string>
     <string name="entrar">ENTRAR</string>
@@ -59,6 +60,7 @@
     <string name="title_profissional">PROFISSIONAL</string>
     <string name="localizacao">Localização</string>
     <string name="crie_anuncio">Crie seu Anúncio</string>
+    <string name="anexe_documentos">Anexe Documentos</string>
     <string name="cash_back_friend">CashBack Friend</string>
     <string name="tabela_movimentacoes">Dia | Histórico | Valor</string>
     <string name="qual_profissao">Qual sua Profissão ?</string>

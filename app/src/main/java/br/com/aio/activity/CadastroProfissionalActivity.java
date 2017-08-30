@@ -97,7 +97,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.continuar:
-                Intent newActivity0 = new Intent(CadastroProfissionalActivity.this, ConfirmarSaqueActivity.class);
+                Intent newActivity0 = new Intent(CadastroProfissionalActivity.this, CadastroDocumentosActivity.class);
                 startActivity(newActivity0);
                 break;
         }
