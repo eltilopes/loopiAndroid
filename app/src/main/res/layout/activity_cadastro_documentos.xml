@@ -48,56 +48,59 @@
                         cardview:cardElevation="3dp"
                         cardview:cardUseCompatPadding="true">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_margin="10dp">
 
-                        <LinearLayout android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="center_horizontal"
-                            android:background="@color/textColorPrimary">
-
-                            <ListView
-                                android:id="@+id/lista_documentos"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:divider="@color/colorAccent"
-                                android:drawSelectorOnTop="true"
-                                android:listSelector="@drawable/list_selector" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/imagem"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/placeholder"/>
-
-                        <br.com.aio.view.MaterialRippleLayout
-                            style="@style/RippleStyle"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            app:rippleColor="@color/main_color_grey_400" >
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp">
 
-                            <br.com.aio.fonts.RobotoTextView
-                                android:id="@+id/continuar"
-                                style="@style/ButtonStyle.RaisedEmpty"
-                                android:layout_width="wrap_content"
+                            <LinearLayout android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:background="@color/colorPrimary"
-                                android:text="@string/continuar"
-                                android:textColor="@android:color/white"/>
-                        </br.com.aio.view.MaterialRippleLayout>
-                    </LinearLayout>
+                                android:layout_weight="3"
+                                android:orientation="vertical"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:background="@color/textColorPrimary">
 
+                                <ListView
+                                    android:id="@+id/lista_documentos"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:divider="@color/colorAccent"
+                                    android:drawSelectorOnTop="true"
+                                    android:listSelector="@drawable/list_selector" />
+
+                            </LinearLayout>
+
+                            <LinearLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:layout_gravity="bottom"
+                                android:gravity="bottom">
+
+                                <br.com.aio.view.MaterialRippleLayout
+                                    style="@style/RippleStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_gravity="bottom"
+                                    app:rippleColor="@color/main_color_grey_400" >
+
+                                    <br.com.aio.fonts.RobotoTextView
+                                        android:id="@+id/continuar"
+                                        style="@style/ButtonStyle.RaisedEmpty"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:background="@color/colorPrimary"
+                                        android:text="@string/continuar"
+                                        android:textColor="@android:color/white"/>
+                                </br.com.aio.view.MaterialRippleLayout>
+                            </LinearLayout>
+                        </LinearLayout>
 
                     </android.support.v7.widget.CardView>
 

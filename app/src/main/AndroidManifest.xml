@@ -8,6 +8,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.HARDWARE_CONTROLS" />
+    <uses-permission android:name="android.permission.FLASHLIGHT"
+        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+        android:protectionLevel="normal"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -60,8 +66,8 @@
         <activity android:name=".activity.CadastroProfissionalActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.CadastroDocumentosActivity"
-            android:theme="@style/AppTheme" />
-
+            android:theme="@style/AppTheme" >
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDU8UgrqnHlQxNsk3WzzNNZorlEkQMKPvQ" />

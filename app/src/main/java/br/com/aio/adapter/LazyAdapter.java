@@ -61,9 +61,9 @@ public class LazyAdapter extends BaseAdapter {
         historico.setText(movimentacoes.get(ExtratoSaqueActivity.KEY_HISTORICO));
         valor.setText(movimentacoes.get(ExtratoSaqueActivity.KEY_VALOR));
         if(movimentacoes.get(ExtratoSaqueActivity.KEY_TIPO_MOVIMENTACAO).equals(ExtratoSaqueActivity.CREDITO)){
-            valor.setTextColor(activity.getApplicationContext().getResources().getColor(R.color.material_green_300));
+            valor.setTextColor(activity.getApplicationContext().getResources().getColor(R.color.textColorInfoVerde));
         }else{
-            valor.setTextColor(activity.getApplicationContext().getResources().getColor(R.color.material_red_300));
+            valor.setTextColor(activity.getApplicationContext().getResources().getColor(R.color.textColorInfoVermelho));
         }
         return vi;
     }

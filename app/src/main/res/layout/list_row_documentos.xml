@@ -1,39 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    android:padding="4dp"
-    android:background="@drawable/border_text">
+    android:layout_height="wrap_content">
 
-    <br.com.aio.fonts.RobotoTextView
-        android:id="@+id/nome_documento"
-        android:layout_width="0dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
         android:layout_margin="5dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="@color/textColorAzul"
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:text="@string/documentos_necessarios"/>
+        android:padding="5dp"
+        android:background="@drawable/border_text">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="5dp"
-        android:layout_gravity="center"
-        android:gravity="center">
-
-        <ImageButton
-            android:id="@+id/anexo_documento"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_attach_file"
-            android:backgroundTint="@color/textColorAzul"
-            android:textSize="14dp"/>
-    </LinearLayout>
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/nome_documento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/textColorInfoVermelho"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:text="@string/app_name"/>
+
+            <br.com.aio.view.MaterialRippleLayout
+                style="@style/RippleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:rippleColor="@color/main_color_grey_400" >
+
+                <br.com.aio.fonts.RobotoTextView
+                    android:id="@+id/check_documento"
+                    style="@style/ButtonStyle.RaisedEmpty"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/ic_check_circle"
+                    android:backgroundTint="@color/textColorInfoVermelho"/>
+            </br.com.aio.view.MaterialRippleLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <br.com.aio.view.MaterialRippleLayout
+                style="@style/RippleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:rippleColor="@color/main_color_grey_400" >
+
+                <br.com.aio.fonts.RobotoTextView
+                    android:id="@+id/anexo_documento"
+                    style="@style/ButtonStyle.RaisedEmpty"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/ic_attach_file"
+                    android:text="@string/continuar"
+                    android:textColor="@android:color/transparent"/>
+            </br.com.aio.view.MaterialRippleLayout>
+
+            <br.com.aio.view.MaterialRippleLayout
+                style="@style/RippleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:rippleColor="@color/main_color_grey_400" >
+
+                <br.com.aio.fonts.RobotoTextView
+                    android:id="@+id/camera_documento"
+                    style="@style/ButtonStyle.RaisedEmpty"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/ic_menu_camera"
+                    android:text="@string/continuar"
+                    android:textColor="@android:color/transparent"/>
+            </br.com.aio.view.MaterialRippleLayout>
+        </LinearLayout>
+     </LinearLayout>
 </LinearLayout>

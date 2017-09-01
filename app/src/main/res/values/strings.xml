@@ -81,6 +81,7 @@
     <string name="invalid_lat_long_used">Endereço inválido</string>
     <string name="no_address_found">Nenhuma localização encontrada</string>
     <string name="digitar_endereco">Clique para digitar o endereço</string>
+    <string name="imagem_carregada">IMAGEM CARREGADA</string>
 
     <string name="confirmado">CONFIRMADO</string>
     <string name="endereco">Endereço</string>
