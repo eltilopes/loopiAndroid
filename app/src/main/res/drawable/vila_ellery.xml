@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="841.89dp"
+    android:height="595.28dp"
+    android:viewportWidth="841.89"
+    android:viewportHeight="595.28">
+
+    <path
+        android:fillColor="@color/bairro_vila_ellery"
+        android:strokeColor="@color/colorTransparente"
+        android:strokeWidth="0.3294"
+        android:pathData="M499.254,399.025l-0.729-5.826l-0.729-2.189l-5.1-15.297
+l-2.914-8.743l-2.914-7.286l-4.371-11.657l2.914-1.457l6.557-1.457l27.686-7.286l8.743-2.186l2.186,8.743l2.914,9.471l0.729,4.371
+l1.457,4.371l2.186,8.014l2.189,8.74l2.183,8.017l0.732,4.371l-7.289,1.457l-5.1,0.726l-6.557,1.457h-2.186l-7.286,1.46
+l-4.371,0.726L499.254,399.025z" />
+</vector>

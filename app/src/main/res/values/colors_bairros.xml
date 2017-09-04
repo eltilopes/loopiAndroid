@@ -1,0 +1,22 @@
+<resources>
+
+
+    <!-- Regional 1 -->
+
+    <color name="bairro_jacarecanga">@color/material_cyan_100</color>
+    <color name="bairro_vila_velha">@color/material_cyan_200</color>
+    <color name="bairro_monte_castelo">@color/material_cyan_300</color>
+    <color name="bairro_vila_ellery">@color/material_cyan_400</color>
+    <color name="bairro_alvaro_weyne">@color/material_cyan_A100</color>
+    <color name="bairro_carlito_pamplona">@color/material_cyan_A200</color>
+    <color name="bairro_cristo_redentor">@color/material_cyan_A700</color>
+    <color name="bairro_farias_brito">@color/material_cyan_A400</color>
+    <color name="bairro_barra_ceara">@color/material_teal_100</color>
+    <color name="bairro_floresta">@color/material_teal_200</color>
+    <color name="bairro_jardim_guanabara">@color/material_teal_300</color>
+    <color name="bairro_jardim_iracema">@color/material_teal_400</color>
+    <color name="bairro_moura_brasil">@color/material_light_blue_100</color>
+    <color name="bairro_pirambu">@color/material_light_blue_200</color>
+    <color name="bairro_sao_gerardo">@color/material_light_blue_300</color>
+
+</resources>

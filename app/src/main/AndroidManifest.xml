@@ -68,6 +68,10 @@
         <activity android:name=".activity.CadastroDocumentosActivity"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity android:name=".activity.CadastroAbrangenciaActivity"
+            android:theme="@style/AppTheme" >
+        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDU8UgrqnHlQxNsk3WzzNNZorlEkQMKPvQ" />

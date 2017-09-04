@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="841.89dp"
+    android:height="595.28dp"
+    android:viewportWidth="841.89"
+    android:viewportHeight="595.28">
+
+    <path
+        android:fillColor="@color/bairro_jardim_guanabara"
+        android:strokeColor="@color/colorTransparente"
+        android:strokeWidth="0.3294"
+        android:pathData="M317.832,345.843l2.914,10.928l1.457,4.371l2.186,8.743
+l0.729,2.186l0.729,4.371l2.186,8.014l0.732,2.914l1.457,3.64l1.457,5.832l1.457,6.554l1.457,3.646l0.726,5.097l-10.2-3.64
+l-15.3-4.371h-1.457l-11.657-4.371l-6.557-1.46L272.66,393.2l-16.76-5.103l-7.286-2.183h-0.729l5.1-17.486l3.643-13.843
+l2.914-8.743l2.914-11.657l34.246,10.2l4.371,0.729l1.457,0.729h1.457v-1.457h3.643L317.832,345.843z" />
+</vector>

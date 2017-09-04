@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
-import br.com.aio.entyti.Documento;
+import br.com.aio.entity.Documento;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.DocumentoUtils;
 import br.com.aio.utils.PathUtils;
@@ -232,7 +232,7 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.continuar:
-                Intent newActivity0 = new Intent(CadastroDocumentosActivity.this, ConfirmarSaqueActivity.class);
+                Intent newActivity0 = new Intent(CadastroDocumentosActivity.this, CadastroAbrangenciaActivity.class);
                 startActivity(newActivity0);
                 break;
         }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.CadastroAbrangenciaActivity">
+
+    <item android:drawable="@drawable/jacarecanga"/>
+
+    <item android:drawable="@drawable/vila_velha" />
+
+    <item android:drawable="@drawable/monte_castelo" />
+
+    <item  android:drawable="@drawable/vila_ellery" />
+
+    <item android:drawable="@drawable/alvaro_weyne" />
+
+    <item android:drawable="@drawable/carlito_pamplona" />
+
+    <item android:drawable="@drawable/cristo_redentor" />
+
+    <item android:drawable="@drawable/farias_brito" />
+
+    <item android:drawable="@drawable/barra_ceara" />
+
+    <item android:drawable="@drawable/floresta" />
+
+    <item android:drawable="@drawable/jardim_guanabara" />
+
+    <item android:drawable="@drawable/jardim_iracema" />
+
+    <item android:drawable="@drawable/moura_brasil" />
+
+    <item android:drawable="@drawable/pirambu" />
+
+    <item android:drawable="@drawable/sao_gerardo"/>
+
+    <item android:drawable="@drawable/regional_i" />
+
+</layer-list>

@@ -2,7 +2,7 @@ package br.com.aio.utils;
 
 import java.util.List;
 
-import br.com.aio.entyti.Documento;
+import br.com.aio.entity.Documento;
 
 /**
  * Created by elton on 31/08/2017.

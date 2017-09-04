@@ -1,4 +1,4 @@
-package br.com.aio.entyti;
+package br.com.aio.entity;
 
 import java.io.File;
 
