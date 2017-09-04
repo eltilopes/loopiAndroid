@@ -34,6 +34,7 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
 
     private static final String TAG = "CadastroAbrangencia";
     private static final String BAIRRO = "bairro";
+    private static final String REGIONAL = "regional";
     private Context context;
     private RobotoTextView nomePagina ;
     private TextView continuar ;
@@ -83,6 +84,7 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
                         int pxl = imgbmp.getPixel(evX, evY);
                         if(pxl!=0){
                             getCorBairro(pxl);
+                            processarMapa(pxl);
                         }
                         break;
                 }
@@ -92,11 +94,29 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
 
     }
 
+    private void processarMapa(int pxl) {
+        if(pxl==getApplicationContext().getResources().getColor(R.color.regional_1)) {
+            mapa.setImageResource(R.drawable.regional_um);
+        } else if(pxl==getApplicationContext().getResources().getColor(R.color.regional_2)) {
+            mapa.setImageResource(R.drawable.regional_dois);
+        }else if(pxl==getApplicationContext().getResources().getColor(R.color.regional_3)) {
+            mapa.setImageResource(R.drawable.regional_tres);
+        }else if(pxl==getApplicationContext().getResources().getColor(R.color.regional_4)) {
+            mapa.setImageResource(R.drawable.regional_quatro);
+        }else if(pxl==getApplicationContext().getResources().getColor(R.color.regional_5)) {
+            mapa.setImageResource(R.drawable.regional_cinco);
+        }else if(pxl==getApplicationContext().getResources().getColor(R.color.regional_6)) {
+            mapa.setImageResource(R.drawable.regional_seis);
+        }else if(pxl==getApplicationContext().getResources().getColor(R.color.regional_centro)) {
+            mapa.setImageResource(R.drawable.regional_centro);
+        }
+    }
+
     private void getCorBairro(int corBairroSelecionado) {
         Field [] fields = R.color.class.getDeclaredFields();
         int color = 0;
         for(int i=0; i<fields.length; i++) {
-            if(fields[i].getName().toLowerCase().contains(BAIRRO)){
+            if(fields[i].getName().toLowerCase().contains(BAIRRO) || fields[i].getName().toLowerCase().contains(REGIONAL)){
                 try {
                     color = getApplicationContext().getResources().getColor(fields[i].getInt(null));
                     if(corBairroSelecionado==color){
