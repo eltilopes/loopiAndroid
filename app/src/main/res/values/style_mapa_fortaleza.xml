@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CheckBoxRegional1" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/regional_1</item>
+        <item name="colorControlActivated">@color/regional_1</item>
+        <item name="android:text">@string/regional_1</item>
+        <item name="android:checked">true</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="CheckBoxRegional2" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/regional_2</item>
+        <item name="colorControlActivated">@color/regional_2</item>
+        <item name="android:text">@string/regional_2</item>
+        <item name="android:checked">true</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="CheckBoxRegional3" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/regional_3</item>
+        <item name="colorControlActivated">@color/regional_3</item>
+        <item name="android:text">@string/regional_3</item>
+        <item name="android:checked">true</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="CheckBoxRegional4" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/regional_4</item>
+        <item name="colorControlActivated">@color/regional_4</item>
+        <item name="android:text">@string/regional_4</item>
+        <item name="android:checked">true</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="CheckBoxRegional5" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/regional_5</item>
+        <item name="colorControlActivated">@color/regional_5</item>
+        <item name="android:text">@string/regional_5</item>
+        <item name="android:checked">true</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="CheckBoxRegional6" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/regional_6</item>
+        <item name="colorControlActivated">@color/regional_6</item>
+        <item name="android:text">@string/regional_6</item>
+        <item name="android:checked">true</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="CheckBoxRegionalCentro" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/regional_centro</item>
+        <item name="colorControlActivated">@color/regional_centro</item>
+        <item name="android:text">@string/regional_centro</item>
+        <item name="android:checked">true</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+</resources>

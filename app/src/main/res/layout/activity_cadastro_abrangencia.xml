@@ -56,46 +56,114 @@
                             android:orientation="vertical"
                             android:layout_margin="10dp">
 
-                        <LinearLayout android:layout_width="match_parent"
+                        <RelativeLayout android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="3"
+                            android:layout_weight="2"
                             android:orientation="vertical">
 
                             <br.com.aio.view.TouchImageView
                                 android:id="@+id/mapa_fortaleza"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/mapa_fortaleza"/>
-                            </LinearLayout>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/text_praia_futuro"/>
+
+                            </RelativeLayout>
 
                             <LinearLayout android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:orientation="horizontal"
+                                android:orientation="vertical"
                                 android:layout_gravity="bottom"
                                 android:gravity="bottom">
 
-                                <br.com.aio.view.MaterialRippleLayout
-                                    style="@style/RippleStyle"
+
+                                <ScrollView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
-                                    android:layout_gravity="bottom"
-                                    app:rippleColor="@color/main_color_grey_400" >
+                                    android:scrollbars = "vertical">
 
-                                    <br.com.aio.fonts.RobotoTextView
-                                        android:id="@+id/continuar"
-                                        style="@style/ButtonStyle.RaisedEmpty"
-                                        android:layout_width="wrap_content"
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:background="@color/colorPrimary"
-                                        android:text="@string/continuar"
-                                        android:textColor="@android:color/white"/>
-                                </br.com.aio.view.MaterialRippleLayout>
+                                        android:layout_margin="10dp"
+                                        android:orientation="horizontal">
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="left"
+                                            android:gravity="left"
+                                            android:padding="5dp"
+                                            android:orientation="vertical">
+
+                                            <CheckBox
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:theme="@style/CheckBoxRegional1"/>
+
+                                            <CheckBox
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:theme="@style/CheckBoxRegional2"/>
+
+                                            <CheckBox
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:theme="@style/CheckBoxRegional3"/>
+
+                                            <CheckBox
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:theme="@style/CheckBoxRegional4"/>
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:padding="5dp"
+                                            android:orientation="vertical">
+
+                                            <CheckBox
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:theme="@style/CheckBoxRegional5"/>
+
+                                            <CheckBox
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:theme="@style/CheckBoxRegional6"/>
+
+                                            <CheckBox
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:theme="@style/CheckBoxRegionalCentro"/>
+                                        </LinearLayout>
+
+
+                                    </LinearLayout>
+                                </ScrollView>
                             </LinearLayout>
+                            <br.com.aio.view.MaterialRippleLayout
+                                style="@style/RippleStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="bottom"
+                                app:rippleColor="@color/main_color_grey_400" >
+
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:id="@+id/continuar"
+                                    style="@style/ButtonStyle.RaisedEmpty"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:background="@color/colorPrimary"
+                                    android:text="@string/continuar"
+                                    android:textColor="@android:color/white"/>
+                            </br.com.aio.view.MaterialRippleLayout>
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>

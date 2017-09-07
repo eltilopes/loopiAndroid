@@ -1,93 +1,149 @@
 <resources>
 
 
-    <color name="regional_1">@color/material_red_500</color>
-    <color name="regional_2">@color/material_orange_500</color>
-    <color name="regional_3">@color/material_green_500</color>
-    <color name="regional_4">@color/material_yellow_500</color>
-    <color name="regional_5">@color/material_blue_500</color>
-    <color name="regional_6">@color/material_purple_500</color>
-    <color name="regional_centro">@color/material_deep_orange_500</color>
+    <color name="regional_1">@color/material_red_200</color>
+    <color name="regional_2">@color/material_orange_200</color>
+    <color name="regional_3">@color/material_green_200</color>
+    <color name="regional_4">@color/material_yellow_200</color>
+    <color name="regional_5">@color/material_blue_200</color>
+    <color name="regional_6">@color/material_purple_200</color>
+    <color name="regional_centro">@color/material_grey_300</color>
 
-
+    ee999
     <!-- Regional 1 -->
-    <color name="bairro_jacarecanga">#ef4438</color>
-    <color name="bairro_vila_velha">#ef4439</color>
-    <color name="bairro_monte_castelo">#ef4440</color>
-    <color name="bairro_vila_ellery">#ef4441</color>
-    <color name="bairro_alvaro_weyne">#ef4442</color>
-    <color name="bairro_carlito_pamplona">#ef4443</color>
-    <color name="bairro_cristo_redentor">#ef4444</color>
-    <color name="bairro_farias_brito">#ef4445</color>
-    <color name="bairro_barra_ceara">#ef4446</color>
-    <color name="bairro_floresta">#ef4447</color>
-    <color name="bairro_jardim_guanabara">#ef4448</color>
-    <color name="bairro_jardim_iracema">#ef4449</color>
-    <color name="bairro_moura_brasil">#ef4450</color>
-    <color name="bairro_pirambu">#ef4451</color>
-    <color name="bairro_sao_gerardo">#ef4452</color>
+    <color name="bairro_jacarecanga">#ee9998</color>
+    <color name="bairro_vila_velha">#ee9999</color>
+    <color name="bairro_monte_castelo">#ee9980</color>
+    <color name="bairro_vila_ellery">#ee9981</color>
+    <color name="bairro_alvaro_weyne">#ee9982</color>
+    <color name="bairro_carlito_pamplona">#ee9983</color>
+    <color name="bairro_cristo_redentor">#ee9984</color>
+    <color name="bairro_farias_brito">#ee9985</color>
+    <color name="bairro_barra_ceara">#ee9986</color>
+    <color name="bairro_floresta">#ee9987</color>
+    <color name="bairro_jardim_guanabara">#ee9988</color>
+    <color name="bairro_jardim_iracema">#ee9989</color>
+    <color name="bairro_moura_brasil">#ee9970</color>
+    <color name="bairro_pirambu">#ee9971</color>
+    <color name="bairro_sao_gerardo">#ee9972</color>
 
     <!-- Regional 2 -->
-    <color name="bairro_dionisio_torres">#faa629</color>
-    <color name="bairro_mucuripe">#faa630</color>
-    <color name="bairro_varjota">#faa631</color>
-    <color name="bairro_de_lourdes">#faa632</color>
-    <color name="bairro_cidade_2000">#faa633</color>
-    <color name="bairro_engenheiro_luciano_cavalcante">#faa634</color>
-    <color name="bairro_sao_joao_tauape">#faa635</color>
-    <color name="bairro_salinas">#faa636</color>
-    <color name="bairro_mamoel_dias_branco">#faa637</color>
-    <color name="bairro_vicente_pinzon">#faa638</color>
-    <color name="bairro_praia_iracema">#faa639</color>
-    <color name="bairro_praia_futuro_1">#faa640</color>
-    <color name="bairro_meireles">#faa641</color>
-    <color name="bairro_guararapes">#faa642</color>
-    <color name="bairro_joaquim_tavora">#faa643</color>
-    <color name="bairro_praia_futuro_2">#faa644</color>
-    <color name="bairro_aldeota">#faa645</color>
-    <color name="bairro_coco">#faa646</color>
-    <color name="bairro_papicu">#faa647</color>
-    <color name="bairro_cais_porto">#faa648</color>
+    <color name="bairro_dionisio_torres">#fecc79</color>
+    <color name="bairro_mucuripe">#fecc80</color>
+    <color name="bairro_varjota">#fecc81</color>
+    <color name="bairro_de_lourdes">#fecc82</color>
+    <color name="bairro_cidade_2000">#fecc83</color>
+    <color name="bairro_engenheiro_luciano_cavalcante">#fecc84</color>
+    <color name="bairro_sao_joao_tauape">#fecc85</color>
+    <color name="bairro_salinas">#fecc86</color>
+    <color name="bairro_mamoel_dias_branco">#fecc87</color>
+    <color name="bairro_vicente_pinzon">#fecc88</color>
+    <color name="bairro_praia_iracema">#fecc89</color>
+    <color name="bairro_praia_futuro_1">#fecc90</color>
+    <color name="bairro_meireles">#fecc91</color>
+    <color name="bairro_guararapes">#fecc92</color>
+    <color name="bairro_joaquim_tavora">#fecc93</color>
+    <color name="bairro_praia_futuro_2">#fecc94</color>
+    <color name="bairro_aldeota">#fecc95</color>
+    <color name="bairro_coco">#fecc96</color>
+    <color name="bairro_papicu">#fecc97</color>
+    <color name="bairro_cais_porto">#fecc98</color>
 
     <!-- Regional 3 -->
-    <color name="bairro_quintino_cunha">#66bb60</color>
-    <color name="bairro_parquelandia">#66bb61</color>
-    <color name="bairro_amadeu_furtado">#66bb62</color>
-    <color name="bairro_parque_araxa">#66bb63</color>
-    <color name="bairro_antonio_bezerra">#66bb64</color>
-    <color name="bairro_henrique_jorge">#66bb65</color>
-    <color name="bairro_dom_lustosa">#66bb66</color>
-    <color name="bairro_padre_andrade">#66bb67</color>
-    <color name="bairro_autran_nunes">#66bb68</color>
-    <color name="bairro_olavo_oliveira">#66bb69</color>
-    <color name="bairro_pici">#66bb70</color>
-    <color name="bairro_bela_vista">#66bb71</color>
-    <color name="bairro_rodolfo_teofilo">#66bb72</color>
-    <color name="bairro_presidente_kennedy">#66bb73</color>
-    <color name="bairro_joquei_clube">#66bb74</color>
-    <color name="bairro_joao_XXIII">#66bb75</color>
-    <color name="bairro_bonsucesso">#66bb76</color>
+    <color name="bairro_quintino_cunha">#a4d5a0</color>
+    <color name="bairro_parquelandia">#a4d5a1</color>
+    <color name="bairro_amadeu_furtado">#a4d5a2</color>
+    <color name="bairro_parque_araxa">#a4d5a3</color>
+    <color name="bairro_antonio_bezerra">#a4d5a4</color>
+    <color name="bairro_henrique_jorge">#a4d5a5</color>
+    <color name="bairro_dom_lustosa">#a4d5a6</color>
+    <color name="bairro_padre_andrade">#a4d5a7</color>
+    <color name="bairro_autran_nunes">#a4d5a8</color>
+    <color name="bairro_olavo_oliveira">#a4d5a9</color>
+    <color name="bairro_pici">#a4d5b0</color>
+    <color name="bairro_bela_vista">#a4d5b1</color>
+    <color name="bairro_rodolfo_teofilo">#a4d5b2</color>
+    <color name="bairro_presidente_kennedy">#a4d5b3</color>
+    <color name="bairro_joquei_clube">#a4d5b4</color>
+    <color name="bairro_joao_XXIII">#a4d5b5</color>
+    <color name="bairro_bonsucesso">#a4d5b6</color>
 
 
     <!-- Regional 4 -->
-    <color name="bairro_fatima">#f9d430</color>
-    <color name="bairro_benfica">#f9d431</color>
-    <color name="bairro_damas">#f9d432</color>
-    <color name="bairro_montese">#f9d433</color>
-    <color name="bairro_panamericano">#f9d434</color>
-    <color name="bairro_serrinha">#f9d435</color>
-    <color name="bairro_aeroporto">#f9d436</color>
-    <color name="bairro_jose_bonifacio">#f9d437</color>
-    <color name="bairro_jardim_america">#f9d438</color>
-    <color name="bairro_democrito_rocha">#f9d439</color>
-    <color name="bairro_parreao">#f9d440</color>
-    <color name="bairro_bom_futuro">#f9d441</color>
-    <color name="bairro_couto_fernandes">#f9d442</color>
-    <color name="bairro_dende">#f9d443</color>
-    <color name="bairro_vila_uniao">#f9d444</color>
-    <color name="bairro_itaperi">#f9d445</color>
-    <color name="bairro_vila_peri">#f9d446</color>
-    <color name="bairro_parangaba">#f9d447</color>
-    <color name="bairro_itaoca">#f9d448</color>
+    <color name="bairro_fatima">#f9dd50</color>
+    <color name="bairro_benfica">#f9dd51</color>
+    <color name="bairro_damas">#f9dd52</color>
+    <color name="bairro_montese">#f9dd53</color>
+    <color name="bairro_panamericano">#f9dd54</color>
+    <color name="bairro_serrinha">#f9dd55</color>
+    <color name="bairro_aeroporto">#f9dd56</color>
+    <color name="bairro_jose_bonifacio">#f9dd57</color>
+    <color name="bairro_jardim_america">#f9dd58</color>
+    <color name="bairro_democrito_rocha">#f9dd59</color>
+    <color name="bairro_parreao">#f9dd60</color>
+    <color name="bairro_bom_futuro">#f9dd61</color>
+    <color name="bairro_couto_fernandes">#f9dd62</color>
+    <color name="bairro_dende">#f9dd63</color>
+    <color name="bairro_vila_uniao">#f9dd64</color>
+    <color name="bairro_itaperi">#f9dd65</color>
+    <color name="bairro_vila_peri">#f9dd66</color>
+    <color name="bairro_parangaba">#f9dd67</color>
+    <color name="bairro_itaoca">#f9dd68</color>
+
+
+    <!-- Regional 5 -->
+    <color name="bairro_granja_portugal">#95c7e1</color>
+    <color name="bairro_maraponga">#95c7e2</color>
+    <color name="bairro_manoel_satiro">#95c7e3</color>
+    <color name="bairro_conjunto_esperanca">#95c7e4</color>
+    <color name="bairro_santa_rosa">#95c7e5</color>
+    <color name="bairro_planalto_ayrton_senna">#95c7e6</color>
+    <color name="bairro_siqueira">#95c7e7</color>
+    <color name="bairro_genibau">#95c7e8</color>
+    <color name="bairro_conjunto_ceara_1">#95c7e9</color>
+    <color name="bairro_mondubim">#95c7f1</color>
+    <color name="bairro_granja_lisboa">#95c7f2</color>
+    <color name="bairro_canindezinho">#95c7f3</color>
+    <color name="bairro_jardim_cearense">#95c7f4</color>
+    <color name="bairro_sao_jose">#95c7f5</color>
+    <color name="bairro_prefeito_jose_walter">#95c7f6</color>
+    <color name="bairro_bom_jardim">#95c7f7</color>
+    <color name="bairro_presidente_vargas">#95c7f8</color>
+    <color name="bairro_conjunto_ceara_2">#95c7f9</color>
+
+
+    <!-- Regional c -->
+    <color name="bairro_passare">#c694c1</color>
+    <color name="bairro_ancuri">#c694c2</color>
+    <color name="bairro_cambeba">#c694c3</color>
+    <color name="bairro_jose_alencar">#c694c4</color>
+    <color name="bairro_edson_queiroz">#c694c5</color>
+    <color name="bairro_sapiranga_coite">#c694c6</color>
+    <color name="bairro_boa_vista">#c694c7</color>
+    <color name="bairro_cajazeiras">#c694c8</color>
+    <color name="bairro_guajeru">#c694c9</color>
+    <color name="bairro_dias_macedo">#c694c0</color>
+    <color name="bairro_jardim_oliveiras">#c694d1</color>
+    <color name="bairro_sabiaguaba">#c694d2</color>
+    <color name="bairro_coacu">#c694d3</color>
+    <color name="bairro_lagoa_redonda">#c694d4</color>
+    <color name="bairro_jangurussu">#c694d5</color>
+    <color name="bairro_parque_manibura">#c694d6</color>
+    <color name="bairro_cidade_funcionarios">#c694d7</color>
+    <color name="bairro_santa_maria">#c694d8</color>
+    <color name="bairro_sao_bento">#c694d9</color>
+    <color name="bairro_curio">#c694d0</color>
+    <color name="bairro_barroso">#c694b1</color>
+    <color name="bairro_alto_balanca">#c694b2</color>
+    <color name="bairro_parque_irmaos">#c694b3</color>
+    <color name="bairro_parque_iracema">#c694b4</color>
+    <color name="bairro_messejana">#c694b5</color>
+    <color name="bairro_aerolandia">#c694b6</color>
+    <color name="bairro_pedras">#c694b7</color>
+    <color name="bairro_paupina">#c694b8</color>
+    <color name="bairro_conjunto_palmeiras">#c694b9</color>
+
+    <!-- Regional Centro-->
+    <color name="bairro_centro">#e0e0e1</color>
 
 </resources>

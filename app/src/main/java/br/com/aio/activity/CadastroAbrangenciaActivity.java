@@ -2,7 +2,11 @@ package br.com.aio.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +40,10 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
     private static final String TAG = "CadastroAbrangencia";
     private static final String BAIRRO = "bairro";
     private static final String REGIONAL = "regional";
+    private static final int WIDHT_IRACEMA = 48;
+    private static final int HEIGHT_IRACEMA = 48;
+    private static final Integer WIDHT_BARCO = 40;
+    private static final Integer HEIGHT_BARCO = 4;
     private Context context;
     private RobotoTextView nomePagina ;
     private TextView continuar ;
@@ -44,6 +53,8 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
     private List<Bairro> bairros;
     private Bairro bairro;
     private TouchImageView mapa;
+    private ImageView imagemIracema;
+    private ImageView imagemBarco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +72,49 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
         nomePagina.setText("Cadastro");
         actionBar.setCustomView(v);
-        //setListaBairros();
 
         continuar = (TextView) findViewById(R.id.continuar);
         continuar.setOnClickListener(this);
+
         mapa = (TouchImageView) findViewById(R.id.mapa_fortaleza);
+        Resources resources =  getApplicationContext().getResources();
+        Drawable drawableIracema = resources.getDrawable(R.drawable.ic_iracemafor);
+        Bitmap icIracemaFor = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
+        Canvas canvasIracema = new Canvas(icIracemaFor);
+        drawableIracema.setBounds(0, 0, canvasIracema.getWidth(), canvasIracema.getHeight());
+        drawableIracema.draw(canvasIracema);
+
+        Drawable drawableBarco = resources.getDrawable(R.drawable.ic_barco);
+        Bitmap barco = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
+        Canvas canvasBarco = new Canvas(barco);
+        drawableBarco.setBounds(0, 0, canvasBarco.getWidth(), canvasBarco.getHeight());
+        drawableBarco.draw(canvasBarco);
+
+        Drawable drawableAeroporto = resources.getDrawable(R.drawable.ic_aviao);
+        Bitmap aeroporto = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
+        Canvas canvasAeroporto = new Canvas(aeroporto);
+        drawableAeroporto.setBounds(0, 0, canvasAeroporto.getWidth(), canvasAeroporto.getHeight());
+        drawableAeroporto.draw(canvasAeroporto);
+
+        Drawable drawablePraia = resources.getDrawable(R.drawable.ic_banho_mar);
+        Bitmap praia = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
+        Canvas canvasPraia = new Canvas(praia);
+        drawablePraia.setBounds(0, 0, canvasPraia.getWidth(), canvasPraia.getHeight());
+        drawablePraia.draw(canvasPraia);
+
+        Drawable drawableMapa = resources.getDrawable(R.drawable.mapa_fortaleza);
+        Bitmap mapaFortaleza = Bitmap.createBitmap(drawableMapa.getIntrinsicWidth(), drawableMapa.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvasMapaFortaleza = new Canvas(mapaFortaleza);
+        drawableMapa.setBounds(0, 0, canvasMapaFortaleza.getWidth() , canvasMapaFortaleza.getHeight());
+        drawableMapa.draw(canvasMapaFortaleza);
+        canvasMapaFortaleza.drawBitmap(icIracemaFor, canvasMapaFortaleza.getWidth()/2, canvasMapaFortaleza.getHeight()/8, null);
+        canvasMapaFortaleza.drawBitmap(barco, canvasMapaFortaleza.getWidth() - canvasMapaFortaleza.getWidth()*2/5, canvasMapaFortaleza.getHeight()/8, null);
+        canvasMapaFortaleza.drawBitmap(aeroporto, canvasMapaFortaleza.getWidth()*4/9, canvasMapaFortaleza.getHeight()*2/5, null);
+        canvasMapaFortaleza.drawBitmap(praia,  canvasMapaFortaleza.getWidth()*5/7, canvasMapaFortaleza.getHeight()/4, null);
+
+        Drawable d = new BitmapDrawable(getResources(), mapaFortaleza);
+        mapa.setImageDrawable(d);
+
         mapa.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -179,7 +228,7 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.continuar:
-                Intent newActivity0 = new Intent(CadastroAbrangenciaActivity.this, CadastroAbrangenciaActivity.class);
+                Intent newActivity0 = new Intent(CadastroAbrangenciaActivity.this, ListagemActivity.class);
                 startActivity(newActivity0);
                 break;
         }
