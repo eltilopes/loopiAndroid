@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -18,12 +21,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
@@ -40,21 +43,19 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
     private static final String TAG = "CadastroAbrangencia";
     private static final String BAIRRO = "bairro";
     private static final String REGIONAL = "regional";
-    private static final int WIDHT_IRACEMA = 48;
-    private static final int HEIGHT_IRACEMA = 48;
-    private static final Integer WIDHT_BARCO = 40;
-    private static final Integer HEIGHT_BARCO = 4;
+    private static final int WIDHT_ICON = 48;
+    private static final int HEIGHT_ICON = 48;
     private Context context;
     private RobotoTextView nomePagina ;
     private TextView continuar ;
     private ListView listaBairros;
     private LayoutInflater inflator;
     private View headerBairros;
-    private List<Bairro> bairros;
+    private List<Bairro> bairros = new ArrayList<Bairro>();
     private Bairro bairro;
     private TouchImageView mapa;
-    private ImageView imagemIracema;
-    private ImageView imagemBarco;
+    private int clickX = 0;
+    private int clickY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,29 +79,10 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
 
         mapa = (TouchImageView) findViewById(R.id.mapa_fortaleza);
         Resources resources =  getApplicationContext().getResources();
-        Drawable drawableIracema = resources.getDrawable(R.drawable.ic_iracemafor);
-        Bitmap icIracemaFor = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
-        Canvas canvasIracema = new Canvas(icIracemaFor);
-        drawableIracema.setBounds(0, 0, canvasIracema.getWidth(), canvasIracema.getHeight());
-        drawableIracema.draw(canvasIracema);
 
-        Drawable drawableBarco = resources.getDrawable(R.drawable.ic_barco);
-        Bitmap barco = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
-        Canvas canvasBarco = new Canvas(barco);
-        drawableBarco.setBounds(0, 0, canvasBarco.getWidth(), canvasBarco.getHeight());
-        drawableBarco.draw(canvasBarco);
-
-        Drawable drawableAeroporto = resources.getDrawable(R.drawable.ic_aviao);
-        Bitmap aeroporto = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
-        Canvas canvasAeroporto = new Canvas(aeroporto);
-        drawableAeroporto.setBounds(0, 0, canvasAeroporto.getWidth(), canvasAeroporto.getHeight());
-        drawableAeroporto.draw(canvasAeroporto);
-
-        Drawable drawablePraia = resources.getDrawable(R.drawable.ic_banho_mar);
-        Bitmap praia = Bitmap.createBitmap(WIDHT_IRACEMA,HEIGHT_IRACEMA, Bitmap.Config.ARGB_8888);
-        Canvas canvasPraia = new Canvas(praia);
-        drawablePraia.setBounds(0, 0, canvasPraia.getWidth(), canvasPraia.getHeight());
-        drawablePraia.draw(canvasPraia);
+        Bitmap aeroporto = getBitmap( R.drawable.ic_aviao, WIDHT_ICON, HEIGHT_ICON);
+        Bitmap barco = getBitmap(R.drawable.ic_barco, WIDHT_ICON, HEIGHT_ICON);
+        Bitmap icIracemaFor = getBitmap(R.drawable.ic_iracemafor, WIDHT_ICON, HEIGHT_ICON);
 
         Drawable drawableMapa = resources.getDrawable(R.drawable.mapa_fortaleza);
         Bitmap mapaFortaleza = Bitmap.createBitmap(drawableMapa.getIntrinsicWidth(), drawableMapa.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -110,37 +92,58 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
         canvasMapaFortaleza.drawBitmap(icIracemaFor, canvasMapaFortaleza.getWidth()/2, canvasMapaFortaleza.getHeight()/8, null);
         canvasMapaFortaleza.drawBitmap(barco, canvasMapaFortaleza.getWidth() - canvasMapaFortaleza.getWidth()*2/5, canvasMapaFortaleza.getHeight()/8, null);
         canvasMapaFortaleza.drawBitmap(aeroporto, canvasMapaFortaleza.getWidth()*4/9, canvasMapaFortaleza.getHeight()*2/5, null);
-        canvasMapaFortaleza.drawBitmap(praia,  canvasMapaFortaleza.getWidth()*5/7, canvasMapaFortaleza.getHeight()/4, null);
+        setTextoNoMapa(canvasMapaFortaleza, "Praia do Futuro",60, (canvasMapaFortaleza.getWidth()*5/7) +30, canvasMapaFortaleza.getHeight()/4);
+        setTextoNoMapa(canvasMapaFortaleza, "Barra do Ceará",10, canvasMapaFortaleza.getWidth()*2/9, canvasMapaFortaleza.getHeight()/25);
+        setTextoNoMapa(canvasMapaFortaleza, "UECE",0, canvasMapaFortaleza.getWidth()*2/5, canvasMapaFortaleza.getHeight()/2);
 
         Drawable d = new BitmapDrawable(getResources(), mapaFortaleza);
         mapa.setImageDrawable(d);
-
+        mapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapa.setDrawingCacheEnabled(true);
+                Bitmap imgbmp = Bitmap.createBitmap(mapa.getDrawingCache());
+                mapa.setDrawingCacheEnabled(false);
+                if(clickX != 0 && clickY != 0){
+                    int pxl = imgbmp.getPixel(clickX, clickY);
+                    if(pxl!=0){
+                        getCorBairro(pxl);
+                        processarMapa(pxl);
+                    }
+                }
+            }
+        });
         mapa.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 final int action = event.getAction();
-
-                final int evX = (int) event.getX();
-                final int evY = (int) event.getY();
-
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN :
-                        break;
-                    case MotionEvent.ACTION_UP :
-                        mapa.setDrawingCacheEnabled(true);
-                        Bitmap imgbmp = Bitmap.createBitmap(mapa.getDrawingCache());
-                        mapa.setDrawingCacheEnabled(false);
-                        int pxl = imgbmp.getPixel(evX, evY);
-                        if(pxl!=0){
-                            getCorBairro(pxl);
-                            processarMapa(pxl);
-                        }
-                        break;
-                }
+                clickX = (int) event.getX();
+                clickY = (int) event.getY();
                 return true;
             }
         });
+    }
 
+    private void setTextoNoMapa(Canvas canvas,String texto, int rotation, int locationX, int locationY) {
+        Paint paint = new Paint();
+        paint.setTextSize(30);
+        paint.setStrokeWidth(3);
+        paint.setColor(Color.BLACK);
+        canvas.save();
+        canvas.rotate(rotation, locationX, locationY);
+        canvas.drawText(texto, locationX, locationY, paint);
+        canvas.restore();
+    }
+
+    @NonNull
+    private Bitmap getBitmap(int drawable, int widhtBitmap, int heightBitmap) {
+        Resources resources =  getApplicationContext().getResources();
+        Drawable drawablePraia = resources.getDrawable(drawable);
+        Bitmap bitmap = Bitmap.createBitmap(widhtBitmap,heightBitmap, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawablePraia.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawablePraia.draw(canvas);
+        return bitmap;
     }
 
     private void processarMapa(int pxl) {
@@ -167,25 +170,25 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
         for(int i=0; i<fields.length; i++) {
             if(fields[i].getName().toLowerCase().contains(BAIRRO) || fields[i].getName().toLowerCase().contains(REGIONAL)){
                 try {
-                    color = getApplicationContext().getResources().getColor(fields[i].getInt(null));
+                    int idColor = fields[i].getInt(null);
+                    color = getApplicationContext().getResources().getColor(idColor);
                     if(corBairroSelecionado==color){
-                        Toast.makeText(context,fields[i].getName(),Toast.LENGTH_SHORT).show();
+                        bairro = Bairro.getBairroPorCor(fields[i].getName().toLowerCase());
+                        if(bairro != null){
+                            bairros.add(bairro);
+                            mostrarListaBairros();
+                            Toast.makeText(context,bairro.getNome()+" selecionado",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }catch (Exception e){}
             }
         }
     }
 
-    private void setListaBairros() {
-        bairros = Bairro.getBairros();
-        mostrarListaBairros();
-    }
-
-
     private void mostrarListaBairros() {
-        //listaBairros= (ListView) findViewById(R.id.lista_bairoos);
+        listaBairros= (ListView) findViewById(R.id.lista_bairoos);
         if(headerBairros==null){
-            headerBairros = (View) inflator.inflate(R.layout.header_documentos, null);
+            headerBairros = (View) inflator.inflate(R.layout.header_bairros, null);
             listaBairros.addHeaderView(headerBairros);
         }
         listaBairros.setHeaderDividersEnabled(true);
@@ -228,7 +231,7 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.continuar:
-                Intent newActivity0 = new Intent(CadastroAbrangenciaActivity.this, ListagemActivity.class);
+                Intent newActivity0 = new Intent(CadastroAbrangenciaActivity.this, ProfissionalActivity.class);
                 startActivity(newActivity0);
                 break;
         }

@@ -121,7 +121,7 @@ l1.212-0.537l1.818-2.148l1.212-0.537l1.212-1.074l2.424-0.537l1.82-0.537h1.209l3.
 l1.209-0.535l2.424-0.539l3.032-1.074l1.212-0.535l4.847-1.074l3.633-1.614l4.85-2.683l4.241-3.223l4.241-3.223l4.85-3.223
 l2.424-1.074l3.027-1.077h4.85l3.027,0.539l1.212,0.537h1.818H371.859z" />
     <path
-        android:fillColor="@color/bairro_mamoel_dias_branco"
+        android:fillColor="@color/bairro_manoel_dias_branco"
         android:strokeColor="@color/white"
         android:strokeWidth="0.303"
         android:pathData="M557.885,305.242l24.842,7.52l14.545,3.76l2.421,1.074l2.424,0.537

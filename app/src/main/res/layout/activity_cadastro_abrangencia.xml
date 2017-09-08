@@ -145,6 +145,25 @@
                                     </LinearLayout>
                                 </ScrollView>
                             </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <ScrollView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:scrollbars = "vertical">
+                                <ListView
+                                    android:id="@+id/lista_bairoos"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:divider="@color/colorAccent"
+                                    android:drawSelectorOnTop="true"
+                                    android:listSelector="@drawable/list_selector" />
+                                </ScrollView>
+                            </LinearLayout>
+
                             <br.com.aio.view.MaterialRippleLayout
                                 style="@style/RippleStyle"
                                 android:layout_width="match_parent"
