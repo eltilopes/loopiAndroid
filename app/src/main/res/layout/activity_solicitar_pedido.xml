@@ -408,7 +408,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:background="@color/material_orange_300"
+                                    android:background="@color/colorButtonLaranja"
                                     android:text="@string/solicitar"
                                     android:textColor="@android:color/white"/>
                             </br.com.aio.view.MaterialRippleLayout>

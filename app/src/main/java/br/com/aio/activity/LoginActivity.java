@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -15,31 +17,48 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import br.com.aio.R;
+import br.com.aio.utils.CpfCnpjMaks;
 
 public class LoginActivity extends Activity implements OnClickListener {
 
-        public static final String MEDIA = "Media";
+        private TextWatcher cpfCnpjMaks;
+        private TextView validationCpfCnpj;
+        private TextView validationSenha;
+        private EditText cpfCnpj;
+        private EditText senha;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             getWindow().requestFeature(Window.FEATURE_NO_TITLE); // Removing
-            // ActionBar
-            String category = MEDIA;
-            setContentView(category);
-        }
+            setContentView(R.layout.activity_login);
+            validationCpfCnpj = (TextView) findViewById(R.id.cpf_cnpj_validation);
+            validationCpfCnpj.setVisibility(View.GONE);
+            validationSenha = (TextView) findViewById(R.id.senha_validation);
+            validationSenha.setVisibility(View.GONE);
+            cpfCnpj = (EditText) findViewById(R.id.cpf_cnpj);
+            senha = (EditText) findViewById(R.id.senha);
+            cpfCnpjMaks = CpfCnpjMaks.insert(cpfCnpj,validationCpfCnpj);
+            cpfCnpj.addTextChangedListener(cpfCnpjMaks);
+            senha.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                }
 
-        private void setContentView(String category) {
-            EditText loginText;
-            EditText passText;
-            setContentView(R.layout.activity_login_page_media);
-            loginText = (EditText) findViewById(R.id.login_page_media_login_text);
-            passText = (EditText) findViewById(R.id.login_page_media_login_password);
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    senhaDigitada(editable.toString());
+                }
+            });
+
             Typeface sRobotoThin = Typeface.createFromAsset(getAssets(),
                     "fonts/Roboto-Thin.ttf");
             ;
-            loginText.setTypeface(sRobotoThin);
-            passText.setTypeface(sRobotoThin);
+            cpfCnpj.setTypeface(sRobotoThin);
+            senha.setTypeface(sRobotoThin);
 
             TextView login, register, skip;
             login = (TextView) findViewById(R.id.login);
@@ -47,14 +66,43 @@ public class LoginActivity extends Activity implements OnClickListener {
             login.setOnClickListener(this);
         }
 
-        @Override
+    private boolean senhaDigitada(String senha) {
+        boolean digitouCpf = cpfDigitada(cpfCnpj.getText().toString());
+        boolean digitouSenha = !senha.isEmpty() && digitouCpf;
+        if (digitouSenha) {
+            validationSenha.setVisibility(View.GONE);
+        } else {
+            validationSenha.setVisibility(View.VISIBLE);
+            validationSenha.setText("Campo obrigatório");
+        }
+        return digitouSenha;
+    }
+
+    private boolean cpfDigitada(String cpf) {
+        boolean digitou = !cpf.isEmpty();
+        if (digitou) {
+            validationCpfCnpj.setVisibility(View.GONE);
+        } else {
+            validationCpfCnpj.setVisibility(View.VISIBLE);
+            validationCpfCnpj.setText("Campo obrigatório");
+        }
+        return digitou;
+    }
+
+    @Override
         public void onClick(View v) {
             switch(v.getId()) {
                 case R.id.login:
-                    Intent newActivity0 = new Intent(LoginActivity.this, ListagemActivity.class);
-                    startActivity(newActivity0);
+                    entrar();
                     break;
             }
 
         }
+
+    private void entrar() {
+        if(senhaDigitada(senha.getText().toString())){
+            Intent newActivity0 = new Intent(LoginActivity.this, ListagemActivity.class);
+            startActivity(newActivity0);
+        }
     }
+}
