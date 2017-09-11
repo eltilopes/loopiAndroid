@@ -27,6 +27,7 @@
     <string name="renda_extra">Ganhe uma Renda Extra</string>
     <string name="documentos_necessarios">Documentos Necessários</string>
     <string name="bairros_selecionados">Bairros Selecionados</string>
+    <string name="nenhum_bairro_selecionado">Nenhum Bairro Selecionado</string>
     <string name="cadastre_servico">Cadastre um Serviço</string>
     <string name="esqueciMinhaSenha">Esqueci Minha Senha</string>
     <string name="entrar">ENTRAR</string>

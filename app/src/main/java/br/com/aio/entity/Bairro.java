@@ -14,6 +14,7 @@ public class Bairro {
     private String secretaria;
     private String cor;
     private Boolean atende;
+    private int idCor;
 
     public Bairro(){    }
 
@@ -62,6 +63,14 @@ public class Bairro {
 
     public void setCor(String cor) {
         this.cor = cor;
+    }
+
+    public int getIdCor() {
+        return idCor;
+    }
+
+    public void setIdCor(int idCor) {
+        this.idCor = idCor;
     }
 
     public static List<Bairro> getBairros() {
@@ -198,13 +207,33 @@ public class Bairro {
         return bigInt;
     }
 
-    public static Bairro getBairroPorCor( String color) {
+    public static Bairro getBairroPorCor(String color, int idColor) {
         Bairro bairroSelecionado = null;
         for (Bairro bairro : getBairros()){
             if(bairro.getCor().equals(color)){
                 bairroSelecionado = bairro;
+                bairroSelecionado.setIdCor(idColor);
             }
         }
         return bairroSelecionado;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bairro)) return false;
+
+        Bairro bairro = (Bairro) o;
+
+        if (!id.equals(bairro.id)) return false;
+        return nome.equals(bairro.nome);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + nome.hashCode();
+        return result;
     }
 }

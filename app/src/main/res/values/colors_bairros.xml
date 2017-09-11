@@ -8,8 +8,9 @@
     <color name="regional_5">@color/material_blue_200</color>
     <color name="regional_6">@color/material_purple_200</color>
     <color name="regional_centro">@color/material_grey_300</color>
+    <color name="regional_mapa">@color/material_teal_200</color>
 
-    ee999
+
     <!-- Regional 1 -->
     <color name="bairro_jacarecanga">#ee9998</color>
     <color name="bairro_vila_velha">#ee9999</color>
@@ -112,9 +113,9 @@
     <color name="bairro_conjunto_ceara_2">#95c7f9</color>
 
 
-    <!-- Regional c -->
+    <!-- Regional 6 -->
     <color name="bairro_passare">#c694c1</color>
-    <color name="bairro_ancuri">#c694c2</color>
+    <color name="bairro_ancuri">#c694c0</color>
     <color name="bairro_cambeba">#c694c3</color>
     <color name="bairro_jose_alencar">#c694c4</color>
     <color name="bairro_edson_queiroz">#c694c5</color>
