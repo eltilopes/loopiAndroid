@@ -38,7 +38,7 @@ public class LoginActivity extends Activity implements OnClickListener {
             validationSenha.setVisibility(View.GONE);
             cpfCnpj = (EditText) findViewById(R.id.cpf_cnpj);
             senha = (EditText) findViewById(R.id.senha);
-            cpfCnpjMaks = CpfCnpjMaks.insert(cpfCnpj,validationCpfCnpj);
+            cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj,validationCpfCnpj);
             cpfCnpj.addTextChangedListener(cpfCnpjMaks);
             senha.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -60,15 +60,16 @@ public class LoginActivity extends Activity implements OnClickListener {
             cpfCnpj.setTypeface(sRobotoThin);
             senha.setTypeface(sRobotoThin);
 
-            TextView login, register, skip;
+            TextView login;
             login = (TextView) findViewById(R.id.login);
 
             login.setOnClickListener(this);
+            senha.setText("senha");
+            cpfCnpj.setText("123456");
         }
 
     private boolean senhaDigitada(String senha) {
-        boolean digitouCpf = cpfDigitada(cpfCnpj.getText().toString());
-        boolean digitouSenha = !senha.isEmpty() && digitouCpf;
+        boolean digitouSenha = !senha.isEmpty();
         if (digitouSenha) {
             validationSenha.setVisibility(View.GONE);
         } else {
@@ -76,17 +77,6 @@ public class LoginActivity extends Activity implements OnClickListener {
             validationSenha.setText("Campo obrigatório");
         }
         return digitouSenha;
-    }
-
-    private boolean cpfDigitada(String cpf) {
-        boolean digitou = !cpf.isEmpty();
-        if (digitou) {
-            validationCpfCnpj.setVisibility(View.GONE);
-        } else {
-            validationCpfCnpj.setVisibility(View.VISIBLE);
-            validationCpfCnpj.setText("Campo obrigatório");
-        }
-        return digitou;
     }
 
     @Override
@@ -100,7 +90,9 @@ public class LoginActivity extends Activity implements OnClickListener {
         }
 
     private void entrar() {
-        if(senhaDigitada(senha.getText().toString())){
+        boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),cpfCnpj.getText().toString(), cpfCnpj, validationCpfCnpj);
+        boolean digitouSenha = senhaDigitada(senha.getText().toString());
+        if(cpfCnpjValido && digitouSenha){
             Intent newActivity0 = new Intent(LoginActivity.this, ListagemActivity.class);
             startActivity(newActivity0);
         }

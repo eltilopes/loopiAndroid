@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="24dp" >
@@ -26,7 +26,7 @@
             android:gravity="center_horizontal"
             android:minWidth="112dp"
             android:text="@string/infoNaoTenhoConvite"
-            android:textColor="@android:color/white"
+            android:textColor="@color/textColorAzul"
             android:textSize="20dp" />
 
     </LinearLayout>
@@ -39,15 +39,6 @@
         android:layout_marginTop="20dp"
         android:padding="20dp">
 
-        <br.com.aio.fonts.RobotoTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/cpf"
-            android:textColor="@android:color/white"
-            android:textSize="10sp"
-            app:typeface="robotoLight" />
 
         <EditText
             android:id="@+id/cpf_cnpj"
@@ -65,8 +56,8 @@
             android:hint="@string/cpf"
             android:inputType="textNoSuggestions"
             android:singleLine="true"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@color/textColorAzul"
+            android:textColorHint="@color/textColorAzul"
             android:textSize="24sp" >
 
             <requestFocus />
@@ -75,7 +66,18 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/white" />
+            android:background="@color/textColorAzul" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cpf_cnpj_validation"
+            android:textStyle="italic|bold"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/textColorValidation"
+            android:layout_below="@+id/cpf_cnpj"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </LinearLayout>
 
     <LinearLayout
@@ -85,16 +87,6 @@
         android:layout_weight="0"
         android:layout_marginTop="20dp"
         android:padding="20dp">
-
-        <br.com.aio.fonts.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/codigoConvite"
-            android:textColor="@android:color/white"
-            android:textSize="10sp"
-            app:typeface="robotoLight" />
 
         <EditText
             android:id="@+id/codigo_convite"
@@ -111,14 +103,25 @@
             android:hint="@string/codigoConvite"
             android:inputType="textNoSuggestions"
             android:singleLine="true"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@color/textColorAzul"
+            android:textColorHint="@color/textColorAzul"
             android:textSize="24sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/white" />
+            android:background="@color/textColorAzul" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/codigo_convite_validation"
+            android:textStyle="italic|bold"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/textColorValidation"
+            android:layout_below="@+id/codigo_convite"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </LinearLayout>
     <LinearLayout
@@ -142,10 +145,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:background="@color/textColorAzul"
+                android:background="@color/colorButtonAzul"
                 android:minWidth="112dp"
                 android:text="@string/continuar"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/white"/>
         </br.com.aio.view.MaterialRippleLayout>
 
         <br.com.aio.fonts.RobotoTextView
@@ -153,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/textColorAzul"
             android:minWidth="112dp"
             android:text="@string/naoTenhoConvite" />
 

@@ -1,10 +1,13 @@
 package br.com.aio.utils;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import br.com.aio.R;
 
 /**
  * Created by elton on 11/09/2017.
@@ -15,6 +18,7 @@ public class CpfCnpjMaks {
     private static final String cnpjMask = "##.###.###/####-##";
     private static final int[] pesoCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
     private static final int[] pesoCNPJ = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+    private Context context;
 
     public static String unmask(String s){
 
@@ -22,7 +26,7 @@ public class CpfCnpjMaks {
 
     }
 
-    public static TextWatcher insert(final EditText editText, final TextView validationCpfCnpj) {
+    public static TextWatcher insert(final Context contexto,final EditText editText, final TextView validationCpfCnpj) {
         return new TextWatcher() {
             boolean isUpdating;
             String old = "";
@@ -76,16 +80,38 @@ public class CpfCnpjMaks {
             @Override
             public void afterTextChanged(Editable s) {
                 String numero = CpfCnpjMaks.unmask(s.toString());
-                if(numero.length()==11 && !isValidCPF(numero)){
-                    validationCpfCnpj.setVisibility(View.VISIBLE);
-                    validationCpfCnpj.setText("CPF não é válido");
-                }else if(numero.length()==14 && !isValidCPF(numero)){
-                    validationCpfCnpj.setVisibility(View.VISIBLE);
-                    validationCpfCnpj.setText("CNPJ não é válido");
-                }else validationCpfCnpj.setVisibility(View.GONE);
+                verificarCpfCnpj(contexto,numero,editText, validationCpfCnpj);
             }
         };
 
+    }
+
+    public static boolean verificarCpfCnpj(Context context, String numero,EditText editText, TextView validationCpfCnpj) {
+        boolean validado = true;
+        if(numero.isEmpty()){
+            validado = addValidation(R.string.validation_campo_obrigatorio,context, editText, validationCpfCnpj);
+        }else if(numero.length()==11 && !isValidCPF(numero)){
+            validado = addValidation(R.string.validation_cpf_invalido,context, editText, validationCpfCnpj);
+        }else if(numero.length()==14 && !isValidCNPJ(numero)){
+            validado = addValidation(R.string.validation_cnpj_invalido,context, editText, validationCpfCnpj);
+        }else if(numero.length()!=14 && numero.length()!=11 ){
+            validado = addValidation(R.string.validation_cpf_cnpj_invalido,context, editText, validationCpfCnpj);
+        }else if(validationCpfCnpj != null){
+            validationCpfCnpj.setVisibility(View.GONE);
+        }
+        return validado;
+    }
+
+    private static boolean addValidation(int idString, Context context, EditText editText, TextView validationCpfCnpj) {
+        boolean validado;
+        if(validationCpfCnpj == null){
+            editText.setError(context.getString(idString));
+        }else{
+            validationCpfCnpj.setVisibility(View.VISIBLE);
+            validationCpfCnpj.setText(context.getString(idString));
+        }
+        validado = false;
+        return validado;
     }
 
     private static String getDefaultMask(String str){

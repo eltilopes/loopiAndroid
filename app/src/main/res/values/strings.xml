@@ -15,6 +15,13 @@
     <string name="regional_6">Regional 6</string>
     <string name="regional_centro">Regional Centro</string>
 
+    <string name="validation_campo_obrigatorio">Campo obrigatório</string>
+    <string name="validation_cpf_invalido">CPF não é válido</string>
+    <string name="validation_cpf_cnpj_invalido">Numeração não é CNPJ ou CPF</string>
+    <string name="validation_cnpj_invalido">CNPJ não é válido</string>
+    <string name="validation_email_invalido">Email não é válido</string>
+    <string name="validation_nome_invalido">Nome Completo não é válido</string>
+
     <string name="skip">PULAR</string>
     <string name="login">LOGIN</string>
     <string name="register">REGISTRAR</string>

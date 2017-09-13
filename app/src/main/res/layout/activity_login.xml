@@ -104,7 +104,7 @@
                 android:drawableBottom="@android:color/transparent"
                 android:ems="10"
                 android:hint="@string/senha"
-                android:inputType="textNoSuggestions"
+                android:inputType="textPassword"
                 android:singleLine="true"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"

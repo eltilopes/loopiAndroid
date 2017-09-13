@@ -1,6 +1,8 @@
 package br.com.aio.activity;
 
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,6 +65,8 @@ public class ListagemActivity extends AppCompatActivity
     private MaterialDesignIconsTextView imagemUsuario;
     private Dialog dialogMostrarFiltro;
     private Dialog dialogSubCategoria;
+    private SearchView.OnQueryTextListener queryTextListener;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -330,7 +334,31 @@ public class ListagemActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.listagem, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
+
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -346,8 +374,12 @@ public class ListagemActivity extends AppCompatActivity
             Intent newActivity = new Intent(ListagemActivity.this, MapsActivity.class);
             startActivity(newActivity);
             return true;
+        }else if(id == R.id.action_search) {
+            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
+            return false;
         }
 
+        searchView.setOnQueryTextListener(queryTextListener);
         return super.onOptionsItemSelected(item);
     }
 

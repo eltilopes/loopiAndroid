@@ -15,18 +15,15 @@ import br.com.aio.R;
 
 public class CriarContaActivity extends Activity implements View.OnClickListener {
 
-    public static final String MEDIA = "Media";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE); // Removing
-        // ActionBar
-        String category = MEDIA;
-        setContentView(category);
+        setContentView();
     }
 
-    private void setContentView(String category) {
+    private void setContentView() {
         setContentView(R.layout.activity_criar_conta);
         TextView criarConta, entrar;
         criarConta = (TextView) findViewById(R.id.criarConta);

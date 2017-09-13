@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="10dp" >
@@ -12,7 +12,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/register_travel_transparent_background"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -33,25 +32,26 @@
             android:gravity="center_vertical" >
 
             <br.com.aio.fonts.MaterialDesignIconsTextView
-                android:id="@+id/nome_completo"
                 style="@style/TextViewAppearance.Title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="@string/material_icon_account"
-                android:textColor="@color/main_color_grey_300"
+                android:textColor="@color/textColorAzul"
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
+                android:id="@+id/nome_completo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 app:fletFloatingHint="@string/nomeCompleto"
-                app:fletHintTextColor="@color/main_color_grey_300"
+                app:fletHintTextColor="@color/textColorCinza"
+                android:inputType="textCapWords"
                 app:fletSingleLine="true"
                 app:fletTextBackground="@drawable/edit_text_background_accent"
-                app:fletTextColor="@color/main_color_grey_700" >
+                app:fletTextColor="@color/textColorAzul" >
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
@@ -63,25 +63,26 @@
             android:gravity="center_vertical" >
 
             <br.com.aio.fonts.MaterialDesignIconsTextView
-                android:id="@+id/email"
                 style="@style/TextViewAppearance.Title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="@string/material_icon_email"
-                android:textColor="@color/main_color_grey_300"
+                android:textColor="@color/textColorAzul"
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
+                android:id="@+id/email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 app:fletFloatingHint="@string/email"
-                app:fletHintTextColor="@color/main_color_grey_300"
+                app:fletHintTextColor="@color/textColorCinza"
                 app:fletSingleLine="true"
+                android:inputType="textEmailAddress"
                 app:fletTextBackground="@drawable/edit_text_background_accent"
-                app:fletTextColor="@color/main_color_grey_700" >
+                app:fletTextColor="@color/textColorAzul" >
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
@@ -91,25 +92,25 @@
             android:gravity="center_vertical" >
 
             <br.com.aio.fonts.MaterialDesignIconsTextView
-                android:id="@+id/cpf"
                 style="@style/TextViewAppearance.Title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="@string/material_icon_flag"
-                android:textColor="@color/main_color_grey_300"
+                android:textColor="@color/textColorAzul"
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
+                android:id="@+id/cpf_cnpj"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 app:fletFloatingHint="@string/cpf"
-                app:fletHintTextColor="@color/main_color_grey_300"
+                app:fletHintTextColor="@color/textColorCinza"
                 app:fletSingleLine="true"
                 app:fletTextBackground="@drawable/edit_text_background_accent"
-                app:fletTextColor="@color/main_color_grey_700" >
+                app:fletTextColor="@color/textColorAzul" >
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
