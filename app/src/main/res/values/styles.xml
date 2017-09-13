@@ -21,8 +21,10 @@
         <item name="actionBarStyle">@style/ActionBarStyle</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/main_color_500</item>
-        <item name="colorPrimaryDark">@color/main_color_700</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
     </style>
     <style name="AppTheme.Title" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@android:color/white</item>
@@ -60,6 +62,15 @@
     <style name="ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar">
         <item name="background">@color/main_color_500</item>
         <item name="titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
+    </style>
+
+    <style name="SpinnerTextViewItem" parent="@android:style/Widget.Material.Light.Spinner" >
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">@dimen/abc_text_size_subtitle_material_toolbar</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
     </style>
 
     <style name="ActionBarStyle.TitleTextStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">

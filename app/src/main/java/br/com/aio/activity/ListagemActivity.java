@@ -359,6 +359,14 @@ public class ListagemActivity extends AppCompatActivity
             };
             searchView.setOnQueryTextListener(queryTextListener);
         }
+        MenuItem item = menu.findItem(R.id.spinner_categoria);
+        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.list_categoria, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
         return super.onCreateOptionsMenu(menu);
     }
 

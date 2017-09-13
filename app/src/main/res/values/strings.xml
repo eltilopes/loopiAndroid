@@ -238,6 +238,16 @@
         <item>Restaurante</item>
     </string-array>
 
+    <string-array name="list_categoria">
+        <item>Alimentação</item>
+        <item>Beleza</item>
+        <item>Casa</item>
+        <item>Manutenção</item>
+        <item>Educação</item>
+        <item>Saúde</item>
+        <item>Transporte</item>
+    </string-array>
+
     <string-array name="list_bancos">
         <item>001 - Banco do Brasil</item>
         <item>140 - CEF</item>
