@@ -226,7 +226,7 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
             String tag = b.getNome();
             stringBuilder.append(tag);
             stringBuilder.append(between);
-            RoundedBackgroundSpan tagSpan = new RoundedBackgroundSpan(context, b.getIdCor(), R.color.white, textSize);
+            RoundedBackgroundSpan tagSpan = new RoundedBackgroundSpan(context, b.getIdCor(), R.color.branco, textSize);
             stringBuilder.setSpan(tagSpan, tagStart, tagStart + tag.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tagStart += tag.length() + between.length();
         }

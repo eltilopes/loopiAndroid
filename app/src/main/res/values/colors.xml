@@ -15,7 +15,7 @@
     <color name="textColorValidation">@color/material_red_400</color>
     <color name="textColorPrimary">#ffffff</color>
 
-    <color name="white">#ffffff</color>
+    <color name="branco">#ffffff</color>
     <color name="white_15_percent">#26ffffff</color>
     <color name="white_30_percent">#4Dffffff</color>
 

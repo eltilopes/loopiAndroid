@@ -42,9 +42,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.aio.R;
+import br.com.aio.adapter.CustomSpinnerAdapter;
 import br.com.aio.adapter.FeedItem;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
@@ -67,6 +69,7 @@ public class ListagemActivity extends AppCompatActivity
     private Dialog dialogSubCategoria;
     private SearchView.OnQueryTextListener queryTextListener;
     private SearchView searchView;
+    private Spinner spinnerCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -360,13 +363,32 @@ public class ListagemActivity extends AppCompatActivity
             searchView.setOnQueryTextListener(queryTextListener);
         }
         MenuItem item = menu.findItem(R.id.spinner_categoria);
-        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
+        spinnerCategoria = (Spinner) MenuItemCompat.getActionView(item);
+        String[] strings = getApplicationContext().getResources().getStringArray(R.array.list_categoria);
+        final CustomSpinnerAdapter spinAdapter = new CustomSpinnerAdapter(
+                getApplicationContext(), new ArrayList<String>(Arrays.asList(strings)));
+        spinnerCategoria.setAdapter(spinAdapter);
+        spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.list_categoria, R.layout.spinner_item);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                String item = adapter.getItemAtPosition(position).toString();
 
-        spinner.setAdapter(adapter);
+                // Showing selected spinner item
+                Toast.makeText(getApplicationContext(), "Selected  : " + item,
+                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+
         return super.onCreateOptionsMenu(menu);
     }
 

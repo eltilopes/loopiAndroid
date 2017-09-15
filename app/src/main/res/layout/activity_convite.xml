@@ -148,7 +148,7 @@
                 android:background="@color/colorButtonAzul"
                 android:minWidth="112dp"
                 android:text="@string/continuar"
-                android:textColor="@color/white"/>
+                android:textColor="@color/branco"/>
         </br.com.aio.view.MaterialRippleLayout>
 
         <br.com.aio.fonts.RobotoTextView

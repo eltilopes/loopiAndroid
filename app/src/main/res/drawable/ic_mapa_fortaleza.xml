@@ -7,7 +7,7 @@
 
     <path
         android:fillColor="@color/regional_mapa"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="1"
         android:pathData="M408.096,154.516 L406.656,154.036 L405.696,153.796 L405.456,153.796
 L404.736,153.556 L403.535,153.076 L403.055,153.076 L400.895,152.356
@@ -63,7 +63,7 @@ L419.616,158.115 L416.496,157.156 L414.096,156.436 L413.856,156.436
 L408.096,154.516 Z" />
     <path
         android:fillColor="@color/regional_mapa"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="1"
         android:pathData="M358.654,92.597 L358.654,93.077 L358.894,93.318 L359.854,103.157
 L359.854,103.397 L360.093,105.077 L360.573,107.237 L360.814,109.397
@@ -324,7 +324,7 @@ L245.609,95.238 L249.449,95.718 L249.689,95.718 L252.809,95.957 L253.049,95.957
 L253.529,96.198 L255.929,97.157 Z" />
     <path
         android:fillColor="@color/regional_mapa"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="1"
         android:pathData="M489.699,187.875 L488.979,188.835 L488.499,189.315 L488.019,190.035
 L487.779,190.275 L487.539,190.755 L487.299,190.995 L486.819,191.475
@@ -814,7 +814,7 @@ L568.182,76.278 L570.342,84.677 L572.983,96.677 L575.863,103.397
 L577.303,106.757 Z" />
     <path
         android:fillColor="@color/regional_mapa"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="1"
         android:pathData="M219.931,150.683 L218.975,151.16 L217.781,151.638 L216.348,152.354
 L215.87,152.593 L215.631,152.593 L214.916,153.07 L213.959,153.31
@@ -1457,7 +1457,7 @@ L244.649,253.393 L245.609,254.113 L246.329,254.833 L247.049,255.793
 L249.929,258.193 L250.649,258.193 L250.889,258.433 Z" />
     <path
         android:fillColor="@color/regional_mapa"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="1"
         android:pathData="M411.696,171.555 L417.456,199.635 L418.176,202.994 L418.896,206.594
 L419.376,209.234 L419.616,210.674 L419.856,211.874 L420.096,212.594
@@ -2154,7 +2154,7 @@ L333.452,245.713 L333.932,245.713 L334.173,245.953 L335.613,246.433
 L336.333,246.673 Z" />
     <path
         android:fillColor="@color/regional_mapa"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="1"
         android:pathData="M212.007,251.953 L211.767,252.193 L211.767,252.433 L211.527,252.673
 L211.527,252.913 L211.287,252.913 L211.287,253.153 L211.287,253.393
@@ -2909,7 +2909,7 @@ L202.647,245.234 L205.767,244.513 L207.687,244.033 L208.167,244.033
 L208.167,244.513 L207.687,246.673 L207.207,249.313 Z" />
     <path
         android:fillColor="@color/regional_mapa"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="1"
         android:pathData="M387.695,318.671 L388.895,321.791 L389.615,323.711 L390.095,325.151
 L390.335,325.391 L390.575,326.351 L391.055,327.311 L391.535,328.271

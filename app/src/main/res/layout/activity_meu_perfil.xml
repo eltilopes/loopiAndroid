@@ -96,7 +96,7 @@
                                 android:id="@+id/button"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="center_vertical"
-                                android:backgroundTint="@color/white"
+                                android:backgroundTint="@color/branco"
                                 android:tint="@color/textColorAzul"
                                 android:src="@drawable/icon_edit"/>
 

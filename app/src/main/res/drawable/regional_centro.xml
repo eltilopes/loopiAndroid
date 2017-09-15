@@ -7,7 +7,7 @@
 
     <path
         android:fillColor="@color/bairro_centro"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.0987"
         android:pathData="M509.61,538.833l-14.589-4.863l-9.726-2.431h-2.432l-7.295-2.432
 l-12.168-4.863h-4.863l-21.884-7.295h-2.421l-17.031-7.295h-2.432l-9.726-2.432l-4.863-2.431h-4.863l-12.158-4.863l-9.726-2.431

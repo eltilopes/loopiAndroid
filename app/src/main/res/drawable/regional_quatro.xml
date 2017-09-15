@@ -7,7 +7,7 @@
 
     <path
         android:fillColor="@color/bairro_fatima"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M674.068,90.192l18.678,85.784l2.335,10.262l2.335,10.998
 l1.557,8.065l0.778,4.399l0.778,3.666l0.778,2.2l0.778,1.466l0.778,2.933l0.778,2.933l1.557,7.332l-3.113-0.733h-3.891h-1.557
@@ -24,7 +24,7 @@ l7.783,2.2l5.448,2.2l4.67,1.466l6.226,1.466l3.113-8.795l7.004,2.93l6.226,1.466l2
 l7.783-0.733l7.786-0.733l8.561-0.733l7.004-0.733l1.556-0.733l8.561-0.733l1.556,5.866l4.67-0.733L674.068,90.192z" />
     <path
         android:fillColor="@color/bairro_benfica"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M593.552,18.024l-3.891,12.461l-3.891,12.464l-4.67,14.664
 l-9.339,27.128l-2.335,7.332l-0.778,2.2l-0.778,3.666l-1.556,2.933v1.466l-0.778,2.197l-2.335,5.135l-0.778,3.666l-13.38,36.868
@@ -38,7 +38,7 @@ v-0.73l4.669-13.931l4.67,1.466l3.891,1.466h1.557l2.335,0.73l4.67,1.469h0.778l3.8
 z" />
     <path
         android:fillColor="@color/bairro_damas"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M485.72,115.854l1.553,0.733l2.335,2.2l1.557,0.733l2.335,2.2
 l0.782,0.733h0.775l0.782,0.733h0.775l1.557,0.733h0.782h0.775h1.56h2.335h0.778h1.557l-1.557,0.733h-0.778v0.733l-0.778,0.733
@@ -51,7 +51,7 @@ l1.557-1.466l1.557-1.466l0.778-0.733l0.778-1.466l3.116-2.2l2.332-2.203l3.113-3.6
 l7.783-6.599l4.67-4.399l2.335-2.2l6.226-5.866l2.335-2.933l4.67-4.399l5.448-5.132l6.226,5.132l2.335,2.2L485.72,115.854z" />
     <path
         android:fillColor="@color/bairro_montese"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M428.902,220.698l7.004,2.933l5.448,1.466l3.891,1.466l3.891,2.933
 l5.448,5.132l6.226,4.399l3.113,3.666l1.556,1.466l0.778,0.733l0.778,0.733l0.778,0.733l2.335,0.733l5.448,1.466l5.448,2.2
@@ -67,7 +67,7 @@ l1.557-3.666l1.556-2.933l1.557-2.933l1.557-2.933l0.778-0.733l1.557-2.2l2.335-3.6
 l4.67-5.132l14.009-14.664l9.339,5.866l7.008,4.399l3.888,2.933l3.895,2.2L428.902,220.698z" />
     <path
         android:fillColor="@color/bairro_panamericano"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M347.959,206.034h-4.67h-0.781l-3.891,0.733l-2.335,0.733h-2.335
 l-3.113,0.733l-1.557,0.733l-2.335,0.733l-2.335,1.466l-2.335,0.733l-2.335,1.466l-1.557,2.2l-1.556,1.466l-0.778,1.466
@@ -79,7 +79,7 @@ l3.891,2.203l1.557,0.73l3.891,2.933l0.778,0.736l4.67,2.197l1.556,0.736l3.891,2.9
 l2.335,2.2l3.113,3.666l2.338,1.466l3.891,3.666l1.557,1.466H347.959z" />
     <path
         android:fillColor="@color/bairro_serrinha"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M627.368,431.854l-30.353,98.979l-0.778,2.203l-1.557,1.463
 l-0.778,0.733l-0.778-2.933l-1.557-2.197v-0.733l-0.778-0.733V527.9l-0.778-0.73v-0.733l-0.778-0.736l-0.778-0.733l-1.557-1.463
@@ -96,7 +96,7 @@ l3.891,2.2l2.335,0.733l7.004,2.2l5.448,1.466l17.122,5.132l14.012,3.666l14.787,4.
 l15.565,4.399l10.118,3.669l8.561,2.197h3.113H627.368z" />
     <path
         android:fillColor="@color/bairro_aeroporto"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M613.359,251.493l3.891-9.532v-1.466l3.113-6.599l0.778-1.466
 v-0.733h0.778v-1.466l0.778-0.733l0.778-1.466l0.778-0.733v-0.733h0.778l0.778-0.733l0.778-1.466l0.778-0.733l0.778-0.733
@@ -128,7 +128,7 @@ h-0.778l0.778-0.73l2.335-4.399l0.778-0.736v-0.73v-1.466v-0.736l1.557-5.129v-1.46
 l0.778-0.733v-0.733h-0.778l-1.556-1.466l-3.113-0.733h-0.778l-0.778-0.733l-7.783-2.933l3.113-7.332L613.359,251.493z" />
     <path
         android:fillColor="@color/bairro_jose_bonifacio"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M662.394,38.138l3.113,13.928l2.335,11.001l0.778,0.733
 l0.778,5.866l1.556,5.129l1.557,7.332l1.557,7.332v0.733l-5.448,0.733l-4.67,0.733l-1.556-5.866l-8.561,0.733l-1.556,0.733
@@ -138,7 +138,7 @@ l5.448,1.466l4.67,1.466l6.226,1.466l0.778,0.733l3.113,0.733l3.891,1.466h1.557l1.
 l7.004,2.2h1.557l3.895,1.466l2.335,0.733h0.778l3.113,0.733L662.394,38.138z" />
     <path
         android:fillColor="@color/bairro_jardim_america"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M548.76,151.781v1.466l-0.778,2.2l-0.778,2.2l-0.778,2.93
 l-1.557,4.399l-1.557,4.402l-1.556,2.933l-0.778,2.2v2.2l-0.778,0.73l-0.778,2.933l-0.778,2.203l-0.778,3.663l-0.778,0.736
@@ -151,7 +151,7 @@ l1.557,0.733l1.556,1.466l1.557,2.933l2.335,2.2l2.335,2.2l1.557,2.2l0.778,0.733l0
 h0.778l3.113,2.2l3.113,1.466l3.113,1.466l3.891,2.2L548.76,151.781z" />
     <path
         android:fillColor="@color/bairro_democrito_rocha"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M308.264,229.497h0.778l3.891,2.2l5.448,3.666l7.004,4.399
 l3.113,2.2l3.891,2.2l1.557,1.466l7.004,2.933l6.226,2.933l6.229,2.933l7.001,2.933l-2.332,3.666l-10.899,25.662v1.466l0.782,0.73
@@ -161,7 +161,7 @@ l3.113-7.332l3.891-5.866l2.335-2.933l14.787-21.996l4.67,2.933l3.113,1.466l5.451,
 l0.782,0.733l5.448,2.933l1.557,1.466l3.891,1.466l1.557,1.466l3.113,1.466l3.113,2.2l2.335,1.466l3.891,2.2L308.264,229.497z" />
     <path
         android:fillColor="@color/bairro_parreao"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M621.142,232.43l-0.778,1.466l-3.113,6.599v1.466l-3.891,9.532
 l-1.557-0.733l-4.67-1.466l-10.896-2.933l-10.118-2.933l-16.347-4.399l-5.448-2.2l-3.113-0.733l-2.332,5.866l-0.781,4.399
@@ -174,7 +174,7 @@ l0.778-0.73v-2.2l1.557,0.733l7.004,5.866l0.778,1.466l5.448,3.663l3.891,2.933l3.8
 l9.343,7.332l3.891,2.933l7.783,6.599l8.561,6.599l7.004,5.866l0.778,0.733l2.335,0.733l1.557,0.733l1.557,0.733h3.113H621.142z" />
     <path
         android:fillColor="@color/bairro_bom_futuro"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M501.285,206.034l-5.448,6.599l-1.557,0.733l-6.229,7.332
 l-6.226,7.332h-0.778l-2.335,2.933l-3.891,4.399l-0.778,0.733l-3.891,3.666l-3.891,5.132l-0.778-0.733l-1.556-1.466l-3.113-3.666
@@ -183,7 +183,7 @@ l3.891-5.132l2.335-2.933l0.778-0.733l3.891-3.663l2.335-3.669l3.113-2.933l6.226-7
 l5.448,4.396l5.451,3.666l3.113,2.933L501.285,206.034z" />
     <path
         android:fillColor="@color/bairro_couto_fernandes"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M375.977,230.963l-1.557,1.466l-1.556,1.466l-2.335,3.666
 l-1.557,2.2l-0.778,0.733l-1.557,2.933l-1.557,2.933l-1.556,2.933l-1.557,3.666l-1.56,4.399l-7.001-2.933l-6.229-2.933
@@ -193,7 +193,7 @@ l1.557-0.733l3.113-0.733h2.335l2.335-0.733l3.891-0.733h0.781h4.67h5.448l0.778,0.
 l-1.557,1.466l-2.332,2.2l0.775,0.733h0.782l3.113,2.933l3.891,2.2l3.891,2.933l1.557,1.466l2.335,2.2L375.977,230.963z" />
     <path
         android:fillColor="@color/bairro_dende"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M435.125,501.505v0.736l-0.775,2.933l-0.781,1.463v2.203
 l-0.775,0.73l-9.343,28.595l-7.004,21.996l-4.67,14.664l-1.557,5.132l-0.775,1.466l-0.782,2.203l-1.556,5.863l-1.557,3.663v1.469
@@ -216,7 +216,7 @@ l0.775,0.733h0.782h0.775h0.782l1.557,0.736h0.775l0.782,0.733l0.775,0.73l0.782,0.
 l0.778-0.733h0.778l0.775-0.736h0.781h1.557h1.557H435.125z" />
     <path
         android:fillColor="@color/bairro_vila_uniao"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M613.359,251.493l-4.67,10.265l-3.113,7.332l7.783,2.933
 l0.778,0.733h0.778l3.113,0.733l1.556,1.466h0.778v0.733l-0.778,0.733v2.2l-0.778,2.933v0.733l-1.557,5.866v1.466l-1.557,5.129
@@ -234,7 +234,7 @@ l0.778-1.466l0.778-3.666l1.556-3.666l0.778-2.933l4.67,1.466l7.783,2.2l24.126,6.5
 l2.332-5.866l3.113,0.733l5.448,2.2l16.347,4.399l10.118,2.933l10.896,2.933l4.67,1.466L613.359,251.493z" />
     <path
         android:fillColor="@color/bairro_itaperi"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M393.099,419.392l5.448,8.062l0.778,1.466l0.778,0.736l1.556,1.466
 l0.778,1.466l0.778,0.73l1.557,0.736l1.556,1.466l2.335,0.73l2.335,0.736l1.557,1.463l3.113,1.466l3.113,1.466l3.895,2.2
@@ -279,7 +279,7 @@ h-0.778h-0.778h-0.778l-0.778-0.733h-0.778h-0.778h-0.778h-0.782h-0.775v0.733v-8.0
 l11.674-12.464l17.9-21.26l13.234,8.065l17.122,8.795l19.457,9.535L393.099,419.392z" />
     <path
         android:fillColor="@color/bairro_vila_peri"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M215.646,483.911h-13.231l-6.229-0.736h-3.113h-8.561v-5.863
 l-6.226,7.332l-1.557,0.733l-3.113,3.663l-0.778,0.736l-7.783,8.062l-8.561,8.798l-2.335,2.203l-0.778,0.73l-3.891,3.666
@@ -295,7 +295,7 @@ l-0.778,0.733v0.733v0.733l-0.778,0.733v0.733v0.733v0.733v0.733v0.733l-0.778,0.73
 v1.466v1.466v1.466v0.733v2.2v0.733l-0.778,2.2v1.466v2.199V483.911z" />
     <path
         android:fillColor="@color/bairro_parangaba"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M347.959,291.816v0.736l0.775,0.73v2.203v0.73l-0.775,0.736v1.466
 v1.466l-0.782,1.466l-1.556,4.399l-1.557,4.396l-3.113,9.532l-3.113,8.798l-3.11,7.332v1.466l-0.782,1.466v0.733l-0.778,1.466
@@ -323,7 +323,7 @@ l3.113-10.265l2.335-3.669l3.891-4.396l7.786-4.399l3.888-4.399l9.343-13.931l9.339
 l5.451,2.2v0.73V291.816z" />
     <path
         android:fillColor="@color/bairro_itaoca"
-        android:strokeColor="@color/white"
+        android:strokeColor="@color/branco"
         android:strokeWidth="0.2517"
         android:pathData="M429.681,319.677l-6.229,16.13l-2.332,7.332l-3.113,7.332
 l-3.116,8.065v1.466l-2.335,6.599l-3.11,8.065l-3.895-1.466l-3.891-0.733l-5.448-2.2l-5.448-1.466l-1.557-0.733h-0.778
