@@ -5,6 +5,7 @@ package br.com.aio.activity;
  */
 
 import android.Manifest;
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,12 +18,14 @@ import android.os.ResultReceiver;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +61,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Context mContext;
     private TextView mLocationMarkerText;
     private LatLng mCenterLatLong;
-
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     /**
      * Receiver registered with this activity to get the response from FetchAddressIntentService.
@@ -73,8 +76,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected String mStateOutput;
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     private RobotoTextView nomePagina ;
-    private FloatingActionButton mLocationFab ;
 
+    FloatingActionButton fab, fabDigitar, fabCasa, fabTrabalho, fabMinhaLocalizacao, fabAdicionar;
+    LinearLayout fabLayoutDigitar, fabLayoutCasa, fabLayoutTrabalho, fabLayoutMinhaLocalizacao, fabLayoutAdicionar;
+    View fabBGLayout;
+    boolean isFABOpen=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +89,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mLocationFab = (FloatingActionButton) findViewById(R.id.Locality);
         mLocationMarkerText = (TextView) findViewById(R.id.locationMarkertext);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -96,16 +101,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         nomePagina.setText("Sua Localização");
         actionBar.setCustomView(v);
 
-        mLocationFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                openAutocompleteActivity();
-
-            }
-
-
-        });
         mapFragment.getMapAsync(this);
         mResultReceiver = new AddressResultReceiver(new Handler());
 
@@ -138,6 +133,106 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Toast.makeText(mContext, "Location not supported in this device", Toast.LENGTH_SHORT).show();
         }
 
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission. ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permition")
+                        .setMessage("Location Permition")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(MapsActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+        }
+        fabLayoutDigitar = (LinearLayout) findViewById(R.id.fabLayoutDigitar);
+        fabLayoutCasa = (LinearLayout) findViewById(R.id.fabLayoutCasa);
+        fabLayoutTrabalho = (LinearLayout) findViewById(R.id.fabLayoutTrabalho);
+        fabLayoutMinhaLocalizacao = (LinearLayout) findViewById(R.id.fabLayoutMinhaLocalizacao);
+        fabLayoutAdicionar = (LinearLayout) findViewById(R.id.fabLayoutAdicionar);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fabDigitar = (FloatingActionButton) findViewById(R.id.fab_digitar);
+        fabCasa = (FloatingActionButton) findViewById(R.id.fab_casa);
+        fabTrabalho = (FloatingActionButton) findViewById(R.id.fab_trabalho);
+        fabMinhaLocalizacao = (FloatingActionButton) findViewById(R.id.fab_minha_localizacao);
+        fabAdicionar = (FloatingActionButton) findViewById(R.id.fab_adicionar);
+        fabBGLayout=findViewById(R.id.fabBGLayout);
+        fabDigitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAutocompleteActivity();
+            }
+        });
+        fabTrabalho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Location trabalho = new Location("");
+                trabalho.setLatitude(-3.736912);
+                trabalho.setLongitude(-38.494797);
+                changeMap(trabalho);
+                closeFABMenu();
+            }
+        });
+        fabMinhaLocalizacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                        mGoogleApiClient);
+                if (mLastLocation != null) {
+                    changeMap(mLastLocation);
+                }
+                closeFABMenu();
+            }
+        });
+        fabCasa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Location casa = new Location("");
+                casa.setLatitude(-3.741395);
+                casa.setLongitude(-38.499196);
+                changeMap(casa);
+                closeFABMenu();
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isFABOpen){
+                    showFABMenu();
+                }else{
+                    closeFABMenu();
+                }
+            }
+        });
+
+        fabBGLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeFABMenu();
+            }
+        });
     }
 
 
@@ -183,6 +278,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -423,6 +519,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         try {
             // The autocomplete activity requires Google Play Services to be available. The intent
             // builder checks this and throws an exception if it is not the case.
+            closeFABMenu();
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
                     .build(this);
             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
@@ -461,8 +558,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                 latLong = place.getLatLng();
-
-                //mLocationText.setText(place.getName() + "");
+                mStateOutput = place.getName() +" - "+  place.getAddress();
+                mLocationMarkerText.setText(mStateOutput);
 
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(latLong).zoom(19f).tilt(70).build();
@@ -493,5 +590,67 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    private void showFABMenu(){
+        isFABOpen=true;
+        fabLayoutDigitar.setVisibility(View.VISIBLE);
+        fabLayoutCasa.setVisibility(View.VISIBLE);
+        fabLayoutTrabalho.setVisibility(View.VISIBLE);
+        fabLayoutMinhaLocalizacao.setVisibility(View.VISIBLE);
+        fabLayoutAdicionar.setVisibility(View.VISIBLE);
+        fabBGLayout.setVisibility(View.VISIBLE);
+
+        fab.animate().rotationBy(180);
+        fabLayoutDigitar.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+        fabLayoutCasa.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
+        fabLayoutTrabalho.animate().translationY(-getResources().getDimension(R.dimen.standard_145));
+        fabLayoutMinhaLocalizacao.animate().translationY(-getResources().getDimension(R.dimen.standard_190));
+        fabLayoutAdicionar.animate().translationY(-getResources().getDimension(R.dimen.standard_235));
+    }
+
+    private void closeFABMenu(){
+        isFABOpen=false;
+        fabBGLayout.setVisibility(View.GONE);
+        fab.animate().rotationBy(-180);
+        fabLayoutDigitar.animate().translationY(0);
+        fabLayoutCasa.animate().translationY(0);
+        fabLayoutTrabalho.animate().translationY(0);
+        fabLayoutMinhaLocalizacao.animate().translationY(0);
+        fabLayoutAdicionar.animate().translationY(0).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if(!isFABOpen){
+                    fabLayoutDigitar.setVisibility(View.GONE);
+                    fabLayoutCasa.setVisibility(View.GONE);
+                    fabLayoutTrabalho.setVisibility(View.GONE);
+                    fabLayoutMinhaLocalizacao.setVisibility(View.GONE);
+                    fabLayoutAdicionar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isFABOpen){
+            closeFABMenu();
+        }else{
+            super.onBackPressed();
+        }
+    }
 
 }

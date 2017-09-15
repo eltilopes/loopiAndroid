@@ -43,6 +43,12 @@
     <string name="pedirConvite">PEDIR CONVITE</string>
     <string name="sair">SAIR</string>
 
+    <string name="casa">Casa</string>
+    <string name="trabalho">Trabalho</string>
+    <string name="digitar">Digitar</string>
+    <string name="atual">Atual</string>
+    <string name="adicionar">Adicionar</string>
+
     <string name="meuPerfil">Meu Perfil</string>
     <string name="receberNotificacoes">Receber Notificações</string>
     <string name="indicadoPor">Indicado por</string>
@@ -78,6 +84,7 @@
     <string name="categoria">CATEGORIA</string>
     <string name="title_profissional">PROFISSIONAL</string>
     <string name="localizacao">Localização</string>
+    <string name="minha_localizacao">Minha Localização</string>
     <string name="crie_anuncio">Crie seu Anúncio</string>
     <string name="anexe_documentos">Anexe Documentos</string>
     <string name="cash_back_friend">CashBack Friend</string>
