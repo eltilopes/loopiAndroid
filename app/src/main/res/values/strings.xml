@@ -136,6 +136,7 @@
     <string name="material_icon_friends">&#xe8d5;</string>
     <string name="material_icon_flag">&#xe96a;</string>
     <string name="material_icon_favorite">&#xe9b6;</string>
+    <string name="material_icon_favorite_border">&#x2661;</string>
     <string name="material_icon_go">&#xea04;</string>
     <string name="material_icon_home_variant">&#xe9bd;</string>
     <string name="material_icon_home">&#xe9be;</string>
