@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
-import br.com.aio.adapter.FeedItem;
+import br.com.aio.adapter.ServicoCard;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.fonts.RobotoTextView;
 
@@ -37,7 +37,7 @@ import br.com.aio.fonts.RobotoTextView;
 public class MeusPedidosActivity extends AppCompatActivity {
 
     private static final String TAG = "RecyclerViewExample";
-    private List<FeedItem> feedsList;
+    private List<ServicoCard> feedsList;
     private RobotoTextView nomePagina ;
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
@@ -124,14 +124,14 @@ public class MeusPedidosActivity extends AppCompatActivity {
 
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
-                FeedItem item = new FeedItem();
+                ServicoCard item = new ServicoCard();
                 item.setTitle(post.optString("title"));
                 item.setThumbnail(post.optString("thumbnail"));
                 feedsList.add(item);
             }
             feedsList.isEmpty();
             feedsList.clear();
-            feedsList.addAll(FeedItem.getFeeds());
+            feedsList.addAll(ServicoCard.getFeeds());
         } catch (JSONException e) {
             e.printStackTrace();
         }

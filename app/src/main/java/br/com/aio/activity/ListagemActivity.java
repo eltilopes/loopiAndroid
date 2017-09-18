@@ -47,7 +47,7 @@ import java.util.List;
 
 import br.com.aio.R;
 import br.com.aio.adapter.CustomSpinnerAdapter;
-import br.com.aio.adapter.FeedItem;
+import br.com.aio.adapter.ServicoCard;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.listener.RecyclerItemClickListener;
@@ -56,7 +56,7 @@ public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "RecyclerViewExample";
-    private List<FeedItem> feedsList;
+    private List<ServicoCard> feedsList;
     private RecyclerView mRecyclerView;
     private MyRecyclerViewAdapter adapter;
     private ProgressBar progressBar;
@@ -310,14 +310,14 @@ public class ListagemActivity extends AppCompatActivity
 
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
-                FeedItem item = new FeedItem();
+                ServicoCard item = new ServicoCard();
                 item.setTitle(post.optString("title"));
                 item.setThumbnail(post.optString("thumbnail"));
                 feedsList.add(item);
             }
             feedsList.isEmpty();
             feedsList.clear();
-            feedsList.addAll(FeedItem.getFeeds());
+            feedsList.addAll(ServicoCard.getFeeds());
         } catch (JSONException e) {
             e.printStackTrace();
         }

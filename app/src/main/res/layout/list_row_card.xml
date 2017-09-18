@@ -110,7 +110,6 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/stars"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left|bottom"
@@ -118,74 +117,83 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
-
-                <br.com.aio.fonts.MaterialDesignIconsTextView
-                    android:id="@+id/list_item_google_cards_media_like_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:padding="2dp"
-                    android:text="@string/material_icon_star_border"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp" />
-
-                <br.com.aio.fonts.MaterialDesignIconsTextView
-                    android:id="@+id/list_item_google_cards_media_like_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:padding="2dp"
-                    android:text="@string/material_icon_star_border"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp" />
-
-                <br.com.aio.fonts.MaterialDesignIconsTextView
-                    android:id="@+id/list_item_google_cards_media_like_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:padding="2dp"
-                    android:text="@string/material_icon_star_border"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp" />
-
-                <br.com.aio.fonts.MaterialDesignIconsTextView
-                    android:id="@+id/list_item_google_cards_media_like_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:padding="2dp"
-                    android:text="@string/material_icon_star"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp" />
-
-                <br.com.aio.fonts.MaterialDesignIconsTextView
-                    android:id="@+id/list_item_google_cards_media_like_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:padding="2dp"
-                    android:text="@string/material_icon_star"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp" />
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/stars"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="bottom|right"
-                    android:layout_gravity="bottom|right"
-                    android:orientation="horizontal" >
+                    android:gravity="left|bottom"
+                    android:layout_gravity="left|bottom"
+                    android:orientation="horizontal">
 
-
-                    <ImageView
-                        android:id="@+id/card_like"
+                    <br.com.aio.fonts.MaterialDesignIconsTextView
+                        android:id="@+id/card_estrela_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
                         android:padding="2dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_favorite_full"/>
+                        android:text="@string/material_icon_star_border"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16dp" />
+
+                    <br.com.aio.fonts.MaterialDesignIconsTextView
+                        android:id="@+id/card_estrela_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:padding="2dp"
+                        android:text="@string/material_icon_star_border"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16dp" />
+
+                    <br.com.aio.fonts.MaterialDesignIconsTextView
+                        android:id="@+id/card_estrela_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:padding="2dp"
+                        android:text="@string/material_icon_star_border"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16dp" />
+
+                    <br.com.aio.fonts.MaterialDesignIconsTextView
+                        android:id="@+id/card_estrela_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:padding="2dp"
+                        android:text="@string/material_icon_star"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16dp" />
+
+                    <br.com.aio.fonts.MaterialDesignIconsTextView
+                        android:id="@+id/card_estrela_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:padding="2dp"
+                        android:text="@string/material_icon_star"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|right"
+                        android:layout_gravity="bottom|right"
+                        android:orientation="horizontal" >
+
+
+                        <ImageView
+                            android:id="@+id/card_favorito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:padding="2dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_favorite_full"/>
+                        </LinearLayout>
                     </LinearLayout>
             </LinearLayout>
         </LinearLayout>

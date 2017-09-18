@@ -178,7 +178,7 @@
                                         android:textSize="14dp" />
 
                                     <br.com.aio.fonts.MaterialDesignIconsTextView
-                                        android:id="@+id/list_item_google_cards_media_like_5"
+                                        android:id="@+id/card_estrela_5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="0dp"
