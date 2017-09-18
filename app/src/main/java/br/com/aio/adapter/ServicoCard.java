@@ -14,6 +14,9 @@ public class ServicoCard {
     private String categoria;
     private String subCategoria;
     private String especialidade;
+    private Double preco;
+    private String distancia;
+    private Integer tempo;
     private Integer estrelas;
     private Boolean favorito;
 
@@ -74,9 +77,34 @@ public class ServicoCard {
         this.favorito = favorito;
     }
 
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(String distancia) {
+        this.distancia = distancia;
+    }
+
+    public Integer getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(Integer tempo) {
+        this.tempo = tempo;
+    }
+
     public ServicoCard(){}
 
-    public ServicoCard(String title, String thumbnail,String categoria,String subCategoria,String especialidade,Integer estrelas,Boolean favorito){
+    public ServicoCard(String title, String thumbnail,String categoria,String subCategoria,String especialidade,
+                       Integer estrelas,Boolean favorito,Double preco, String distancia ,Integer tempo){
         setTitle(title);
         setThumbnail(thumbnail);
         setCategoria(categoria);
@@ -84,6 +112,9 @@ public class ServicoCard {
         setEspecialidade(especialidade);
         setFavorito(favorito);
         setEstrelas(estrelas);
+        setTempo(tempo);
+        setPreco(preco);
+        setDistancia(distancia);
     }
 
     public static List<ServicoCard> getFeeds(){
@@ -94,13 +125,20 @@ public class ServicoCard {
 //        ServicoCard servicoCard5 = new ServicoCard("Médica" ,"http://www.medicel.com.br/galeria/noticia/49/thumb_20141020113329168.jpg");
 //        ServicoCard servicoCard6 = new ServicoCard("Entrega Água" ,"https://static9.depositphotos.com/1051435/1221/i/950/depositphotos_12217291-stock-photo-bottled-water-delivery-service.jpg");
         List<ServicoCard> lista = new ArrayList<ServicoCard>();
-        lista.add(new ServicoCard("Eduardo Turma","http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png","Direito","Advogado","Trabalhista",4,true));
-        lista.add(new ServicoCard("Lucia Alves","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm2E2fsLZZuoVqHKAuGt4wnedIjS8wxgHC5QobZpHAJLDpAJxqlQ","Estética","Manicure","",2,false));
-        lista.add(new ServicoCard("Fernanda Reis","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj64LmoyztSuU8vYyiVh4WimnAUM_FjCKR1ChzTYsUNdIf8TnZ","Saúde","Médica","Pediatra",5,true));
-        lista.add(new ServicoCard("Ana Maria","https://st2.depositphotos.com/1465849/9046/i/950/depositphotos_90464920-stock-photo-beautiful-blonde-doctor-in-white.jpg","Saúde","Médica","Nutricionista",5,true));
-        lista.add(new ServicoCard("Cláudia Bertran","http://1.bp.blogspot.com/-7zZcgKxners/UgpFo_8xyuI/AAAAAAAAFvA/rSVWUtn0NuE/s1600/3.jpg","Saúde","Médica","Ginecologista",4,false));
-        lista.add(new ServicoCard("Antônio José","https://s3-media1.fl.yelpcdn.com/bphoto/Ne2scwgWQNzAD0x0rrag3Q/258s.jpg","Geral","Elétrica","Casa",3,true));
-        lista.add(new ServicoCard("Mercadinho","https://static9.depositphotos.com/1051435/1221/i/950/depositphotos_12217291-stock-photo-bottled-water-delivery-service.jpg","Alimentação","Água","",2,false));
+        lista.add(new ServicoCard("Eduardo Turma","http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png","Direito","Advogado","Trabalhista",4,
+                true,200D, "Guararapes - 0,1Km", 2));
+        lista.add(new ServicoCard("Lucia Alves","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm2E2fsLZZuoVqHKAuGt4wnedIjS8wxgHC5QobZpHAJLDpAJxqlQ","Estética","Manicure","",2,
+                false,120D, "Aldeota - 0,2Km", 4));
+        lista.add(new ServicoCard("Fernanda Reis","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj64LmoyztSuU8vYyiVh4WimnAUM_FjCKR1ChzTYsUNdIf8TnZ","Saúde","Médica","Pediatra",5,
+                true,90D, "Aldeota - 0,7Km", 15));
+        lista.add(new ServicoCard("Ana Maria","https://st2.depositphotos.com/1465849/9046/i/950/depositphotos_90464920-stock-photo-beautiful-blonde-doctor-in-white.jpg","Saúde","Médica","Nutricionista",5,
+                true,145D, "Varjota - 1Km", 16));
+        lista.add(new ServicoCard("Cláudia Bertran","http://1.bp.blogspot.com/-7zZcgKxners/UgpFo_8xyuI/AAAAAAAAFvA/rSVWUtn0NuE/s1600/3.jpg","Saúde","Médica","Ginecologista",4,
+                false,120D, "Centro - 2Km", 26));
+        lista.add(new ServicoCard("Antônio José","https://s3-media1.fl.yelpcdn.com/bphoto/Ne2scwgWQNzAD0x0rrag3Q/258s.jpg","Geral","Elétrica","Casa",3,
+                true,60D, "Edson Q. - 0,8Km", 15));
+        lista.add(new ServicoCard("Mercadinho","https://static9.depositphotos.com/1051435/1221/i/950/depositphotos_12217291-stock-photo-bottled-water-delivery-service.jpg","Alimentação","Água","",2,
+                false,10D, "Aldeota - 0,2Km", 4));
 
         return lista;
 

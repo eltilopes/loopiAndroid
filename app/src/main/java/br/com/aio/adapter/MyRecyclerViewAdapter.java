@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import br.com.aio.R;
@@ -52,6 +53,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         //Setting text view title
         customViewHolder.title.setText(Html.fromHtml(servicoCard.getTitle()));
         customViewHolder.categoria.setText(Html.fromHtml(servicoCard.getCategoria()));
+        customViewHolder.preco.setText(Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
+        customViewHolder.tempo.setText(Html.fromHtml("Em até " +servicoCard.getTempo()+ "min."));
+        customViewHolder.localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         customViewHolder.subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria()));
         customViewHolder.especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade()));
         customViewHolder.favorito.setImageResource(servicoCard.getFavorito()? R.drawable.ic_favorite_full : R.drawable.ic_favorite_empty);
@@ -75,6 +79,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         protected TextView categoria;
         protected TextView subCategoria;
         protected TextView especialidade;
+        protected TextView tempo;
+        protected TextView localizacao;
+        protected TextView preco;
         protected MaterialDesignIconsTextView estrela1;
         protected MaterialDesignIconsTextView estrela2;
         protected MaterialDesignIconsTextView estrela3;
@@ -86,6 +93,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             this.thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             this.title = (TextView) view.findViewById(R.id.title);
             this.categoria = (TextView) view.findViewById(R.id.card_categoria);
+            this.tempo = (TextView) view.findViewById(R.id.card_tempo);
+            this.localizacao = (TextView) view.findViewById(R.id.card_localizacao);
+            this.preco = (TextView) view.findViewById(R.id.card_preco);
             this.subCategoria = (TextView) view.findViewById(R.id.card_sub_categoria);
             this.especialidade = (TextView) view.findViewById(R.id.card_especialidade);
             this.favorito = (ImageView) view.findViewById(R.id.card_favorito);
