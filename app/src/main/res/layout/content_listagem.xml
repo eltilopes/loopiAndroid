@@ -36,7 +36,7 @@
                     android:id="@+id/relativeLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/main_color_grey_100"
+                    android:background="@color/backgroundLayout"
                     android:layout_below="@id/activity_transition_header">
 
                     <LinearLayout

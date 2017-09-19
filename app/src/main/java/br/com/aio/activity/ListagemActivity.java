@@ -50,6 +50,7 @@ import br.com.aio.adapter.CustomSpinnerAdapter;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.adapter.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
+import br.com.aio.utils.BundleUtils;
 
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MyRecyclerViewAdapter.OnRecyclerViewItemClickListener {
@@ -121,8 +122,9 @@ public class ListagemActivity extends AppCompatActivity
         fecharMenu();
     }
 
-    private void abrirPedido() {
+    private void abrirPedido(ServicoCard servicoCard) {
         Intent newActivity = new Intent(ListagemActivity.this, SolicitarPedidoActivity.class);
+        newActivity.putExtra(BundleUtils.SERVICO_CARD, servicoCard);
         startActivity(newActivity);
     }
 
@@ -253,7 +255,7 @@ public class ListagemActivity extends AppCompatActivity
                 adapter.addItem(servicoCard,position);
                 break;
             case idCard:
-                abrirPedido();
+                abrirPedido(servicoCard);
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package br.com.aio.adapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by elton on 24/07/2017.
  */
 
-public class ServicoCard {
+public class ServicoCard implements Serializable {
 
     private Long id;
     private String title;
@@ -152,4 +153,5 @@ public class ServicoCard {
         return lista;
 
     }
+
 }
