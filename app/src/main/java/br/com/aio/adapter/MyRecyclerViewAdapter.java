@@ -1,6 +1,7 @@
 package br.com.aio.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import br.com.aio.R;
+import br.com.aio.activity.ListagemActivity;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 
 /**
@@ -25,22 +27,40 @@ import br.com.aio.fonts.MaterialDesignIconsTextView;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.CustomViewHolder> {
     private List<ServicoCard> servicoCardList;
     private Context mContext;
+    private OnRecyclerViewItemClickListener listener;
 
+    public interface OnRecyclerViewItemClickListener {
+        public void onRecyclerViewItemClicked(int position, int id);
+    }
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener)
+    {
+        this.listener = listener;
+    }
     public MyRecyclerViewAdapter(Context context, List<ServicoCard> servicoCardList) {
         this.servicoCardList = servicoCardList;
         this.mContext = context;
     }
 
+    public void addItem(ServicoCard servicoCard, int index) {
+        servicoCardList.add(index, servicoCard);
+        notifyItemInserted(index);
+    }
+
+    public void deleteItem(int index) {
+        servicoCardList.remove(index);
+        notifyItemRemoved(index);
+    }
+
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_row_card, null);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_row_card,null);
         CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
-        ServicoCard servicoCard = servicoCardList.get(i);
+    public void onBindViewHolder(CustomViewHolder customViewHolder, final int i) {
+        final ServicoCard servicoCard = servicoCardList.get(i);
 
         //Render image using Picasso library
         if (!TextUtils.isEmpty(servicoCard.getThumbnail())) {
@@ -65,6 +85,22 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         customViewHolder.estrela4.setText(servicoCard.getEstrelas()>3? R.string.material_icon_star : R.string.material_icon_star_border);
         customViewHolder.estrela5.setText(servicoCard.getEstrelas()>4? R.string.material_icon_star : R.string.material_icon_star_border);
 
+        customViewHolder.favorito.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onRecyclerViewItemClicked(i, v.getId());
+            }
+        });
+        customViewHolder.cardServico.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onRecyclerViewItemClicked(i, ListagemActivity.idCard);
+            }
+        });
     }
 
     @Override
@@ -72,24 +108,26 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return (null != servicoCardList ? servicoCardList.size() : 0);
     }
 
-    class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected ImageView thumbnail;
-        protected ImageView favorito;
-        protected TextView title;
-        protected TextView categoria;
-        protected TextView subCategoria;
-        protected TextView especialidade;
-        protected TextView tempo;
-        protected TextView localizacao;
-        protected TextView preco;
-        protected MaterialDesignIconsTextView estrela1;
-        protected MaterialDesignIconsTextView estrela2;
-        protected MaterialDesignIconsTextView estrela3;
-        protected MaterialDesignIconsTextView estrela4;
-        protected MaterialDesignIconsTextView estrela5;
+    class  CustomViewHolder extends RecyclerView.ViewHolder  {
+        CardView cardServico;
+        ImageView thumbnail;
+        ImageView favorito;
+        TextView title;
+        TextView categoria;
+        TextView subCategoria;
+        TextView especialidade;
+        TextView tempo;
+        TextView localizacao;
+        TextView preco;
+        MaterialDesignIconsTextView estrela1;
+        MaterialDesignIconsTextView estrela2;
+        MaterialDesignIconsTextView estrela3;
+        MaterialDesignIconsTextView estrela4;
+        MaterialDesignIconsTextView estrela5;
 
         public CustomViewHolder(View view) {
             super(view);
+            this.cardServico = (CardView) view.findViewById(R.id.card_servico);
             this.thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             this.title = (TextView) view.findViewById(R.id.title);
             this.categoria = (TextView) view.findViewById(R.id.card_categoria);
@@ -104,6 +142,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             this.estrela3 = (MaterialDesignIconsTextView) view.findViewById(R.id.card_estrela_3);
             this.estrela4 = (MaterialDesignIconsTextView) view.findViewById(R.id.card_estrela_4);
             this.estrela5 = (MaterialDesignIconsTextView) view.findViewById(R.id.card_estrela_5);
+
         }
+
+
     }
 }

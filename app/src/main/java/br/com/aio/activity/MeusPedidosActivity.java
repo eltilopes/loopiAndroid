@@ -131,7 +131,7 @@ public class MeusPedidosActivity extends AppCompatActivity {
             }
             feedsList.isEmpty();
             feedsList.clear();
-            feedsList.addAll(ServicoCard.getFeeds());
+            feedsList.addAll(ServicoCard.getServicos());
         } catch (JSONException e) {
             e.printStackTrace();
         }

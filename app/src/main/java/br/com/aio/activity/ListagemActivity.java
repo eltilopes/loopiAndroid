@@ -47,16 +47,16 @@ import java.util.List;
 
 import br.com.aio.R;
 import br.com.aio.adapter.CustomSpinnerAdapter;
-import br.com.aio.adapter.ServicoCard;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.adapter.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
-import br.com.aio.listener.RecyclerItemClickListener;
 
 public class ListagemActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MyRecyclerViewAdapter.OnRecyclerViewItemClickListener {
 
     private static final String TAG = "RecyclerViewExample";
-    private List<ServicoCard> feedsList;
+    public static final int idCard = -1;
+    private List<ServicoCard> servicoCards;
     private RecyclerView mRecyclerView;
     private MyRecyclerViewAdapter adapter;
     private ProgressBar progressBar;
@@ -107,23 +107,13 @@ public class ListagemActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, mRecyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        abrirPedido();
-                    }
-
-                    @Override public void onLongItemClick(View view, int position) {
-                        abrirPedido();
-                    }
-                })
-        );
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         String url = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
         new DownloadTask().execute(url);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
     }
+
 
     private void abrirMeuPerfil() {
         Intent newActivity = new Intent(ListagemActivity.this, MeuPerfilActivity.class);
@@ -253,6 +243,21 @@ public class ListagemActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    public void onRecyclerViewItemClicked(int position, int id) {
+        ServicoCard servicoCard = servicoCards.get(position);
+        switch(id) {
+            case R.id.card_favorito:
+                servicoCard.setFavorito(!servicoCard.getFavorito());
+                adapter.deleteItem(position);
+                adapter.addItem(servicoCard,position);
+                break;
+            case idCard:
+                abrirPedido();
+                break;
+        }
+    }
+
     public class DownloadTask extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -293,8 +298,9 @@ public class ListagemActivity extends AppCompatActivity
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                adapter = new MyRecyclerViewAdapter(ListagemActivity.this, feedsList);
+                adapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards);
                 mRecyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(ListagemActivity.this);
             } else {
                 Toast.makeText(ListagemActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
@@ -306,18 +312,18 @@ public class ListagemActivity extends AppCompatActivity
         try {
             JSONObject response = new JSONObject(result);
             JSONArray posts = response.optJSONArray("posts");
-            feedsList = new ArrayList<>();
+            servicoCards = new ArrayList<>();
 
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
                 ServicoCard item = new ServicoCard();
                 item.setTitle(post.optString("title"));
                 item.setThumbnail(post.optString("thumbnail"));
-                feedsList.add(item);
+                servicoCards.add(item);
             }
-            feedsList.isEmpty();
-            feedsList.clear();
-            feedsList.addAll(ServicoCard.getFeeds());
+            servicoCards.isEmpty();
+            servicoCards.clear();
+            servicoCards.addAll(ServicoCard.getServicos());
         } catch (JSONException e) {
             e.printStackTrace();
         }
