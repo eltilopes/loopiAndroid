@@ -178,6 +178,7 @@ public class ListagemActivity extends AppCompatActivity
 
             }
         });
+        spinner.performClick();
         CheckBox checkboxDistancia = (CheckBox) dialogMostrarFiltro.findViewById(R.id.checkbox_distancia);
         checkboxDistancia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +235,6 @@ public class ListagemActivity extends AppCompatActivity
 
             }
         });
-
     }
 
     private void setButtonCategoria() {

@@ -55,7 +55,7 @@
     <!-- Default application theme ends here -->
     <style name="MySpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="android:popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
+        <item name="android:popupMenuStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
     </style>
 
     <!-- ActionBar related themes -->

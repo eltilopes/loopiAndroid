@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_alignBottom="@+id/actions"
-                    android:background="@color/divider_color"
+                    android:background="@color/colorButtonHeader"
                     android:transitionName="holder1" />
 
                 <RelativeLayout
@@ -67,29 +67,41 @@
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorButtonHeader"
                     android:gravity="center"
                     android:orientation="horizontal">
-
-
-                    <include
-                        android:id="@+id/button_categoria"
-                        layout="@layout/button_categoria"
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
 
                     <include
                         android:id="@+id/button_sub_categoria"
                         layout="@layout/button_sub_categoria"
-                        android:layout_width="0dip"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/branco" />
+
+                    <include
+                        android:id="@+id/button_categoria"
+                        layout="@layout/button_categoria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/branco" />
 
                     <include
                         android:id="@+id/button_filtro"
                         layout="@layout/button_filtro"
-                        android:layout_width="0dip"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
@@ -100,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="1dp"
                     android:layout_alignBottom="@+id/actions"
-                    android:background="@color/colorPrimary" />
+                    android:background="@color/colorButtonHeader" />
             </RelativeLayout>
         </FrameLayout>
 

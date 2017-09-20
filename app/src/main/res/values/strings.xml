@@ -84,6 +84,7 @@
     <string name="categoria">CATEGORIA</string>
     <string name="title_profissional">PROFISSIONAL</string>
     <string name="localizacao">Localização</string>
+    <string name="para_onde">Para onde?</string>
     <string name="minha_localizacao">Minha Localização</string>
     <string name="crie_anuncio">Crie seu Anúncio</string>
     <string name="anexe_documentos">Anexe Documentos</string>
@@ -97,6 +98,7 @@
     <string name="nova_solicitacao">NOVA SOLICITAÇÃO</string>
 
     <string name="saldo">Saldo CashBack</string>
+    <string name="cashback_gerado">CashBack gerado R$ 3.58</string>
     <string name="cartao_credito">Cartão Crédito</string>
     <string name="total">Total</string>
     <string name="usar_saldo">Usar Saldo CashBack</string>
