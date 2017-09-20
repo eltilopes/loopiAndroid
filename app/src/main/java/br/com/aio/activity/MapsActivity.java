@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -50,8 +51,14 @@ import com.google.android.gms.maps.model.LatLng;
 
 import br.com.aio.R;
 import br.com.aio.adapter.AppUtils;
+import br.com.aio.entity.Localizacao;
+import br.com.aio.enumeration.TipoLocalizacao;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.listener.FetchAddressIntentService;
+import br.com.aio.utils.SessionUtils;
+
+import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private GoogleMap mMap;
@@ -76,19 +83,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected String mStateOutput;
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     private RobotoTextView nomePagina ;
+    private Localizacao localizacao;
+    private FloatingActionButton mNavigationFab;
+    private SharedPreferences mPrefs;
+    private Class activityAnterior;
 
     FloatingActionButton fab, fabDigitar, fabCasa, fabTrabalho, fabMinhaLocalizacao, fabAdicionar;
     LinearLayout fabLayoutDigitar, fabLayoutCasa, fabLayoutTrabalho, fabLayoutMinhaLocalizacao, fabLayoutAdicionar;
     View fabBGLayout;
     boolean isFABOpen=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         mContext = this;
+        mPrefs = getSharedPreferences(PREFS_NAME, 0);
+        activityAnterior = SessionUtils.getActivityAnterior(mPrefs);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        mNavigationFab = (FloatingActionButton) findViewById(R.id.fab_navigation);
         mLocationMarkerText = (TextView) findViewById(R.id.locationMarkertext);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -100,7 +115,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
         nomePagina.setText("Sua Localização");
         actionBar.setCustomView(v);
-
+        mNavigationFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirActivity();
+            }
+        });
         mapFragment.getMapAsync(this);
         mResultReceiver = new AddressResultReceiver(new Handler());
 
@@ -192,6 +212,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 trabalho.setLatitude(-3.736912);
                 trabalho.setLongitude(-38.494797);
                 changeMap(trabalho);
+                localizacao.setTipoLocalizacao(TipoLocalizacao.TRABALHO);
                 closeFABMenu();
             }
         });
@@ -213,6 +234,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 casa.setLatitude(-3.741395);
                 casa.setLongitude(-38.499196);
                 changeMap(casa);
+                localizacao.setTipoLocalizacao(TipoLocalizacao.CASA);
                 closeFABMenu();
             }
         });
@@ -226,13 +248,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
-
         fabBGLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 closeFABMenu();
             }
         });
+    }
+
+    private void abrirActivity() {
+        SessionUtils.setLocalizacaoMapa(mPrefs,localizacao);
+        SessionUtils.setActivityAnterior(mPrefs,ACTIVITY_MAPS);
+        Intent intent = new Intent(MapsActivity.this,activityAnterior);
+        startActivity(intent);
     }
 
 
@@ -273,6 +301,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     startIntentService(mLocation);
                     if (mStateOutput != null) mLocationMarkerText.setText(mStateOutput);
+                    localizacao = new Localizacao(1L,mStateOutput,mLocation.getLatitude(),mLocation.getLongitude());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -445,6 +474,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .newCameraPosition(cameraPosition));
 
             if (mStateOutput != null) mLocationMarkerText.setText(mStateOutput);
+            localizacao = new Localizacao(1L,mStateOutput,location.getLatitude(),location.getLongitude());
             startIntentService(location);
 
 
@@ -560,7 +590,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 latLong = place.getLatLng();
                 mStateOutput = place.getName() +" - "+  place.getAddress();
                 mLocationMarkerText.setText(mStateOutput);
-
+                localizacao = new Localizacao(1L,mStateOutput,latLong.latitude,latLong.longitude);
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(latLong).zoom(19f).tilt(70).build();
 

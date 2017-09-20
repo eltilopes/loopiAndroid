@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -49,8 +50,15 @@ import br.com.aio.R;
 import br.com.aio.adapter.CustomSpinnerAdapter;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.adapter.ServicoCard;
+import br.com.aio.entity.Localizacao;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
-import br.com.aio.utils.BundleUtils;
+import br.com.aio.utils.SessionUtils;
+import br.com.aio.utils.ToastUtils;
+
+import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
+import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
+import static br.com.aio.utils.BundleUtils.SERVICO_CARD;
 
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MyRecyclerViewAdapter.OnRecyclerViewItemClickListener {
@@ -71,23 +79,24 @@ public class ListagemActivity extends AppCompatActivity
     private SearchView.OnQueryTextListener queryTextListener;
     private SearchView searchView;
     private Spinner spinnerCategoria;
+    private SharedPreferences mPrefs;
+    private Localizacao localizacaoMapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
+        mPrefs = getSharedPreferences(PREFS_NAME, 0);
         setButtonFiltro();
         setButtonCategoria();
         setButtonSubCategoria();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
         nomeUsuario = (TextView) header.findViewById(R.id.nome_usuario);
@@ -113,6 +122,10 @@ public class ListagemActivity extends AppCompatActivity
         new DownloadTask().execute(url);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
+        if(ACTIVITY_MAPS.equals(SessionUtils.getNomeActivityAnterior(mPrefs))){
+            localizacaoMapa = SessionUtils.getLocalizacaoMapa(mPrefs);
+            ToastUtils.show(this,getResources().getString(R.string.localizacao) + ": " + localizacaoMapa.getNome(), ToastUtils.INFORMATION);
+        }
     }
 
 
@@ -123,8 +136,9 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     private void abrirPedido(ServicoCard servicoCard) {
+        SessionUtils.setServicoCard(mPrefs,servicoCard);
         Intent newActivity = new Intent(ListagemActivity.this, SolicitarPedidoActivity.class);
-        newActivity.putExtra(BundleUtils.SERVICO_CARD, servicoCard);
+        newActivity.putExtra(SERVICO_CARD, servicoCard);
         startActivity(newActivity);
     }
 
@@ -409,6 +423,7 @@ public class ListagemActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_location) {
+            SessionUtils.setActivityAnterior(mPrefs, ACTIVITY_LISTAGEM);
             Intent newActivity = new Intent(ListagemActivity.this, MapsActivity.class);
             startActivity(newActivity);
             return true;

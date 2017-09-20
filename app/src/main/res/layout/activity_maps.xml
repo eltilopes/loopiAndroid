@@ -86,7 +86,27 @@
                         android:src="@drawable/icon_gps_fixed_black_36x36" />
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:gravity="center|bottom">
 
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab_navigation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:layout_margin="23dp"
+                        app:backgroundTint="@color/material_cyan_500"
+                        android:adjustViewBounds="true"
+                        app:borderWidth="2dp"
+                        app:elevation="6dp"
+                        app:fabSize="normal"
+                        android:src="@drawable/ic_go_maps"
+                        app:layout_anchorGravity="center|bottom"
+                        />
+                </RelativeLayout>
 
             </FrameLayout>
             </RelativeLayout>

@@ -2,6 +2,7 @@ package br.com.aio.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +21,13 @@ import java.text.NumberFormat;
 
 import br.com.aio.R;
 import br.com.aio.adapter.ServicoCard;
+import br.com.aio.entity.Localizacao;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;
-import br.com.aio.utils.BundleUtils;
+import br.com.aio.utils.SessionUtils;
+
+import static br.com.aio.utils.BundleUtils.ACTIVITY_SOLICITAR_PEDIDO;
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
 /**
  * Created by elton on 17/07/2017.
@@ -46,13 +51,18 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
     private MaterialDesignIconsTextView estrela3;
     private MaterialDesignIconsTextView estrela4;
     private MaterialDesignIconsTextView estrela5;
+    private ServicoCard servicoCard;
+    private Localizacao localizacaoMapa;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitar_pedido);
         Intent intent = getIntent();
-        ServicoCard servicoCard = (ServicoCard) intent.getExtras().getSerializable(BundleUtils.SERVICO_CARD);
+        mPrefs = getSharedPreferences(PREFS_NAME, 0);
+        servicoCard = SessionUtils.getServicoCard(mPrefs);
+        localizacaoMapa = SessionUtils.getLocalizacaoMapa(mPrefs);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -66,9 +76,11 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
         actionBar.setCustomView(v);
 
         mapa = (TextView) findViewById(R.id.mapa);
+        mapa.setText(localizacaoMapa!=null ? localizacaoMapa.getNome() : getResources().getString(R.string.informar_localizacao));
         mapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SessionUtils.setActivityAnterior(mPrefs,ACTIVITY_SOLICITAR_PEDIDO );
                 Intent newActivity = new Intent(SolicitarPedidoActivity.this, MapsActivity.class);
                 startActivity(newActivity);
             }
@@ -123,5 +135,13 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        SessionUtils.setServicoCard(mPrefs,null);
+        SessionUtils.setActivityAnterior(mPrefs,ACTIVITY_SOLICITAR_PEDIDO);
+        Intent newActivity = new Intent(SolicitarPedidoActivity.this, ListagemActivity.class);
+        startActivity(newActivity);
     }
 }
