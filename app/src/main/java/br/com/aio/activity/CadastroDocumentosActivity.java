@@ -48,6 +48,7 @@ import static br.com.aio.utils.PermissionsUtils.ACESSO_LER_ARMAZENAMENTO_PERMITI
 import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_CAMERA_ID;
 import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID;
 import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID;
+import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
 
 /**
  * Created by elton on 17/07/2017.
@@ -64,7 +65,6 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
     private LayoutInflater inflator;
     private View headerDocumentos;
     private Dialog dialogImagem;
-    public static final int PICKFILE_RESULT_CODE = 1;
     private static final int TAKE_PICTURE = 2;
     private List<Documento> documentos;
     private Documento documento;
@@ -187,7 +187,7 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         try {
-            this.startActivityForResult(intent,CadastroDocumentosActivity.PICKFILE_RESULT_CODE);
+            this.startActivityForResult(intent,PICKFILE_RESULT_CODE);
 
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "Instale um gerenciador de arquivos no seu aplicativo!", Toast.LENGTH_SHORT).show();

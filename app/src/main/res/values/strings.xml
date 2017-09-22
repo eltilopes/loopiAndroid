@@ -98,6 +98,7 @@
     <string name="historico">HISTÓRICO</string>
     <string name="nova_solicitacao">NOVA SOLICITAÇÃO</string>
 
+    <string name="taxas_anuncio">Taxas de Anúncio</string>
     <string name="saldo">Saldo CashBack</string>
     <string name="cashback_gerado">CashBack gerado R$ 3.58</string>
     <string name="cartao_credito">Cartão Crédito</string>

@@ -25,6 +25,8 @@ public class PermissionsUtils {
     public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 98;
     public static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID = 97;
 
+    public static final int PICKFILE_RESULT_CODE = 1;
+
     public static final String ACESSO_CAMERA_NECESSARIO = "É necessário acesso a câmera.";
     public static final String ACESSO_CAMERA_PERMITIDO = "Acesso a câmera permitido";
     public static final String ACESSO_LOCALIZACAO_NECESSARIO = "É necessário acesso ao GPS.";
