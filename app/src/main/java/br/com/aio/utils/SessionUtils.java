@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 
 import br.com.aio.activity.ListagemActivity;
 import br.com.aio.activity.SolicitarPedidoActivity;
-import br.com.aio.adapter.ServicoCard;
+import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.Localizacao;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ANTERIOR;

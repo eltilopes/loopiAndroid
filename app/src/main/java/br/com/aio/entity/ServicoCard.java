@@ -1,4 +1,4 @@
-package br.com.aio.adapter;
+package br.com.aio.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

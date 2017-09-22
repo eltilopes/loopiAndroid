@@ -73,7 +73,7 @@
     <string name="distancia">DISTÂNCIA</string>
     <string name="nome">NOME</string>
     <string name="mais_proximo">Mais Próximo</string>
-    <string name="subcategoria">SUB CATEGORIA</string>
+    <string name="subcategoria">Subcategoria</string>
     <string name="banco">BANCO</string>
     <string name="finalidade">FINALIDADE</string>
     <string name="agencia">AGÊNCIA</string>
@@ -82,6 +82,7 @@
     <string name="cadastro">Cadastro</string>
     <string name="cadastre">CADASTRE</string>
     <string name="categoria">CATEGORIA</string>
+    <string name="especialidade">Especialidade</string>
     <string name="title_profissional">PROFISSIONAL</string>
     <string name="localizacao">Localização</string>
     <string name="para_onde">Para onde?</string>
@@ -104,6 +105,9 @@
     <string name="usar_saldo">Usar Saldo CashBack</string>
     <string name="valor_movimentacao">VALOR</string>
     <string name="solicitacao_saque">Solicitação de Saque</string>
+    <string name="tempo_inicio_servico">Tempo para início do serviço</string>
+    <string name="ver_taxas_anuncio">Ver taxas de anúncio</string>
+    <string name="anexar_foto_perfil">Anexar foto do perfil</string>
     <string name="no_location_data_provided">Nenhum dado de localização fornecido</string>
     <string name="service_not_available">Serviço não disponível</string>
     <string name="invalid_lat_long_used">Endereço inválido</string>
@@ -283,5 +287,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="sim">Sim</string>
 
 </resources>

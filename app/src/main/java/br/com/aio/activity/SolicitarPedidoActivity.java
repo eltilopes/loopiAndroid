@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.text.NumberFormat;
 
 import br.com.aio.R;
-import br.com.aio.adapter.ServicoCard;
+import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;

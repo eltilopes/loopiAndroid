@@ -49,7 +49,7 @@ import java.util.List;
 import br.com.aio.R;
 import br.com.aio.adapter.CustomSpinnerAdapter;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
-import br.com.aio.adapter.ServicoCard;
+import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.utils.SessionUtils;
@@ -238,7 +238,7 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     private void setButtonCategoria() {
-        View v = findViewById(R.id.button_categoria);
+        View v = findViewById(R.id.button_especialidade);
         buttonCategoria = (LinearLayout) v;
         buttonCategoria.setOnClickListener(new View.OnClickListener() {
             @Override

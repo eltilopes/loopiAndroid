@@ -64,6 +64,30 @@
         <item name="titleTextStyle">@style/ActionBarStyle.TitleTextStyle</item>
     </style>
 
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
+    </style>
+
+    <style name="DialogWindowTitle" parent="@android:style/TextAppearance.DialogWindowTitle">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+    <style name="WindowTitleStyle"
+        parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+
     <style name="SpinnerTextViewItem" parent="@android:style/Widget.Material.Light.Spinner" >
         <item name="android:textStyle">normal</item>
         <item name="android:layout_margin">2dp</item>

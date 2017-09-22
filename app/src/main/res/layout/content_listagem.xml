@@ -59,7 +59,8 @@
                     android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:layout_margin="40dp" />
 
                 <LinearLayout
@@ -85,7 +86,7 @@
                         android:background="@color/branco" />
 
                     <include
-                        android:id="@+id/button_categoria"
+                        android:id="@+id/button_especialidade"
                         layout="@layout/button_categoria"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_color_grey_400"
+    android:background="@color/backgroundLayout"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -37,142 +37,161 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/colorAccent"
                     android:gravity="center"
                     android:orientation="vertical">
 
 
                     <android.support.v7.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:cardview="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_servico"
                         android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_margin="1dp"
-                        android:layout_weight="4"
+                        android:layout_height="wrap_content"
                         cardview:cardCornerRadius="2dp"
                         cardview:cardElevation="3dp"
+                        cardview:cardPreventCornerOverlap="false"
                         cardview:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical" >
-
-                            <br.com.aio.fonts.MaterialDesignIconsTextView
-                                android:id="@+id/nome_completo"
-                                style="@style/TextViewAppearance.Title1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="0dp"
-                                android:text="@string/material_icon_account"
-                                android:textColor="@color/main_color_grey_300"
-                                android:textSize="22dp" />
-
-                            <br.com.aio.view.FloatLabeledEditText
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="16dp"
-                                android:layout_weight="1"
-                                app:fletFloatingHint="@string/nomeCompleto"
-                                app:fletHintTextColor="@color/main_color_grey_300"
-                                app:fletSingleLine="true"
-                                app:fletTextBackground="@drawable/edit_text_background_accent"
-                                app:fletTextColor="@color/main_color_grey_700" >
-                            </br.com.aio.view.FloatLabeledEditText>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_margin="3dp">
-
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:maxLines="3"
-                                android:hint="Valor R$"
-                                android:textColor="@color/textColorAzul"
-                                android:textSize="10dp"
-                                android:textStyle="bold" />
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/colorAccent"
-                                android:bottomRightRadius="10dp"
-                                android:bottomLeftRadius="50dp"
-                                android:topLeftRadius="10dp"
-                                android:topRightRadius="10dp"
-                                android:text="Ver taxas de anúncio"/>
-
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:maxLines="3"
-                                android:hint="Nome do perfil"
-                                android:textColor="@color/textColorAzul"
-                                android:textSize="10dp"
-                                android:textStyle="bold" />
-
+                            android:layout_margin="4dp"
+                            android:padding="4dp"
+                            android:background="@drawable/border_text"
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="2dp"
-                                android:orientation="horizontal" >
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:padding="5dp" >
 
-                                <ImageView
-                                    android:id="@+id/imageView1"
+
+                                <br.com.aio.fonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/camera_enhance_black" />
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold"
+                                    android:padding="3dp"
+                                    android:text="@string/nomeCompleto"/>
 
-                                <TextView
-                                    android:id="@+id/textView1"
+                                <br.com.aio.fonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Anexar foto do perfil"
-                                    android:textAlignment="center"
-                                    android:gravity="center"
-                                    android:layout_gravity="center"
-                                    android:textColor="@color/textColorAzul"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold" />
+                                    android:textColor="@color/textColorCinza"
+                                    android:text="@string/nomeCompleto"
+                                    android:paddingLeft="3dp"
+                                    android:textSize="13dp" />
+
+
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold"
+                                    android:padding="3dp"
+                                    android:text="@string/tempo_inicio_servico"/>
+
+                                <EditText
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/textColorCinza"
+                                    android:inputType="numberDecimal"
+                                    android:minWidth="100dp"
+                                    android:layout_marginLeft="3dp"
+                                    android:background="@drawable/background_edit_text"
+                                    android:textSize="13dp"/>
+
+                                <br.com.aio.view.MaterialRippleLayout
+                                    style="@style/RippleStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:gravity="center_horizontal"
+                                    android:padding="3dp"
+                                    android:layout_marginTop="5dp"
+                                    app:rippleColor="@color/main_color_grey_400" >
+
+                                    <br.com.aio.fonts.RobotoTextView
+                                        android:id="@+id/ver_taxas_anuncio"
+                                        style="@style/ButtonStyle.RaisedEmpty"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center_horizontal"
+                                        android:textSize="14dp"
+                                        android:textStyle="bold"
+                                        android:background="@color/colorPrimary"
+                                        android:text="@string/ver_taxas_anuncio"
+                                        android:textColor="@android:color/white"/>
+                                </br.com.aio.view.MaterialRippleLayout>
+
+                                <br.com.aio.view.MaterialRippleLayout
+                                    style="@style/RippleStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:gravity="center_horizontal"
+                                    android:padding="3dp"
+                                    android:layout_marginTop="5dp"
+                                    app:rippleColor="@color/main_color_grey_400" >
+                                    <br.com.aio.fonts.RobotoTextView
+                                        android:id="@+id/anexar_foto_perfil"
+                                        style="@style/ButtonStyle.RaisedEmpty"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:textSize="14dp"
+                                        android:textStyle="bold"
+                                        android:background="@color/colorPrimary"
+                                        android:drawablePadding="2dip"
+                                        android:drawableLeft="@drawable/ic_camera"
+                                        android:text="@string/anexar_foto_perfil"
+                                        android:textColor="@android:color/white"/>
+                                </br.com.aio.view.MaterialRippleLayout>
                             </LinearLayout>
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:cardview="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_exemplo"
                         android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_margin="1dp"
-                        android:layout_weight="4"
+                        android:layout_height="wrap_content"
                         cardview:cardCornerRadius="2dp"
                         cardview:cardElevation="3dp"
+                        cardview:cardPreventCornerOverlap="false"
                         cardview:cardUseCompatPadding="true">
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="4dp"
+                            android:padding="4dp"
+                            android:background="@drawable/border_text">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1" >
+                                android:layout_weight="5" >
                                 <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="2dp">
+                                    android:padding="5dp">
 
                                     <ImageView
                                         android:id="@+id/thumbnail"
                                         android:layout_width="match_parent"
+                                        android:tag="card_thumbnail"
                                         android:layout_height="180dp"
                                         android:layout_alignParentTop="true"
                                         android:scaleType="centerCrop"
@@ -180,11 +199,12 @@
                                 </RelativeLayout>
                             </LinearLayout>
 
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:layout_weight="4"
+                                android:orientation="vertical" >
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -194,29 +214,220 @@
                                         android:id="@+id/title"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_centerVertical="true"
-                                        android:layout_marginLeft="12dp"
+                                        android:ellipsize="end"
                                         android:maxLines="3"
-                                        android:padding="8dp"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                                        android:textColor="#444"
+                                        android:elegantTextHeight="true"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="12dp"
+                                        android:text="Nome do Prestador"
+                                        android:textColor="@color/textColorCard"
                                         android:textSize="18dp"
-                                        android:textStyle="bold"/>
-
-
+                                        android:textStyle="bold" />
                                 </RelativeLayout>
 
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" >
 
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="12dp"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/card_categoria"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                            android:textColor="@color/textColorCard"
+                                            android:textSize="15dp"
+                                            android:text="Categoria"/>
+                                        <View
+                                            android:layout_width="5dp"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_marginRight="4dp"
+                                            android:layout_height="2dp"
+                                            android:layout_gravity="center"
+                                            android:background="@color/textColorCard" />
+                                        <TextView
+                                            android:id="@+id/card_sub_categoria"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                            android:textColor="@color/textColorCard"
+                                            android:textSize="15dp"
+                                            android:text="Sub Categoria"/>
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:id="@+id/card_especialidade"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="12dp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                        android:textColor="@color/textColorCard"
+                                        android:textSize="13dp"
+                                        android:text="Especialidade"/>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp">
+
+                                    <TextView
+                                        android:id="@+id/card_tempo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="12dp"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                        android:textColor="@color/textColorAzul"
+                                        android:textSize="13dp"
+                                        android:text="Em até 35 min."/>
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:gravity="left|bottom"
+                                    android:layout_gravity="left|bottom"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:orientation="vertical">
+
+
+                                    <LinearLayout
+                                        android:id="@+id/card_estrelas"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:gravity="left|bottom"
+                                        android:layout_marginBottom="2dp"
+                                        android:layout_gravity="left|bottom">
+
+                                        <br.com.aio.fonts.MaterialDesignIconsTextView
+                                            android:id="@+id/card_estrela_1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_margin="0dp"
+                                            android:padding="2dp"
+                                            android:text="@string/material_icon_star_border"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="16dp" />
+
+                                        <br.com.aio.fonts.MaterialDesignIconsTextView
+                                            android:id="@+id/card_estrela_2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_margin="0dp"
+                                            android:padding="2dp"
+                                            android:text="@string/material_icon_star_border"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="16dp" />
+
+                                        <br.com.aio.fonts.MaterialDesignIconsTextView
+                                            android:id="@+id/card_estrela_3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_margin="0dp"
+                                            android:padding="2dp"
+                                            android:text="@string/material_icon_star_border"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="16dp" />
+
+                                        <br.com.aio.fonts.MaterialDesignIconsTextView
+                                            android:id="@+id/card_estrela_4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_margin="0dp"
+                                            android:padding="2dp"
+                                            android:text="@string/material_icon_star"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="16dp" />
+
+                                        <br.com.aio.fonts.MaterialDesignIconsTextView
+                                            android:id="@+id/card_estrela_5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_margin="0dp"
+                                            android:padding="2dp"
+                                            android:text="@string/material_icon_star"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="16dp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="bottom|right"
+                                            android:layout_gravity="bottom|right"
+                                            android:orientation="horizontal" >
+
+
+                                            <ImageView
+                                                android:id="@+id/card_favorito"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="0dp"
+                                                android:padding="2dp"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/ic_favorite_full"/>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/card_estrelas"
+                                        android:padding="2dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:orientation="horizontal">
+                                        <TextView
+                                            android:id="@+id/card_preco"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="13dp"
+                                            android:text="R$ 120,00"/>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="bottom|right"
+                                            android:layout_gravity="bottom|right"
+                                            android:orientation="horizontal" >
+
+                                            <TextView
+                                                android:id="@+id/card_localizacao"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="bottom|right"
+                                                android:layout_gravity="bottom|right"
+                                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textSize="13dp"
+                                                android:text="Aldeota - 0,2km"/>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
                             </LinearLayout>
+
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
                     <br.com.aio.view.MaterialRippleLayout
                         style="@style/RippleStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_margin="1dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:rippleColor="@color/main_color_grey_400" >
 
                         <br.com.aio.fonts.RobotoTextView
@@ -226,7 +437,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:background="@color/textColorAzul"
+                            android:background="@color/colorPrimary"
                             android:text="@string/continuar"
                             android:textColor="@android:color/white"/>
                     </br.com.aio.view.MaterialRippleLayout>

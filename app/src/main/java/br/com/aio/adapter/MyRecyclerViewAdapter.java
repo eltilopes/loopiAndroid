@@ -18,6 +18,7 @@ import java.util.List;
 
 import br.com.aio.R;
 import br.com.aio.activity.ListagemActivity;
+import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 
 /**

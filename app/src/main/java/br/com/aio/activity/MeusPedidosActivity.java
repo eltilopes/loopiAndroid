@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
-import br.com.aio.adapter.ServicoCard;
+import br.com.aio.entity.ServicoCard;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.fonts.RobotoTextView;
 

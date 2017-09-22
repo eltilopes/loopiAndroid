@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/layout_button_categoria"
+        android:id="@+id/layout_button_especialidade"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="2dp"
@@ -28,7 +28,7 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Especialidade"
+            android:text="@string/especialidade"
             android:textAlignment="center"
             android:layout_margin="3dp"
             android:padding="2dp"

@@ -132,6 +132,10 @@ public class PathUtils {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
+    public static boolean isAppProvider(Uri uri) {
+        return "br.com.aio.provider".equals(uri.getAuthority());
+    }
+
 
     public static File criarArquivoImagem(String nomeDocumento) throws IOException {
         // Create an image file name

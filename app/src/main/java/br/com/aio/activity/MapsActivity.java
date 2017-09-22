@@ -59,6 +59,7 @@ import br.com.aio.utils.SessionUtils;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
+import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_LOCATION;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private GoogleMap mMap;
@@ -68,7 +69,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Context mContext;
     private TextView mLocationMarkerText;
     private LatLng mCenterLatLong;
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     /**
      * Receiver registered with this activity to get the response from FetchAddressIntentService.
@@ -173,7 +173,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 //Prompt the user once explanation has been shown
                                 ActivityCompat.requestPermissions(MapsActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                                        PERMISSIONS_REQUEST_LOCATION);
                             }
                         })
                         .create()
@@ -184,7 +184,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
+                        PERMISSIONS_REQUEST_LOCATION);
             }
         }
         fabLayoutDigitar = (LinearLayout) findViewById(R.id.fabLayoutDigitar);

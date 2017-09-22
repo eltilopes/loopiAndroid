@@ -1,15 +1,18 @@
 package br.com.aio.activity;
 
+import android.Manifest;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -33,6 +36,18 @@ import br.com.aio.entity.Documento;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.DocumentoUtils;
 import br.com.aio.utils.PathUtils;
+import br.com.aio.utils.PermissionsUtils;
+import br.com.aio.utils.ToastUtils;
+
+import static br.com.aio.utils.PermissionsUtils.ACESSO_CAMERA_NECESSARIO;
+import static br.com.aio.utils.PermissionsUtils.ACESSO_CAMERA_PERMITIDO;
+import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_NECESSARIO;
+import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_PERMITIDO;
+import static br.com.aio.utils.PermissionsUtils.ACESSO_LER_ARMAZENAMENTO_NECESSARIO;
+import static br.com.aio.utils.PermissionsUtils.ACESSO_LER_ARMAZENAMENTO_PERMITIDO;
+import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_CAMERA_ID;
+import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID;
+import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID;
 
 /**
  * Created by elton on 17/07/2017.
@@ -52,7 +67,11 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
     public static final int PICKFILE_RESULT_CODE = 1;
     private static final int TAKE_PICTURE = 2;
     private List<Documento> documentos;
-    Documento documento;
+    private Documento documento;
+    private boolean acessoCamera;
+    private boolean acessoLerSD;
+    private boolean acessoEscreverSD;
+    private File photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +90,6 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
         nomePagina.setText("Cadastro");
         actionBar.setCustomView(v);
         setListaDocumentos();
-
         continuar = (TextView) findViewById(R.id.continuar);
         continuar.setOnClickListener(this);
     }
@@ -125,17 +143,34 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
                     @Override
 
                     public void onClick(View v) {
-                        TextView anexo = (TextView) v;
-                        documento = DocumentoUtils.getDocumento(documentos, new Long(anexo.getText().toString()));
-                        showFileChooser();
+                        if(!PermissionsUtils.isDeviceWriteExternalStorageGranted(context)) {
+                            PermissionsUtils.requestPermissions(context, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                        }else{
+                                TextView anexo = (TextView) v;
+                                documento = DocumentoUtils.getDocumento(documentos, new Long(anexo.getText().toString()));
+                                showFileChooser();
+                        }
+
                     }
                 });
                 camera.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TextView camera = (TextView) v;
-                        documento = DocumentoUtils.getDocumento(documentos, new Long(camera.getText().toString()));
-                        takePhoto(v);
+                        if (!PermissionsUtils.isDeviceCameraGranted(context)) {
+                            PermissionsUtils.requestPermissions(context, PERMISSIONS_REQUEST_CAMERA_ID,
+                                    Manifest.permission.CAMERA,new String[]{Manifest.permission.CAMERA});
+
+                        }else if(!PermissionsUtils.isDeviceReadExternalStorageGranted(context)) {
+                            PermissionsUtils.requestPermissions(context, PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
+
+
+                        }else{
+                            TextView camera = (TextView) v;
+                            documento = DocumentoUtils.getDocumento(documentos, new Long(camera.getText().toString()));
+                            takePhoto(v);
+                        }
                     }
                 });
                 if(documento.getArquivo() != null  && documento.getArquivo().exists()){
@@ -160,12 +195,13 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
     }
 
     public void takePhoto(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStorageDirectory(),  documento.getNome() + ".jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-        imageUri = Uri.fromFile(photo);
-        intent.putExtra("android.intent.extras.FLASH_MODE_OFF",1);
-        startActivityForResult(intent, TAKE_PICTURE);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            photo = new File(Environment.getExternalStorageDirectory(),  documento.getNome() + ".jpg");
+            imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".br.com.aio.provider", photo);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.putExtra("android.intent.extras.FLASH_MODE_OFF",1);
+            startActivityForResult(intent, TAKE_PICTURE);
     }
 
     @Override
@@ -173,7 +209,7 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
         switch(requestCode){
             case PICKFILE_RESULT_CODE:
                 if(resultCode==RESULT_OK){
-                    String imagem = PathUtils.getPath(this, data.getData());
+                    String imagem = PathUtils.getPath(context, data.getData());
                     File imgFile = new  File(imagem);
                     if(imgFile.exists()){
                         Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
@@ -184,14 +220,10 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
                 break;
             case TAKE_PICTURE:
                 if (resultCode == RESULT_OK) {
-                    getContentResolver().notifyChange(imageUri, null);
-                    ContentResolver cr = getContentResolver();
-                    String imagem = PathUtils.getPath(this, imageUri);
-                    File imgFile = new  File(imagem);
-                    if(imgFile.exists()){
+                    if(photo.exists()){
                         try {
-                            Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, imageUri);
-                            documento.setArquivo(imgFile);
+                            Bitmap bitmap = BitmapFactory.decodeFile(photo.getAbsolutePath());
+                            documento.setArquivo(photo);
                             mostrarDialogImagem(bitmap);
                         } catch (Exception e) {
                             Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
@@ -238,4 +270,36 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
         }
 
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID:
+                acessoEscreverSD = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (acessoEscreverSD) {
+                    ToastUtils.show(CadastroDocumentosActivity.this, ACESSO_GRAVAR_ARMAZENAMENTO_PERMITIDO, ToastUtils.INFORMATION);
+                } else {
+                    ToastUtils.show(CadastroDocumentosActivity.this, ACESSO_GRAVAR_ARMAZENAMENTO_NECESSARIO, ToastUtils.WARNING);
+                }
+                break;
+            case PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID:
+                acessoLerSD = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (acessoLerSD) {
+                    ToastUtils.show(CadastroDocumentosActivity.this, ACESSO_LER_ARMAZENAMENTO_PERMITIDO, ToastUtils.INFORMATION);
+                } else {
+                    ToastUtils.show(CadastroDocumentosActivity.this, ACESSO_LER_ARMAZENAMENTO_NECESSARIO, ToastUtils.WARNING);
+                }
+                break;
+            case PERMISSIONS_REQUEST_CAMERA_ID:
+                acessoCamera = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (acessoCamera) {
+                    ToastUtils.show(CadastroDocumentosActivity.this, ACESSO_CAMERA_PERMITIDO, ToastUtils.INFORMATION);
+                } else {
+                    ToastUtils.show(CadastroDocumentosActivity.this, ACESSO_CAMERA_NECESSARIO, ToastUtils.WARNING);
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 }

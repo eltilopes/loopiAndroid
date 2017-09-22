@@ -28,7 +28,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sub Categoria"
+            android:text="@string/subcategoria"
             android:textAlignment="center"
             android:layout_margin="3dp"
             android:padding="2dp"
