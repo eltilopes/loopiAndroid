@@ -53,6 +53,7 @@
     <string name="receberNotificacoes">Receber Notificações</string>
     <string name="indicadoPor">Indicado por</string>
     <string name="verTermos">Ver Termos</string>
+    <string name="termos">Termos</string>
     <string name="descreva">Descreva</string>
     <string name="tipo">Tipo</string>
 
@@ -108,6 +109,9 @@
     <string name="solicitacao_saque">Solicitação de Saque</string>
     <string name="tempo_inicio_servico">Tempo para início do serviço</string>
     <string name="ver_taxas_anuncio">Ver taxas de anúncio</string>
+    <string name="termos_condicoes">Termos e Condiçôes</string>
+    <string name="termos_privacidade">Termos de Privacidade</string>
+    <string name="termos_concordar">Li e Concordo com os Termos</string>
     <string name="anexar_foto_perfil">Anexar foto do perfil</string>
     <string name="no_location_data_provided">Nenhum dado de localização fornecido</string>
     <string name="service_not_available">Serviço não disponível</string>

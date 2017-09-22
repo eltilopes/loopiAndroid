@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,8 +29,10 @@ import br.com.aio.R;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.PathUtils;
 import br.com.aio.utils.PermissionsUtils;
+import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_NECESSARIO;
 import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_PERMITIDO;
 import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID;
@@ -41,18 +44,21 @@ import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
 
 public class ProfissionalActivity extends AppCompatActivity {
 
+    private RobotoTextView continuar ;
     private RobotoTextView nomePagina ;
     private LinearLayout anexarFoto ;
     private LinearLayout verTaxasAnuncio ;
     private Dialog dialogTaxasAnuncio ;
     private Context context;
     private ImageView thumbnail;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profissional);
         context = this;
+        mPrefs = getSharedPreferences(PREFS_NAME, 0);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -86,6 +92,16 @@ public class ProfissionalActivity extends AppCompatActivity {
             }
         });
         thumbnail = (ImageView) findViewById(R.id.thumbnail);
+        continuar = (RobotoTextView) findViewById(R.id.continuar);
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionUtils.setCadastroProfissional(mPrefs);
+                Intent newActivity0 = new Intent(ProfissionalActivity.this, SaqueActivity.class);
+                startActivity(newActivity0);
+            }
+        });
+
         actionBar.setCustomView(v);
     }
 

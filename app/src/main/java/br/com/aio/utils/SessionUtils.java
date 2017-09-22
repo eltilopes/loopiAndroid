@@ -11,6 +11,7 @@ import br.com.aio.entity.Localizacao;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ANTERIOR;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_SOLICITAR_PEDIDO;
+import static br.com.aio.utils.BundleUtils.CADASTRO_PROFISSIONAL;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
 import static br.com.aio.utils.BundleUtils.SERVICO_CARD;
 
@@ -67,4 +68,13 @@ public class SessionUtils {
         prefsEditor.commit();
     }
 
+    public static void setCadastroProfissional(SharedPreferences mPreferences ){
+        SharedPreferences.Editor prefsEditor = mPreferences.edit();
+        prefsEditor.putBoolean(CADASTRO_PROFISSIONAL, true);
+        prefsEditor.commit();
+    }
+
+    public static Boolean getCadastroProfissional(SharedPreferences mPreferences){
+        return mPreferences.getBoolean(CADASTRO_PROFISSIONAL, false);
+    }
 }

@@ -36,200 +36,151 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/colorAccent"
-                    android:gravity="center"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:cardview="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_servico"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="4"
-                        android:layout_margin="2dp"
-                        android:padding="10dp"
+                        android:layout_height="wrap_content"
                         cardview:cardCornerRadius="2dp"
                         cardview:cardElevation="3dp"
+                        cardview:cardPreventCornerOverlap="false"
                         cardview:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_margin="10dp">
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:padding="4dp"
+                            android:background="@drawable/border_text"
+                            android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center" >
+                                android:orientation="vertical"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:padding="5dp" >
 
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_marginRight="4dp"
-                                    android:layout_gravity="right|center_horizontal"
-                                    android:gravity="right|center_horizontal"
-                                    android:textStyle="bold"
-                                    android:text="@string/saldo" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
 
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_gravity="left|center_horizontal"
-                                    android:gravity="left|center_horizontal"
-                                    android:layout_marginLeft="4dp"
-                                    android:text="121,55 R$" />
+                                    <br.com.aio.fonts.RobotoTextView
+                                        android:id="@+id/info_saldo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/colorPrimary"
+                                        android:textSize="14dp"
+                                        android:textStyle="bold"
+                                        android:padding="3dp"
+                                        android:text="@string/saldo" />
 
-                            </LinearLayout>
+                                    <br.com.aio.fonts.RobotoTextView
+                                        android:id="@+id/valor_saldo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/textColorCinza"
+                                        android:text="125,55 R$"
+                                        android:paddingLeft="3dp"
+                                        android:textSize="13dp" />
+                                 </LinearLayout>
 
                             <br.com.aio.fonts.RobotoTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/info_saque"
+                                android:textColor="@color/textColorCinza"
+                                android:layout_margin="3dp"
+                                android:paddingBottom="5dp"
                                 android:layout_gravity="center_horizontal"
                                 android:gravity="center_horizontal"
-                                android:minWidth="112dp"
-                                android:layout_margin="10dp"
-                                android:text="@string/info_saque"
-                                android:textColor="@color/textColorAzul"
-                                android:textSize="15dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold"/>
 
-                            <LinearLayout
-                                android:layout_width="fill_parent"
+
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp" >
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:textStyle="bold"
+                                android:padding="3dp"
+                                android:text="@string/nomeCompleto"/>
 
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_gravity="center_horizontal"
-                                    android:gravity="center_horizontal"
-                                    android:layout_marginLeft="4dp"
-                                    android:minWidth="112dp"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold"
-                                    android:text="@string/nome" />
-
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="3"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="left|center_horizontal"
-                                    android:gravity="left|center_horizontal"
-                                    android:layout_marginLeft="4dp"
-                                    android:maxLines="3"
-                                    android:textColor="@color/textColorAzul"
-                                    android:textSize="10dp"
-                                    android:text="Elton Lopes e Silva"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp" >
+                                android:textColor="@color/textColorCinza"
+                                android:text="@string/nomeCompleto"
+                                android:paddingLeft="3dp"
+                                android:textSize="13dp" />
 
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:layout_marginLeft="4dp"
-                                    android:minWidth="112dp"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold"
-                                    android:text="@string/banco" />
-
-                                <Spinner
-                                    android:id="@+id/bancos"
-                                    android:layout_width="0dip"
-                                    android:layout_weight="3"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    style="@style/MySpinnerStyle"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp" >
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:textStyle="bold"
+                                android:padding="3dp"
+                                android:text="@string/banco"/>
 
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:layout_marginLeft="4dp"
-                                    android:minWidth="112dp"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold"
-                                    android:text="@string/finalidade" />
-
-                                <Spinner
-                                    android:id="@+id/finalildades"
-                                    android:layout_width="0dip"
-                                    android:layout_weight="3"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    style="@style/MySpinnerStyle"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
+                            <Spinner
+                                android:id="@+id/bancos"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp" >
+                                android:paddingLeft="3dp"
+                                android:background="@drawable/background_edit_text"
+                                style="@style/MySpinnerStyle"/>
 
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:minWidth="112dp"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold"
-                                    android:text="@string/agencia" />
+                            <br.com.aio.fonts.RobotoTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14dp"
+                                android:textStyle="bold"
+                                android:padding="3dp"
+                                android:text="@string/finalidade"/>
+
+                            <Spinner
+                                android:id="@+id/finalildades"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="3dp"
+                                android:background="@drawable/background_edit_text"
+                                style="@style/MySpinnerStyle"/>
 
                                 <LinearLayout
-                                    android:layout_width="0dip"
-                                    android:layout_weight="3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical" >
+
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center" >
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold"
+                                    android:padding="3dp"
+                                    android:text="@string/agencia"/>
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal" >
 
                                     <EditText
                                         android:id="@+id/agencia"
@@ -238,8 +189,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:gravity="center"
-                                        android:textColor="@color/textColorAzul"
-                                        android:textSize="10dp"
+                                        android:textColor="@color/textColorCinza"
+                                        android:background="@drawable/background_edit_text"
+                                        android:textSize="13dp"
                                         android:inputType="number"
                                         android:maxLength="6"
                                         android:textStyle="bold" />
@@ -248,11 +200,11 @@
                                         android:layout_width="0dip"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/textColorAzul"
+                                        android:textColor="@color/textColorCinza"
                                         android:layout_gravity="center"
                                         android:gravity="center"
                                         android:minWidth="112dp"
-                                        android:textSize="10dp"
+                                        android:textSize="13dp"
                                         android:textStyle="bold"
                                         android:text="-" />
 
@@ -265,143 +217,115 @@
                                         android:gravity="center"
                                         android:inputType="number"
                                         android:maxLength="1"
-                                        android:textColor="@color/textColorAzul"
-                                        android:textSize="10dp"
+                                        android:textColor="@color/textColorCinza"
+                                        android:background="@drawable/background_edit_text"
+                                        android:textSize="13dp"
                                         android:textStyle="bold" />
-
                                 </LinearLayout>
-
-
-
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp" >
-
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:minWidth="112dp"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold"
-                                    android:text="@string/conta" />
-
-                                <LinearLayout
-                                    android:layout_width="0dip"
-                                    android:layout_weight="3"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center" >
-
-                                    <EditText
-                                        android:id="@+id/conta"
-                                        android:layout_width="0dip"
-                                        android:layout_weight="3"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:inputType="number"
-                                        android:maxLength="6"
-                                        android:textColor="@color/textColorAzul"
-                                        android:textSize="10dp"
-                                        android:textStyle="bold" />
-
-                                    <br.com.aio.fonts.RobotoTextView
-                                        android:layout_width="0dip"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/textColorAzul"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:minWidth="112dp"
-                                        android:textSize="10dp"
-                                        android:textStyle="bold"
-                                        android:text="-" />
-
-                                    <EditText
-                                        android:id="@+id/dv_conta"
-                                        android:layout_width="0dip"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:inputType="number"
-                                        android:textColor="@color/textColorAzul"
-                                        android:textSize="10dp"
-                                        android:maxLength="1"
-                                        android:textStyle="bold" />
-
                                 </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical" >
+
+                                        <br.com.aio.fonts.RobotoTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="14dp"
+                                            android:textStyle="bold"
+                                            android:padding="3dp"
+                                            android:text="@string/conta"/>
+
+
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal" >
+
+                                            <EditText
+                                                android:id="@+id/conta"
+                                                android:layout_width="0dip"
+                                                android:layout_weight="3"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:gravity="center"
+                                                android:textColor="@color/textColorCinza"
+                                                android:background="@drawable/background_edit_text"
+                                                android:textSize="13dp"
+                                                android:inputType="number"
+                                                android:maxLength="6"
+                                                android:textStyle="bold" />
+
+                                            <br.com.aio.fonts.RobotoTextView
+                                                android:layout_width="0dip"
+                                                android:layout_weight="1"
+                                                android:layout_height="wrap_content"
+                                                android:textColor="@color/textColorCinza"
+                                                android:layout_gravity="center"
+                                                android:gravity="center"
+                                                android:minWidth="112dp"
+                                                android:textSize="13dp"
+                                                android:textStyle="bold"
+                                                android:text="-" />
+
+                                            <EditText
+                                                android:id="@+id/dv_conta"
+                                                android:layout_width="0dip"
+                                                android:layout_weight="1"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="1"
+                                                android:textColor="@color/textColorCinza"
+                                                android:background="@drawable/background_edit_text"
+                                                android:textSize="13dp"
+                                                android:textStyle="bold" />
+                                        </LinearLayout>
+                                 </LinearLayout>
                             </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp" >
-
                                 <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="0dip"
-                                    android:layout_weight="1"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorAzul"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:minWidth="112dp"
-                                    android:textSize="10dp"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14dp"
                                     android:textStyle="bold"
-                                    android:text="@string/valor" />
+                                    android:padding="3dp"
+                                    android:text="@string/valor"/>
 
                                 <EditText
                                     android:id="@+id/valor_saque"
-                                    android:layout_width="0dip"
-                                    android:layout_weight="3"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/textColorCinza"
+                                    android:inputType="numberDecimal"
+                                    android:minWidth="100dp"
+                                    android:layout_marginLeft="3dp"
+                                    android:background="@drawable/background_edit_text"
+                                    android:textSize="13dp"/>
+
+
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/textColorInfoAzul"
+                                    android:drawableLeft="@drawable/ic_info"
+                                    android:drawablePadding="3dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:maxLines="3"
-                                    android:textColor="@color/textColorAzul"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold"
-                                    android:inputType="numberDecimal"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"/>
-                            </LinearLayout>
-
-
-                            <br.com.aio.fonts.RobotoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:gravity="center_horizontal"
-                                android:minWidth="112dp"
-                                android:layout_margin="10dp"
-                                android:text="@string/info_saque_minimo"
-                                android:textColor="@color/textColorAzul"
-                                android:textSize="15dp"
-                                android:textStyle="bold"/>
-
+                                    android:textSize="12dp"
+                                    android:paddingTop="5dp"
+                                    android:text="@string/info_saque_minimo"/>
 
                             <br.com.aio.view.MaterialRippleLayout
                                 style="@style/RippleStyle"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
                                 app:rippleColor="@color/main_color_grey_400" >
 
                                 <br.com.aio.fonts.RobotoTextView
@@ -411,11 +335,11 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:background="@color/textColorAzul"
+                                    android:background="@color/colorPrimary"
                                     android:text="@string/saque"
                                     android:textColor="@android:color/white"/>
                             </br.com.aio.view.MaterialRippleLayout>
-
+                        </LinearLayout>
                         </LinearLayout>
 
 
@@ -428,7 +352,7 @@
             <LinearLayout
                 android:id="@+id/actions"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:background="@color/material_light_blue_800"
                 android:gravity="center"
@@ -436,11 +360,13 @@
 
 
                 <br.com.aio.fonts.RobotoTextView
+                    android:id="@+id/title_anuncio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="112dp"
+                    android:text="@string/cpf"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:text="@string/cpf" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
 

@@ -49,8 +49,8 @@ import java.util.List;
 import br.com.aio.R;
 import br.com.aio.adapter.CustomSpinnerAdapter;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
-import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.Localizacao;
+import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
@@ -58,7 +58,6 @@ import br.com.aio.utils.ToastUtils;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
-import static br.com.aio.utils.BundleUtils.SERVICO_CARD;
 
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MyRecyclerViewAdapter.OnRecyclerViewItemClickListener {
@@ -138,7 +137,6 @@ public class ListagemActivity extends AppCompatActivity
     private void abrirPedido(ServicoCard servicoCard) {
         SessionUtils.setServicoCard(mPrefs,servicoCard);
         Intent newActivity = new Intent(ListagemActivity.this, SolicitarPedidoActivity.class);
-        newActivity.putExtra(SERVICO_CARD, servicoCard);
         startActivity(newActivity);
     }
 

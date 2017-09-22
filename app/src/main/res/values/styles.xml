@@ -31,6 +31,7 @@
     </style>
 
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>

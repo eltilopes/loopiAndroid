@@ -2,6 +2,7 @@ package br.com.aio.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,10 @@ import android.widget.Toast;
 
 import br.com.aio.R;
 import br.com.aio.fonts.RobotoTextView;
+import br.com.aio.utils.SessionUtils;
 import br.com.aio.view.NumberTextWatcher;
+
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
 /**
  * Created by elton on 17/07/2017.
@@ -26,15 +30,22 @@ import br.com.aio.view.NumberTextWatcher;
 public class SaqueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterView.OnClickListener {
 
     private RobotoTextView nomePagina ;
+    private RobotoTextView infoSaldo ;
+    private RobotoTextView valorSaldo ;
+    private RobotoTextView titleAnuncio ;
     private Spinner spinnerBancos;
     private Spinner spinnerFinalidades;
     private EditText editTextValorSaque;
     private TextView confirmarSaque;
+    private SharedPreferences mPrefs;
+    private Boolean cadastroProfissional;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saque);
+        mPrefs = getSharedPreferences(PREFS_NAME, 0);
+        cadastroProfissional = SessionUtils.getCadastroProfissional(mPrefs);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -44,7 +55,7 @@ public class SaqueActivity extends AppCompatActivity implements AdapterView.OnIt
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_title_bar, null);
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
-        nomePagina.setText("Saque");
+        nomePagina.setText(cadastroProfissional ? "Cadastro Profissional" : "Saque");
         actionBar.setCustomView(v);
 
         spinnerBancos = (Spinner) findViewById(R.id.bancos);
@@ -65,6 +76,16 @@ public class SaqueActivity extends AppCompatActivity implements AdapterView.OnIt
         editTextValorSaque.addTextChangedListener(new NumberTextWatcher(editTextValorSaque, "#,###"));
 
         confirmarSaque = (TextView) findViewById(R.id.solicitar_saque);
+        confirmarSaque.setText(cadastroProfissional ? "CONTINUAR" : "SAQUE");
+
+        infoSaldo = (RobotoTextView) findViewById(R.id.info_saldo);
+        infoSaldo.setVisibility(cadastroProfissional ? View.INVISIBLE: View.VISIBLE);
+
+        valorSaldo = (RobotoTextView) findViewById(R.id.valor_saldo);
+        valorSaldo.setVisibility(cadastroProfissional ? View.INVISIBLE: View.VISIBLE);
+
+        titleAnuncio = (RobotoTextView) findViewById(R.id.title_anuncio);
+        titleAnuncio.setText(cadastroProfissional ? "CONTA BANCÁRIA" : "CPF");
         confirmarSaque.setOnClickListener(this);
     }
 
@@ -91,7 +112,7 @@ public class SaqueActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.solicitar_saque:
-                Intent newActivity0 = new Intent(SaqueActivity.this, ConfirmarSaqueActivity.class);
+                Intent newActivity0 = new Intent(SaqueActivity.this, cadastroProfissional ? TermosActivity.class : ConfirmarSaqueActivity.class);
                 startActivity(newActivity0);
                 break;
         }
