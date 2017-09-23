@@ -112,7 +112,6 @@ public class ListagemActivity extends AppCompatActivity
                 abrirMeuPerfil();
             }
         });
-
         navigationView.setNavigationItemSelectedListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
