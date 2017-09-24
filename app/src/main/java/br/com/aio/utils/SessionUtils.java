@@ -6,14 +6,18 @@ import com.google.gson.Gson;
 
 import br.com.aio.activity.ListagemActivity;
 import br.com.aio.activity.SolicitarPedidoActivity;
+import br.com.aio.entity.Profissional;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.Localizacao;
+import br.com.aio.entity.UsuarioSession;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ANTERIOR;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_SOLICITAR_PEDIDO;
 import static br.com.aio.utils.BundleUtils.CADASTRO_PROFISSIONAL;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
+import static br.com.aio.utils.BundleUtils.PROFISSIONAL_CADASTRO;
 import static br.com.aio.utils.BundleUtils.SERVICO_CARD;
+import static br.com.aio.utils.BundleUtils.USUARIO_SESSION;
 
 /**
  * Created by elton on 19/09/2017.
@@ -76,5 +80,33 @@ public class SessionUtils {
 
     public static Boolean getCadastroProfissional(SharedPreferences mPreferences){
         return mPreferences.getBoolean(CADASTRO_PROFISSIONAL, false);
+    }
+
+    public static void setUsuarioSession(SharedPreferences mPreferences, UsuarioSession usuarioSession) {
+        SharedPreferences.Editor prefsEditor = mPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(usuarioSession);
+        prefsEditor.putString(USUARIO_SESSION, json);
+        prefsEditor.commit();
+    }
+
+    public static UsuarioSession getUsuarioSession(SharedPreferences mPreferences){
+        Gson gson = new Gson();
+        String json = mPreferences.getString(USUARIO_SESSION, null);
+        return gson.fromJson(json, UsuarioSession.class);
+    }
+
+    public static void setProfissionalCadastro(SharedPreferences mPreferences, Profissional profissional) {
+        SharedPreferences.Editor prefsEditor = mPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(profissional);
+        prefsEditor.putString(PROFISSIONAL_CADASTRO, json);
+        prefsEditor.commit();
+    }
+
+    public static Profissional getProfissionalCadastro(SharedPreferences mPreferences){
+        Gson gson = new Gson();
+        String json = mPreferences.getString(PROFISSIONAL_CADASTRO, null);
+        return gson.fromJson(json, Profissional.class);
     }
 }

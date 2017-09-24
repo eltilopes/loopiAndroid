@@ -51,6 +51,7 @@ import br.com.aio.adapter.CustomSpinnerAdapter;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.ServicoCard;
+import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
@@ -80,12 +81,14 @@ public class ListagemActivity extends AppCompatActivity
     private Spinner spinnerCategoria;
     private SharedPreferences mPrefs;
     private Localizacao localizacaoMapa;
+    private UsuarioSession usuarioSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
+        getUsuarioLogado();
         setButtonFiltro();
         setButtonCategoria();
         setButtonSubCategoria();
@@ -271,6 +274,10 @@ public class ListagemActivity extends AppCompatActivity
         }
     }
 
+    public void getUsuarioLogado() {
+        usuarioSession = new UsuarioSession(1,"Elton Lopes","92871259372");
+    }
+
     public class DownloadTask extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -441,6 +448,7 @@ public class ListagemActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        SessionUtils.setUsuarioSession(mPrefs, usuarioSession);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
