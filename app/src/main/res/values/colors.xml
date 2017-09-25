@@ -7,10 +7,10 @@
 
     <color name="colorButtonHeader">#4D526F</color>
     <color name="colorButton">@color/material_grey_400</color>
-    <color name="backgroundEditText">@color/material_grey_300</color>
+    <color name="backgroundEditText">@color/material_grey_200</color>
     <color name="colorButtonAzul">@color/material_blue_400</color>
     <color name="colorButtonLaranja">@color/material_orange_400</color>
-    <color name="textColorPreto">@color/material_grey_800</color>
+    <color name="textColorCinzaEscuro">@color/material_grey_700</color>
     <color name="textColorAzul">@color/material_blue_800</color>
     <color name="textColorCinza">@color/material_grey_500</color>
     <color name="textColorInfoVerde">@color/material_green_300</color>

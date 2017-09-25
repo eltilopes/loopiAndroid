@@ -7,7 +7,7 @@ import java.util.List;
  * Created by elton on 23/09/2017.
  */
 
-public class Categoria {
+public class Categoria extends SpinnerModel{
 
     private Integer id;
     private String descricao;
@@ -17,6 +17,7 @@ public class Categoria {
     public Categoria(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
+        super.setDescricaoSpinner(descricao);
     }
 
     public Integer getId() {
@@ -43,18 +44,4 @@ public class Categoria {
         return categorias;
     }
 
-    public static Categoria getCategoria(List<Categoria> categorias, String descricao){
-        Categoria categoria = new Categoria();
-        for(Categoria c : categorias){
-            if(c.getDescricao().equals(descricao)){
-                categoria = c;
-            }
-        }
-        return categoria;
-    }
-
-    @Override
-    public String toString() {
-        return descricao;
-    }
 }

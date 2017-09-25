@@ -43,14 +43,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import br.com.aio.R;
-import br.com.aio.adapter.CustomSpinnerAdapter;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.adapter.SpinnerAdapter;
+import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.ServicoCard;
+import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.utils.SessionUtils;
@@ -218,16 +219,18 @@ public class ListagemActivity extends AppCompatActivity
         dialogSubCategoria.show();
         TextView alertTitle=(TextView)dialogSubCategoria.getWindow().getDecorView().findViewById(R.id.dialog_title);
         Spinner spinner = (Spinner) dialogSubCategoria.findViewById(R.id.subcategoria);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
+                SubCategoria.getSubCategorias(), SubCategoria.class, false);
+        spinner.setAdapter(adapterSub);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(),
-                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
+                if(position>0) {
+                    adapterSub.setItemChecked(view, position);
+                    ToastUtils.show(ListagemActivity.this,
+                            "Selecionado : " + ((SubCategoria) adapterSub.getItemAtPosition(position)).getDescricao(),
+                            ToastUtils.INFORMATION);
+                }
             }
 
             @Override
@@ -390,21 +393,19 @@ public class ListagemActivity extends AppCompatActivity
         }
         MenuItem item = menu.findItem(R.id.spinner_categoria);
         spinnerCategoria = (Spinner) MenuItemCompat.getActionView(item);
-        String[] strings = getApplicationContext().getResources().getStringArray(R.array.list_categoria);
-        final CustomSpinnerAdapter spinAdapter = new CustomSpinnerAdapter(
-                getApplicationContext(), new ArrayList<String>(Arrays.asList(strings)));
+        spinnerCategoria.setBackground(null);
+        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), Categoria.getCategorias(), Categoria.class, true);
         spinnerCategoria.setAdapter(spinAdapter);
         spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
-            public void onItemSelected(AdapterView<?> adapter, View v,
-                                       int position, long id) {
-                // On selecting a spinner item
-                String item = adapter.getItemAtPosition(position).toString();
-
-                // Showing selected spinner item
-                Toast.makeText(getApplicationContext(), "Selected  : " + item,
-                        Toast.LENGTH_LONG).show();
+            public void onItemSelected(AdapterView<?> adapter, View v,int position, long id) {
+                if(position>0) {
+                    spinAdapter.setItemChecked(v, position);
+                    ToastUtils.show(ListagemActivity.this,
+                            "Selecionado : " + ((Categoria) spinAdapter.getItemAtPosition(position)).getDescricao(),
+                            ToastUtils.INFORMATION);
+                }
             }
 
             @Override

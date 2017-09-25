@@ -10,12 +10,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.aio.R;
 import br.com.aio.adapter.SpinnerAdapter;
@@ -24,7 +20,6 @@ import br.com.aio.entity.Profissional;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.SessionUtils;
-import br.com.aio.utils.SpinnerUtils;
 import br.com.aio.utils.ToastUtils;
 
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
@@ -41,7 +36,6 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
     private Spinner spinnerSubCategoria;
     private SharedPreferences mPrefs;
     private Profissional profissional;
-    private List<Categoria> categorias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +48,6 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setIcon(R.drawable.arrow_back_white);
-        categorias = getCategorias(Categoria.getCategorias());
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_title_bar, null);
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
@@ -65,14 +58,15 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         continuar.setOnClickListener(this);
 
         spinnerCategoria = (Spinner) findViewById(R.id.categoria);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(),
+                Categoria.getCategorias(), Categoria.class, false);
         spinnerCategoria.setAdapter(adapter);
         spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position>0){
-                    profissional.setCategoria(Categoria.getCategoria(categorias, parent.getItemAtPosition(position).toString()));
+                    adapter.setItemChecked(view, position);
+                    profissional.setCategoria((Categoria) adapter.getItemAtPosition(position));
                     ToastUtils.show(CadastroProfissionalActivity.this,
                             "Categoria Selecionada : " + profissional.getCategoria().getDescricao(),
                             ToastUtils.INFORMATION);
@@ -87,12 +81,13 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         });
         spinnerSubCategoria = (Spinner) findViewById(R.id.sub_categoria);
         final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
-                R.layout.spinner_custom, SubCategoria.getSubCategorias(), SubCategoria.class);
+                SubCategoria.getSubCategorias(), SubCategoria.class, false);
         spinnerSubCategoria.setAdapter(adapterSub);
         spinnerSubCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position>0) {
+                    adapterSub.setItemChecked(view, position);
                     profissional.setSubCategoria((SubCategoria) adapterSub.getItemAtPosition(position));
                     ToastUtils.show(CadastroProfissionalActivity.this,
                             "Selecionado : " + profissional.getSubCategoria().getDescricao(),
@@ -107,18 +102,6 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         });
 
     }
-
-    private List<Categoria> getCategorias(List<Categoria> categorias) {
-        List<Categoria> lista = new ArrayList<Categoria>();
-        try {
-            lista.add((Categoria) SpinnerUtils.getObjectDefaultSpinner(Categoria.class));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        lista.addAll(categorias);
-        return lista;
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
