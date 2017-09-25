@@ -13,14 +13,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
+import br.com.aio.adapter.SpinnerAdapter;
 import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Profissional;
+import br.com.aio.entity.SubCategoria;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.SpinnerUtils;
@@ -64,7 +65,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         continuar.setOnClickListener(this);
 
         spinnerCategoria = (Spinner) findViewById(R.id.categoria);
-        ArrayAdapter<Categoria> adapter = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, categorias);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoria.setAdapter(adapter);
         spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -85,16 +86,18 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
             }
         });
         spinnerSubCategoria = (Spinner) findViewById(R.id.sub_categoria);
-        ArrayAdapter<CharSequence> adapterSub = ArrayAdapter.createFromResource(this,
-                R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
-        adapterSub.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
+                R.layout.spinner_custom, SubCategoria.getSubCategorias(), SubCategoria.class);
         spinnerSubCategoria.setAdapter(adapterSub);
         spinnerSubCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(),
-                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
+                if(position>0) {
+                    profissional.setSubCategoria((SubCategoria) adapterSub.getItemAtPosition(position));
+                    ToastUtils.show(CadastroProfissionalActivity.this,
+                            "Selecionado : " + profissional.getSubCategoria().getDescricao(),
+                            ToastUtils.INFORMATION);
+                }
             }
 
             @Override
