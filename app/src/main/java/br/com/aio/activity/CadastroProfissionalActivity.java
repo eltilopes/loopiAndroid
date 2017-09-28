@@ -59,7 +59,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
 
         spinnerCategoria = (Spinner) findViewById(R.id.categoria);
         final SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(),
-                Categoria.getCategorias(), Categoria.class, false);
+                Categoria.getCategorias(), Categoria.class, R.id.categoria);
         spinnerCategoria.setAdapter(adapter);
         spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -81,7 +81,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         });
         spinnerSubCategoria = (Spinner) findViewById(R.id.sub_categoria);
         final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
-                SubCategoria.getSubCategorias(), SubCategoria.class, false);
+                SubCategoria.getSubCategorias(), SubCategoria.class, R.id.sub_categoria);
         spinnerSubCategoria.setAdapter(adapterSub);
         spinnerSubCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

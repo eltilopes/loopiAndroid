@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,7 +34,6 @@ import br.com.aio.R;
 import br.com.aio.entity.Documento;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.DocumentoUtils;
-import br.com.aio.utils.PathUtils;
 import br.com.aio.utils.PermissionsUtils;
 import br.com.aio.utils.ToastUtils;
 
@@ -206,34 +204,7 @@ public class CadastroDocumentosActivity extends AppCompatActivity implements Ada
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode){
-            case PICKFILE_RESULT_CODE:
-                if(resultCode==RESULT_OK){
-                    String imagem = PathUtils.getPath(context, data.getData());
-                    File imgFile = new  File(imagem);
-                    if(imgFile.exists()){
-                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                        documento.setArquivo(imgFile);
-                        mostrarDialogImagem(myBitmap);
-                    }
-                }
-                break;
-            case TAKE_PICTURE:
-                if (resultCode == RESULT_OK) {
-                    if(photo.exists()){
-                        try {
-                            Bitmap bitmap = BitmapFactory.decodeFile(photo.getAbsolutePath());
-                            documento.setArquivo(photo);
-                            mostrarDialogImagem(bitmap);
-                        } catch (Exception e) {
-                            Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
-
-                }
-        }
-        mostrarListaDocumentos();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void mostrarDialogImagem(Bitmap myBitmap) {

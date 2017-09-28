@@ -11,7 +11,6 @@
     <!-- Default application theme -->
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="actionBarStyle">@style/ActionBarStyle</item>
-
         <item name="windowNoTitle">false</item>
         <item name="colorPrimary">@color/main_color_500</item>
         <item name="colorPrimaryDark">@color/main_color_700</item>
@@ -88,14 +87,25 @@
         <item name="android:scrollHorizontally">true</item>
     </style>
 
-
     <style name="SpinnerTextViewItem" parent="@android:style/Widget.Material.Light.Spinner" >
+        <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
+    </style>
+
+    <style name="MySpinnerDropDown" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@color/colorAccent</item>
+        <item name="android:overlapAnchor">true</item>
+    </style>
+
+    <style name="SpinnerTextViewTitle" parent="android:Widget.TextView">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:padding">1dp</item>
         <item name="android:textSize">@dimen/abc_text_size_subtitle_material_toolbar</item>
-        <item name="android:background">@android:color/white</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
     </style>
 
     <style name="ActionBarStyle.TitleTextStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">

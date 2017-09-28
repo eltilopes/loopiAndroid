@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -56,13 +57,16 @@ import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
+import br.com.aio.view.SpinnerActionsHeader;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
 public class ListagemActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MyRecyclerViewAdapter.OnRecyclerViewItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+                   MyRecyclerViewAdapter.OnRecyclerViewItemClickListener,
+        View.OnClickListener {
 
     private static final String TAG = "RecyclerViewExample";
     public static final int idCard = -1;
@@ -77,6 +81,7 @@ public class ListagemActivity extends AppCompatActivity
     private MaterialDesignIconsTextView imagemUsuario;
     private Dialog dialogMostrarFiltro;
     private Dialog dialogSubCategoria;
+    private SpinnerActionsHeader spinnerSubCategoria;
     private SearchView.OnQueryTextListener queryTextListener;
     private SearchView searchView;
     private Spinner spinnerCategoria;
@@ -85,9 +90,15 @@ public class ListagemActivity extends AppCompatActivity
     private UsuarioSession usuarioSession;
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
+
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
         getUsuarioLogado();
         setButtonFiltro();
@@ -128,9 +139,19 @@ public class ListagemActivity extends AppCompatActivity
             localizacaoMapa = SessionUtils.getLocalizacaoMapa(mPrefs);
             ToastUtils.show(this,getResources().getString(R.string.localizacao) + ": " + localizacaoMapa.getNome(), ToastUtils.INFORMATION);
         }
+
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (spinnerSubCategoria != null && !hasFocus && spinnerSubCategoria.isEnabled()){
+            spinnerSubCategoria.setDropDownMenuShown(true);
+            spinnerSubCategoria.setActivated(true);
+        }
 
+
+    }
     private void abrirMeuPerfil() {
         Intent newActivity = new Intent(ListagemActivity.this, MeuPerfilActivity.class);
         startActivity(newActivity);
@@ -161,7 +182,7 @@ public class ListagemActivity extends AppCompatActivity
         dialogMostrarFiltro.setContentView(R.layout.dialog_filtro);
         dialogMostrarFiltro.show();
         TextView alertTitle=(TextView)dialogMostrarFiltro.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.subcategoria);
+        Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.spinner_header_subcategoria);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -201,7 +222,6 @@ public class ListagemActivity extends AppCompatActivity
 
             }
         });
-
         TextView aplicar = (TextView) dialogMostrarFiltro.findViewById(R.id.dialog_ok);
         aplicar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,35 +229,11 @@ public class ListagemActivity extends AppCompatActivity
                 dialogMostrarFiltro.dismiss();
             }
         });
-
     }
 
     private void mostrarSubCategorias() {
-        dialogSubCategoria = new Dialog(this);
-        dialogSubCategoria.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogSubCategoria.setContentView(R.layout.dialog_sub_categoria);
         dialogSubCategoria.show();
-        TextView alertTitle=(TextView)dialogSubCategoria.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        Spinner spinner = (Spinner) dialogSubCategoria.findViewById(R.id.subcategoria);
-        final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
-                SubCategoria.getSubCategorias(), SubCategoria.class, false);
-        spinner.setAdapter(adapterSub);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position>0) {
-                    adapterSub.setItemChecked(view, position);
-                    ToastUtils.show(ListagemActivity.this,
-                            "Selecionado : " + ((SubCategoria) adapterSub.getItemAtPosition(position)).getDescricao(),
-                            ToastUtils.INFORMATION);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        spinnerSubCategoria.performClick();
     }
 
     private void setButtonCategoria() {
@@ -260,6 +256,47 @@ public class ListagemActivity extends AppCompatActivity
                 mostrarSubCategorias();
             }
         });
+        dialogSubCategoria = new Dialog(this);
+        dialogSubCategoria.setCancelable(true);
+        dialogSubCategoria.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSubCategoria.setContentView(R.layout.dialog_sub_categoria);
+        TextView alertTitle=(TextView)dialogSubCategoria.getWindow().getDecorView().findViewById(R.id.dialog_title);
+        spinnerSubCategoria = (SpinnerActionsHeader) dialogSubCategoria.findViewById(R.id.spinner_header_subcategoria);
+        final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
+                SubCategoria.getSubCategorias(), SubCategoria.class, R.id.spinner_header_subcategoria);
+        spinnerSubCategoria.setAdapter(adapterSub);
+        spinnerSubCategoria.setSpinnerEventsListener(new SpinnerActionsHeader.OnSpinnerEventsListener() {
+            @Override
+            public void onSpinnerOpened(Spinner spinner) {
+                spinnerSubCategoria.setActivated(false);
+            }
+
+            @Override
+            public void onSpinnerClosed(Spinner spinner) {
+                spinnerSubCategoria.setActivated(false);
+                spinnerSubCategoria.clearFocus();
+                Window window = dialogSubCategoria.getWindow();
+                window.getDecorView().setVisibility(View.INVISIBLE);
+            }
+        });
+        spinnerSubCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0) {
+                    adapterSub.setItemChecked(view, position);
+                    ToastUtils.show(ListagemActivity.this,
+                            "Selecionado : " + ((SubCategoria) adapterSub.getItemAtPosition(position)).getDescricao(),
+                            ToastUtils.INFORMATION);
+                    dialogSubCategoria.dismiss();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                dialogSubCategoria.dismiss();
+            }
+        });
+
     }
 
     @Override
@@ -279,6 +316,11 @@ public class ListagemActivity extends AppCompatActivity
 
     public void getUsuarioLogado() {
         usuarioSession = new UsuarioSession(1,"Elton Lopes","92871259372");
+    }
+
+    @Override
+    public void onClick(View v) {
+        finish();
     }
 
     public class DownloadTask extends AsyncTask<String, Void, Integer> {
@@ -391,10 +433,10 @@ public class ListagemActivity extends AppCompatActivity
             };
             searchView.setOnQueryTextListener(queryTextListener);
         }
-        MenuItem item = menu.findItem(R.id.spinner_categoria);
+        MenuItem item = menu.findItem(R.id.spinner_header_categoria);
         spinnerCategoria = (Spinner) MenuItemCompat.getActionView(item);
         spinnerCategoria.setBackground(null);
-        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), Categoria.getCategorias(), Categoria.class, true);
+        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), Categoria.getCategorias(), Categoria.class, R.id.spinner_header_categoria);
         spinnerCategoria.setAdapter(spinAdapter);
         spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -477,4 +519,6 @@ public class ListagemActivity extends AppCompatActivity
         fecharMenu();
         return true;
     }
+
+
 }

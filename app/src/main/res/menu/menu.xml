@@ -2,7 +2,7 @@
 xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/spinner_categoria"
+        android:id="@+id/spinner_header_categoria"
         android:title="@string/categoria"
         android:icon="@drawable/ic_categoria"
         yourapp:actionViewClass="android.widget.Spinner"

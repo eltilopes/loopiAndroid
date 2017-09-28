@@ -40,7 +40,7 @@ public class PermissionsUtils {
     }
 
     private static String getMessageDialog(int idPermissao) {
-        String tituloPermissao = "";
+        String tituloPermissao = "Necessário Acesso";
         switch (idPermissao){
             case PERMISSIONS_REQUEST_CAMERA_ID:
                 tituloPermissao = ACESSO_CAMERA_NECESSARIO;
