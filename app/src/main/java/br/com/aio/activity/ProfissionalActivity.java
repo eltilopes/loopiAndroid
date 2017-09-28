@@ -121,7 +121,7 @@ public class ProfissionalActivity extends AppCompatActivity {
         //dialogMostrarFiltro = new Dialog(this, R.style.MyDialogTheme);
         dialogTaxasAnuncio = new Dialog(this);
         dialogTaxasAnuncio.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogTaxasAnuncio.setContentView(R.layout.dialog_taxas_anuncio);
+        dialogTaxasAnuncio.setContentView(R.layout.dialog_taxas_termos);
         dialogTaxasAnuncio.show();
         TextView alertTitle=(TextView)dialogTaxasAnuncio.getWindow().getDecorView().findViewById(R.id.dialog_title);
         alertTitle.setText(getString(R.string.taxas_anuncio));

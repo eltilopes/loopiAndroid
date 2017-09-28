@@ -11,11 +11,11 @@
     <FrameLayout
         android:id="@+id/container_body"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <View
                 android:id="@+id/activity_transition_header"
@@ -30,10 +30,16 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@id/activity_transition_header">
 
-                <LinearLayout
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+
+                    <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -43,7 +49,7 @@
                         xmlns:cardview="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_servico"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         cardview:cardCornerRadius="2dp"
                         cardview:cardElevation="3dp"
                         cardview:cardPreventCornerOverlap="false"
@@ -51,7 +57,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_margin="4dp"
                             android:padding="4dp"
                             android:background="@drawable/border_text"
@@ -320,32 +326,36 @@
                                     android:paddingTop="5dp"
                                     android:text="@string/info_saque_minimo"/>
 
-                            <br.com.aio.view.MaterialRippleLayout
-                                style="@style/RippleStyle"
+
+
+                        </LinearLayout>
+
+                        </LinearLayout>
+
+                        <br.com.aio.view.MaterialRippleLayout
+                            style="@style/RippleStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|bottom"
+                            android:gravity="center_horizontal|bottom"
+                            android:layout_marginBottom="20dp"
+                            app:rippleColor="@color/main_color_grey_400" >
+
+                            <br.com.aio.fonts.RobotoTextView
+                                android:id="@+id/solicitar_saque"
+                                style="@style/ButtonStyle.RaisedEmpty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                app:rippleColor="@color/main_color_grey_400" >
-
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:id="@+id/solicitar_saque"
-                                    style="@style/ButtonStyle.RaisedEmpty"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:background="@color/colorPrimary"
-                                    android:text="@string/saque"
-                                    android:textColor="@android:color/white"/>
-                            </br.com.aio.view.MaterialRippleLayout>
-                        </LinearLayout>
-                        </LinearLayout>
-
-
+                                android:layout_gravity="center_horizontal|bottom"
+                                android:gravity="center_horizontal|bottom"
+                                android:background="@color/colorPrimary"
+                                android:text="@string/saque"
+                                android:textColor="@android:color/white"/>
+                        </br.com.aio.view.MaterialRippleLayout>
                     </android.support.v7.widget.CardView>
 
                 </LinearLayout>
+                </ScrollView>
             </RelativeLayout>
 
 
