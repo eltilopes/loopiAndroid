@@ -84,6 +84,8 @@
     <string name="cadastre">CADASTRE</string>
     <string name="categoria">CATEGORIA</string>
     <string name="especialidade">Especialidade</string>
+    <string name="dados_pessoais">Dados Pessoais</string>
+    <string name="dados_bancarios">Dados Bancários</string>
     <string name="title_profissional">PROFISSIONAL</string>
     <string name="localizacao">Localização</string>
     <string name="para_onde">Para onde?</string>

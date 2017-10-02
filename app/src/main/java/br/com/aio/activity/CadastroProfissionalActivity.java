@@ -9,7 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -20,7 +26,9 @@ import br.com.aio.entity.Profissional;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.SessionUtils;
+import br.com.aio.utils.TelefoneMaskUtil;
 import br.com.aio.utils.ToastUtils;
+import br.com.aio.view.DadosBancarios;
 
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
@@ -28,7 +36,7 @@ import static br.com.aio.utils.BundleUtils.PREFS_NAME;
  * Created by elton on 17/07/2017.
  */
 
-public class CadastroProfissionalActivity extends AppCompatActivity implements AdapterView.OnClickListener  {
+public class CadastroProfissionalActivity extends AppCompatActivity implements AdapterView.OnClickListener{
 
     private RobotoTextView nomePagina ;
     private TextView continuar ;
@@ -36,6 +44,15 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
     private Spinner spinnerSubCategoria;
     private SharedPreferences mPrefs;
     private Profissional profissional;
+    private EditText editTextCpf;
+    private EditText editTextNome;
+    private EditText editTextEmail;
+    private EditText editTextTelefone;
+    private DadosBancarios dadosBancarios;
+    private RelativeLayout layoutDadosBancarios;
+    private LinearLayout linearDadosBancarios;
+    private LinearLayout layoutDadosPessoais;
+    private LinearLayout linearDadosPessoais;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +70,100 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
         nomePagina.setText("Cadastro");
         actionBar.setCustomView(v);
+        layoutDadosBancarios = (RelativeLayout) findViewById(R.id.layout_dados_bancarios);
+        linearDadosBancarios = (LinearLayout) findViewById(R.id.linear_dados_bancarios);
+        final Animation animation   =    AnimationUtils.loadAnimation(getApplicationContext(), R.animator.linear_layout_anim);
+        animation.setDuration(300);
+        linearDadosBancarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(layoutDadosBancarios.getVisibility() == View.VISIBLE) {
+                    layoutDadosBancarios.setVisibility(View.GONE); // hides layout
+                } else {
+                    layoutDadosBancarios.setVisibility(View.VISIBLE); // shows layout
+
+                    /*layoutDadosBancarios.setAnimation(animation);
+                    layoutDadosBancarios.animate();
+                    animation.start();*/
+                }
+
+            }
+        });
+        layoutDadosPessoais = (LinearLayout) findViewById(R.id.layout_dados_pessoais);
+        linearDadosPessoais = (LinearLayout) findViewById(R.id.linear_dados_pessoais);
+        linearDadosPessoais.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(layoutDadosPessoais.getVisibility() == View.VISIBLE) {
+                    /*TranslateAnimation animate = new TranslateAnimation(0,0,layoutDadosPessoais.getHeight(),0);
+                    animate.setDuration(500);
+                    animate.setFillAfter(true);
+                    layoutDadosPessoais.startAnimation(animate);*/
+                    layoutDadosPessoais.setVisibility(View.GONE);
+                }
+                else {
+                    /*TranslateAnimation animate = new TranslateAnimation(0,0,0,layoutDadosPessoais.getHeight());
+                    animate.setDuration(500);
+                    animate.setFillAfter(true);
+                    layoutDadosPessoais.startAnimation(animate);*/
+                    layoutDadosPessoais.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+        editTextCpf= (EditText) findViewById(R.id.edit_text_cpf);
+        editTextCpf.setFocusableInTouchMode(false);
+        editTextCpf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = ((EditText) v);
+                editText.setFocusableInTouchMode(true);
+                editText.setFocusable(true);
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        editTextNome= (EditText) findViewById(R.id.edit_text_nome);
+        editTextNome.setFocusableInTouchMode(false);
+        editTextNome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = ((EditText) v);
+                editText.setFocusableInTouchMode(true);
+                editText.setFocusable(true);
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        editTextEmail= (EditText) findViewById(R.id.edit_text_email);
+        editTextEmail.setFocusableInTouchMode(false);
+        editTextEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = ((EditText) v);
+                editText.setFocusableInTouchMode(true);
+                editText.setFocusable(true);
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        editTextTelefone= (EditText) findViewById(R.id.edit_text_telefone);
+        editTextTelefone.setFocusableInTouchMode(false);
+        editTextTelefone.addTextChangedListener(TelefoneMaskUtil.insert(editTextTelefone));
+        editTextTelefone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = ((EditText) v);
+                editText.setFocusableInTouchMode(true);
+                editText.setFocusable(true);
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
 
         continuar = (TextView) findViewById(R.id.continuar);
         continuar.setOnClickListener(this);
@@ -101,6 +212,8 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
             }
         });
 
+        dadosBancarios = new DadosBancarios(this);
+
     }
 
     @Override
@@ -122,5 +235,10 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
 
     public void getProfissional() {
         profissional = SessionUtils.getProfissionalCadastro(mPrefs);
+    }
+
+    public void verDadosBancarios() {
+        dadosBancarios.getBanco();
+        dadosBancarios.getFinalidade();
     }
 }

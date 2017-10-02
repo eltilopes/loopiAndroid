@@ -10,6 +10,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!-- Default application theme -->
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
         <item name="actionBarStyle">@style/ActionBarStyle</item>
         <item name="windowNoTitle">false</item>
         <item name="colorPrimary">@color/main_color_500</item>
@@ -93,6 +95,12 @@
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
+    </style>
+
+    <style name="EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/background_edit_text</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/textColorCinzaEscuro</item>
     </style>
 
     <style name="MySpinnerDropDown" parent="@style/Widget.AppCompat.Light.PopupMenu">

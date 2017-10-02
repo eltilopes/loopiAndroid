@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/AppTheme">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:orientation="vertical">
+
+        <br.com.aio.fonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:text="@string/banco"/>
+
+        <Spinner
+            android:id="@+id/bancos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:background="@drawable/background_edit_text"
+            style="@style/MySpinnerStyle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:orientation="vertical">
+        <br.com.aio.fonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:text="@string/finalidade"/>
+
+        <Spinner
+            android:id="@+id/finalildades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:background="@drawable/background_edit_text"
+            style="@style/MySpinnerStyle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <br.com.aio.fonts.RobotoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:text="@string/agencia"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/agencia"
+                    android:layout_width="0dip"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="6"/>
+
+                <br.com.aio.fonts.RobotoTextView
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorCinza"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:minWidth="112dp"
+                    android:textSize="13dp"
+                    android:text="-" />
+
+                <EditText
+                    android:id="@+id/dv_agencia"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <br.com.aio.fonts.RobotoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:text="@string/conta"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
+
+                <EditText
+                    android:id="@+id/conta"
+                    android:layout_width="0dip"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="6"/>
+
+                <br.com.aio.fonts.RobotoTextView
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorCinza"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:minWidth="112dp"
+                    android:textSize="13dp"
+                    android:text="-" />
+
+                <EditText
+                    android:id="@+id/dv_conta"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    style="@style/AppTheme"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:orientation="vertical" >
+        <br.com.aio.fonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:text="@string/valor"/>
+
+        <EditText
+            android:id="@+id/valor_saque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:minWidth="100dp"
+            android:layout_marginLeft="5dp"/>
+
+
+        <br.com.aio.fonts.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorInfoAzul"
+            android:drawableLeft="@drawable/ic_info"
+            android:drawablePadding="3dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:paddingTop="5dp"
+            android:text="@string/info_saque_minimo"/>
+    </LinearLayout>
+</LinearLayout>

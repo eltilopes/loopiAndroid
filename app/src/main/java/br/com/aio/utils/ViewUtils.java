@@ -3,6 +3,7 @@ package br.com.aio.utils;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -38,5 +39,9 @@ public class ViewUtils {
         drawable.setState(state);  // match the background state
         textspan.setSpan(new ImageSpan(drawable, alinhamento), 0, 1, spanned);
         return textspan.toString();
+    }
+
+    public static boolean editableEmpty( final Editable s ) {
+        return s == null || s.toString().trim().isEmpty();
     }
 }

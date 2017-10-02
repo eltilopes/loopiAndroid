@@ -35,7 +35,7 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private void setContentView() {
         setContentView(R.layout.activity_nao_tenho_convite);
         cpfCnpj = (FloatLabeledEditText) findViewById(R.id.cpf_cnpj);
-        email = (FloatLabeledEditText) findViewById(R.id.email);
+        email = (FloatLabeledEditText) findViewById(R.id.edit_text_email);
         nomeCompleto = (FloatLabeledEditText) findViewById(R.id.nome_completo);
         cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj.getEditText(), null);
         cpfCnpj.getEditText().addTextChangedListener(cpfCnpjMaks);
