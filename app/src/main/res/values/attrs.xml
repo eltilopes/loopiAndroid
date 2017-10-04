@@ -5,6 +5,23 @@
         <attr name="linear_layout_ratio" format="float" />
     </declare-styleable>
 
+    <declare-styleable name="CronometroView">
+        <attr name="tickTextSize" format="dimension" />
+        <attr name="tickRingThickness" format="dimension" />
+        <attr name="tickDotRadius" format="dimension" />
+        <attr name="tickTextColor" format="color" />
+        <attr name="tickEmptyRingColor" format="color" />
+        <attr name="tickFillRingColor" format="color" />
+        <attr name="tickMiddleColor" format="color" />
+        <attr name="tickText" format="string" />
+        <attr name="tickMoveCounterClockwise" format="boolean" />
+        <attr name="tickAutoFitText" format="boolean" />
+        <attr name="tickCircleDuration" format="enum">
+            <enum name="minute" value="0"/>
+            <enum name="total_time" value="1" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="RobotoTextView">
         <attr name="typeface" format="enum">
             <enum name="robotoBlack" value="0" />

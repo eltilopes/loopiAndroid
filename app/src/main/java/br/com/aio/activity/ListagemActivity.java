@@ -1,6 +1,8 @@
 package br.com.aio.activity;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +46,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.aio.R;
@@ -55,6 +58,7 @@ import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
+import br.com.aio.service.OnBootReceiver;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.SpinnerActionsHeader;
@@ -242,7 +246,14 @@ public class ListagemActivity extends AppCompatActivity
         buttonCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mostrarSubCategorias();
+
+                Intent i = new Intent(ListagemActivity.this, OnBootReceiver.class);
+                PendingIntent pi = PendingIntent.getBroadcast(ListagemActivity.this, 0, i,
+                        PendingIntent.FLAG_ONE_SHOT);
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) );
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
             }
         });
     }

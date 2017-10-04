@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 
 import br.com.aio.activity.ListagemActivity;
+import br.com.aio.activity.ServicoReceiverActivity;
 import br.com.aio.activity.SolicitarPedidoActivity;
 import br.com.aio.entity.Profissional;
 import br.com.aio.entity.ServicoCard;
@@ -12,6 +13,7 @@ import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.UsuarioSession;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ANTERIOR;
+import static br.com.aio.utils.BundleUtils.ACTIVITY_SERVICO_RECEIVER;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_SOLICITAR_PEDIDO;
 import static br.com.aio.utils.BundleUtils.CADASTRO_PROFISSIONAL;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
@@ -62,6 +64,9 @@ public class SessionUtils {
         switch (activity){
             case ACTIVITY_SOLICITAR_PEDIDO:
                 activityAnterior = SolicitarPedidoActivity.class;
+            case ACTIVITY_SERVICO_RECEIVER:
+                activityAnterior = ServicoReceiverActivity.class;
+
         }
         return activityAnterior;
     }

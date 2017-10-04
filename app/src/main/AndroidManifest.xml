@@ -14,7 +14,8 @@
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal"/>
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -77,6 +78,11 @@
             android:theme="@style/AppTheme" >
         </activity>
 
+        <activity android:name=".activity.ServicoReceiverActivity"
+            android:theme="@style/AppTheme"
+            android:excludeFromRecents="true" >
+        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDU8UgrqnHlQxNsk3WzzNNZorlEkQMKPvQ" />
@@ -93,6 +99,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+        <receiver android:name=".service.ServicoAlarmReciever">
+            <intent-filter>
+                <action android:name="br.com.aio.service" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.OnBootReceiver"  android:process=":remote" />
+        <service android:name=".service.AlarmService"  android:process=":remote"  />
+
     </application>
 
 </manifest>
