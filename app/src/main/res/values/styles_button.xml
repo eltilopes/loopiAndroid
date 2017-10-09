@@ -25,5 +25,47 @@
         <item name="android:textColor">@drawable/selector_text_full</item>
     </style>
     <!-- Button related styles end here -->
+    <style name="SwitchText">
+        <item name="android:paddingLeft">8px</item>
+        <item name="android:paddingBottom">8px</item>
+        <item name="android:textColor">@color/textColorCinzaEscuro</item>
+        <item name="android:textSize">24dip</item>
+        <item name="android:shadowColor">@color/textColorCinza</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
 
+
+
+
+    <style name="mySwitchStyle">
+        <item name="track">@drawable/switch_track_green</item>
+        <item name="thumb">@drawable/background_fenced</item>
+        <item name="switchTextAppearanceAttrib">@style/mySwitchTextAppearance</item>
+        <item name="textOn">ON</item>
+        <item name="textOff">OFF</item>
+        <item name="pushStyle">false</item>
+        <item name="textOnThumb">true</item>
+        <item name="thumbExtraMovement">0dp</item>
+        <item name="thumbTextPadding">6dp</item>
+        <item name="trackTextPadding">6dp</item>
+        <item name="switchMinWidth">300dp</item>
+        <item name="switchMinHeight">40dp</item>
+        <item name="switchPadding">6dp</item>
+    </style>
+
+    <style name="mySwitchTextAppearance">
+        <item name="textColor">@color/textColorPrimary</item>
+        <item name="textColorHighlight">@color/textColorPrimary</item>
+        <item name="textColorHint">@color/textColorPrimary</item>
+        <item name="textColorLink">@color/textColorPrimary</item>
+        <item name="textSize">18dp</item>
+        <item name="textStyle">normal</item>
+    </style>
+
+    <style name="mySwitchStyleAttr">
+        <item name="textColor">@color/textColorCinzaEscuro</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

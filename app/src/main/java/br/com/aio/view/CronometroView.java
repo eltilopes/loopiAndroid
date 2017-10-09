@@ -345,4 +345,12 @@ public class CronometroView extends View {
     public interface OnTickListener {
         String getText(long timeRemainingInMillis);
     }
+
+    public void setmStartTime(Calendar mStartTime) {
+        this.mStartTime = mStartTime;
+    }
+
+    public void setmEndTime(Calendar mEndTime) {
+        this.mEndTime = mEndTime;
+    }
 }

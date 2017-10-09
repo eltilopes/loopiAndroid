@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">AIO</string>
+    <string name="key_open_activity_aceitar_servico">br.com.aio.activity.AceitarServicoFirebaseActivity</string>
 
     <string name="navigation_drawer_open">Abrir Menu</string>
     <string name="navigation_drawer_close">Fechar Menu</string>
@@ -112,6 +113,7 @@
     <string name="tempo_inicio_servico">Tempo para início do serviço</string>
     <string name="ver_taxas_anuncio">Ver taxas de anúncio</string>
     <string name="termos_condicoes">Termos e Condiçôes</string>
+    <string name="aceitar_servico">Aceitar Serviço</string>
     <string name="termos_privacidade">Termos de Privacidade</string>
     <string name="termos_concordar">Li e Concordo com os Termos</string>
     <string name="anexar_foto_perfil">Anexar foto do perfil</string>

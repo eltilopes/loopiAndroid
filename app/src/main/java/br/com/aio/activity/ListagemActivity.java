@@ -1,8 +1,6 @@
 package br.com.aio.activity;
 
-import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +44,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import br.com.aio.R;
@@ -58,11 +55,11 @@ import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
-import br.com.aio.service.OnBootReceiver;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.SpinnerActionsHeader;
 
+import static br.com.aio.utils.BundleUtils.ACTIVITY_ACEITAR_SERVICO;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
@@ -246,14 +243,7 @@ public class ListagemActivity extends AppCompatActivity
         buttonCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(ListagemActivity.this, OnBootReceiver.class);
-                PendingIntent pi = PendingIntent.getBroadcast(ListagemActivity.this, 0, i,
-                        PendingIntent.FLAG_ONE_SHOT);
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) );
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+                mostrarSubCategorias();
             }
         });
     }
@@ -407,10 +397,9 @@ public class ListagemActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if(ACTIVITY_ACEITAR_SERVICO.equals(SessionUtils.getNomeActivityAnterior(mPrefs))){
+            moveTaskToBack(true);
+        }else{
             super.onBackPressed();
         }
     }

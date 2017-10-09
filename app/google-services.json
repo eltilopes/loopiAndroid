@@ -1,40 +1,39 @@
 {
   "project_info": {
-    "project_number": "286543620019",
-    "project_id": "all-in-674-one"
+    "project_number": "569281979463",
+    "firebase_url": "https://allinone-bd141.firebaseio.com",
+    "project_id": "allinone-bd141",
+    "storage_bucket": "allinone-bd141.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:286543620019:android:5d849a66591d8614",
+        "mobilesdk_app_id": "1:569281979463:android:41beca05be493695",
         "android_client_info": {
           "package_name": "br.com.aio"
         }
       },
       "oauth_client": [
         {
-          "client_id": "286543620019-9sm9je6oe666l8mteqbtioogetoo0637.apps.googleusercontent.com",
+          "client_id": "569281979463-b4s4kd8nm9asevs4lko2bqbkbt6bga68.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDtchj4UMCALjNUW91AX_sr4y6n-3Wc96Q"
+          "current_key": "AIzaSyBFBH-UXpUy-aVkijBNtrWSYdG0Jz_tluQ"
         }
       ],
       "services": {
         "analytics_service": {
-          "status": 2,
-          "analytics_property": {
-            "tracking_id": "UA-105394079-1"
-          }
+          "status": 1
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
