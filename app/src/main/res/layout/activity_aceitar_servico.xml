@@ -66,28 +66,57 @@
         android:textColor="@color/textColorCinzaEscuro"
         android:text="Avenida Desembargador Moreira" />
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal|bottom"
-        android:gravity="center_horizontal|bottom">
-        <br.com.aio.view.MySwitch
-            android:id="@+id/slideToUnLock"
-            style="@style/mySwitchStyle"
-            android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <br.com.aio.view.MaterialRippleLayout
+            style="@style/RippleStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:gravity="center_horizontal|bottom"
-            mySwitch:textOff=""
-            mySwitch:textOn="@string/aceitar_servico"
-            mySwitch:textOnThumb="false"
-            mySwitch:switchMinWidth="300dp"
-            mySwitch:switchMinHeight="40dp"
-            mySwitch:thumb="@drawable/switch_thumb_arrow"
-            mySwitch:track="@drawable/switch_track" />
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:rippleColor="@color/main_color_grey_400" >
+
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/recusar"
+                style="@style/ButtonStyle.RaisedEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:background="@color/colorButtonVermelho"
+                android:minWidth="112dp"
+                android:text="@string/recusar"
+                android:onClick="recusar"
+                android:clickable="true"
+                android:textColor="#fff" />
+        </br.com.aio.view.MaterialRippleLayout>
+
+        <br.com.aio.view.MaterialRippleLayout
+            style="@style/RippleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:rippleColor="@color/main_color_grey_400" >
+
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/aceitar"
+                style="@style/ButtonStyle.RaisedEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:background="@color/colorButtonAzul"
+                android:minWidth="112dp"
+                android:text="@string/aceitar"
+                android:onClick="aceitar"
+                android:clickable="true"
+                android:textColor="#fff" />
+        </br.com.aio.view.MaterialRippleLayout>
     </LinearLayout>
+
 </LinearLayout>
 

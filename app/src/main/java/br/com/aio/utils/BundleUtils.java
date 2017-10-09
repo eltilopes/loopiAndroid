@@ -15,6 +15,7 @@ public class BundleUtils {
     public static final String ACTIVITY_ANTERIOR = "ACTIVITY_ANTERIOR";
     public static final String ACTIVITY_SOLICITAR_PEDIDO = "ACTIVITY_SOLICITAR_PEDIDO";
     public static final String ACTIVITY_ACEITAR_SERVICO= "ACTIVITY_ACEITAR_SERVICO";
+    public static final String ACTIVITY_INICIAR_ATENDIMENTO= "ACTIVITY_INICIAR_ATENDIMENTO";
     public static final String ACTIVITY_LISTAGEM= "ACTIVITY_LISTAGEM";
     public static final String ACTIVITY_MAPS= "ACTIVITY_MAPS";
 

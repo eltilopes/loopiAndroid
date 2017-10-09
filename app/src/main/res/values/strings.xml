@@ -39,6 +39,9 @@
     <string name="nenhum_bairro_selecionado">Nenhum Bairro Selecionado</string>
     <string name="cadastre_servico">Cadastre um Serviço</string>
     <string name="esqueciMinhaSenha">Esqueci Minha Senha</string>
+    <string name="cancelar_atendimento">CANCELAR ATENDIMENTO</string>
+    <string name="aceitar">ACEITAR</string>
+    <string name="recusar">RECUSAR</string>
     <string name="entrar">ENTRAR</string>
     <string name="enviar">ENVIAR</string>
     <string name="pedirConvite">PEDIR CONVITE</string>
@@ -114,6 +117,8 @@
     <string name="ver_taxas_anuncio">Ver taxas de anúncio</string>
     <string name="termos_condicoes">Termos e Condiçôes</string>
     <string name="aceitar_servico">Aceitar Serviço</string>
+    <string name="dirigir_cliente">INDO AGORA AO CLIENTE</string>
+    <string name="concluir_atendimento">CONCLUIR ATENDIMENTO</string>
     <string name="termos_privacidade">Termos de Privacidade</string>
     <string name="termos_concordar">Li e Concordo com os Termos</string>
     <string name="anexar_foto_perfil">Anexar foto do perfil</string>

@@ -59,7 +59,6 @@ import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.SpinnerActionsHeader;
 
-import static br.com.aio.utils.BundleUtils.ACTIVITY_ACEITAR_SERVICO;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
@@ -397,11 +396,7 @@ public class ListagemActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if(ACTIVITY_ACEITAR_SERVICO.equals(SessionUtils.getNomeActivityAnterior(mPrefs))){
-            moveTaskToBack(true);
-        }else{
-            super.onBackPressed();
-        }
+        moveTaskToBack(true);
     }
 
     @Override

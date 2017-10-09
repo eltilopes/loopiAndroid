@@ -1601,4 +1601,12 @@ public class MySwitch extends CompoundButton {
     protected boolean verifyDrawable(Drawable who) {
         return super.verifyDrawable(who) || who == mThumbDrawable || who == mTrackDrawable;
     }
+
+    public Drawable getmThumbDrawable() {
+        return mThumbDrawable;
+    }
+
+    public void setmThumbDrawable(Drawable mThumbDrawable) {
+        this.mThumbDrawable = mThumbDrawable;
+    }
 }

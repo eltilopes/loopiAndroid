@@ -59,6 +59,10 @@
         <attr name="mySwitchStyleAttr" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="mySwitchStyleAttr">
+    <!-- Text color. -->
+    </declare-styleable>
+
     <declare-styleable name="mySwitchTextAppearanceAttrib">
         <!-- Text color. -->
         <attr name="textColor" format="color" />

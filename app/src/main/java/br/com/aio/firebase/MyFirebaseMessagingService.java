@@ -34,7 +34,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void handleIntent(Intent intent) {
-
+        String id = getRegistrationToken();
         inBackground = true;
         super.handleIntent(intent);
         if(inBackground) abrirActivityAceitarServicoFirebase();
@@ -139,7 +139,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Intent notifyIntent = new Intent(this, AceitarServicoFirebaseActivity.class);
         notifyIntent.setAction(Intent.ACTION_MAIN);
         notifyIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
         notifyIntent.putExtra(CLICK_ACTION, getString(R.string.key_open_activity_aceitar_servico));
         startActivity(notifyIntent);
     }

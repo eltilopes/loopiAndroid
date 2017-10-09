@@ -19,17 +19,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.aio.R;
+import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.service.AdminReceiver;
 import br.com.aio.utils.SessionUtils;
-import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.CronometroView;
-import br.com.aio.view.MySwitch;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ACEITAR_SERVICO;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
@@ -39,20 +39,25 @@ import static br.com.aio.utils.BundleUtils.PREFS_NAME;
  * Created by elton on 04/10/2017.
  */
 
-public class AceitarServicoFirebaseActivity extends AppCompatActivity implements MySwitch.OnChangeAttemptListener, CompoundButton.OnCheckedChangeListener {
+public class AceitarServicoFirebaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Ringtone ringtone;
-    private MySwitch slideToUnLock;
     private CronometroView mCountDown = null;
     private RobotoTextView nomePagina ;
     private PowerManager mPowerManager;
     private PowerManager.WakeLock mWakeLock;
     private SharedPreferences mPrefs;
+    private RobotoTextView aceitar;
+    private RobotoTextView recusar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aceitar_servico);
+        aceitar = (RobotoTextView) findViewById(R.id.aceitar);
+        recusar = (RobotoTextView) findViewById(R.id.recusar);
+        aceitar.setOnClickListener(this);
+        recusar.setOnClickListener(this);
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
         DevicePolicyManager deviceManger = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
         ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
@@ -92,9 +97,9 @@ public class AceitarServicoFirebaseActivity extends AppCompatActivity implements
         nomePagina.setText("Servico Solicitado");
         actionBar.setCustomView(v);
         startCronometro();
-        slideToUnLock = (MySwitch)findViewById(R.id.slideToUnLock);
+       /* slideToUnLock = (MySwitch)findViewById(R.id.slideToUnLock);
         slideToUnLock.toggle();
-        slideToUnLock.setOnCheckedChangeListener(this);
+        slideToUnLock.setOnCheckedChangeListener(this);*/
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(1000);
         ringtone = RingtoneManager.getRingtone(getApplicationContext(),
@@ -125,23 +130,17 @@ public class AceitarServicoFirebaseActivity extends AppCompatActivity implements
     private CronometroView.OnTickListener getOnTickListener(){
 
         return new CronometroView.OnTickListener() {
+            SimpleDateFormat formatMinutos = new SimpleDateFormat("mm");
+            SimpleDateFormat formatSegundos = new SimpleDateFormat("ss");
+            Date date = new Date();
             @Override
             public String getText(long timeRemaining) {
+                date.setTime(timeRemaining);
+                String tempo = formatMinutos.format(date)+"m : "+formatSegundos.format(date)+"s";
                 if(timeRemaining==0L){
                     moveTaskToBack(true);
                 }
-                int seconds = (int) (timeRemaining / 1000) % 60;
-                int minutes = (int) ((timeRemaining / (1000 * 60)) % 60);
-                int hours = (int) ((timeRemaining / (1000 * 60 * 60)) % 24);
-                int days = (int) (timeRemaining / (1000 * 60 * 60 * 24));
-                boolean hasDays = days > 0;
-                return String.format("%1$02d%4$s %2$02d%5$s %3$02d%6$s",
-                        hasDays ? days : hours,
-                        hasDays ? hours : minutes,
-                        hasDays ? minutes : seconds,
-                        hasDays ? "d" : "h",
-                        hasDays ? "h" : "m",
-                        hasDays ? "m" : "s");
+                return tempo;
             }
         };
     }
@@ -189,17 +188,17 @@ public class AceitarServicoFirebaseActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (!isChecked){
-            ToastUtils.show(AceitarServicoFirebaseActivity.this, "Aceito", ToastUtils.INFORMATION);
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.aceitar:
+                SessionUtils.setServicoCard(mPrefs,ServicoCard.getServicos().get(2));
+                Intent newActivity0 = new Intent(AceitarServicoFirebaseActivity.this, IniciarAtendimentoActivity.class);
+                startActivity(newActivity0);
+                break;
+            case R.id.recusar:
+                moveTaskToBack(true);
+                break;
         }
-        else {
-            ToastUtils.show(AceitarServicoFirebaseActivity.this, "Recusado", ToastUtils.WARNING);
-        }
-    }
-
-    @Override
-    public void onChangeAttempted(boolean isChecked) {
 
     }
 }
