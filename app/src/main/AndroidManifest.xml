@@ -18,6 +18,8 @@
         android:protectionLevel="normal"/>
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,15 +33,19 @@
             android:name=".activity.ListagemActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".activity.CriarContaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CriarContaActivity">
+        <activity android:name=".activity.LoginActivity" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+            </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.ConviteActivity" />
         <activity android:name=".activity.NaoTenhoConviteActivity" />
         <activity android:name=".activity.ProfissionalActivity"

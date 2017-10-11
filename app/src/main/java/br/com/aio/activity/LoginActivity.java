@@ -10,28 +10,44 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import br.com.aio.R;
+import br.com.aio.exception.AcessoNegadoException;
+import br.com.aio.service.ExecutorMetodoService;
+import br.com.aio.service.GcmService;
+import br.com.aio.service.LoginService;
+import br.com.aio.utils.ConexaoUtils;
 import br.com.aio.utils.CpfCnpjMaks;
+import br.com.aio.utils.GcmUtils;
+import br.com.aio.utils.ToastUtils;
+import br.com.aio.utils.UsuarioSharedUtils;
+import br.com.aio.view.ProgressDialogAsyncTask;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends Activity implements OnClickListener, ProgressDialogAsyncTask.IProgressActivity  {
 
         private TextWatcher cpfCnpjMaks;
         private TextView validationCpfCnpj;
         private TextView validationSenha;
         private EditText cpfCnpj;
         private EditText senha;
+        private RelativeLayout layoutProgress;
+        private final static String SCREEN = "LOGIN";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             getWindow().requestFeature(Window.FEATURE_NO_TITLE); // Removing
             setContentView(R.layout.activity_login);
+            layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
             validationCpfCnpj = (TextView) findViewById(R.id.cpf_cnpj_validation);
             validationCpfCnpj.setVisibility(View.GONE);
             validationSenha = (TextView) findViewById(R.id.senha_validation);
@@ -64,8 +80,8 @@ public class LoginActivity extends Activity implements OnClickListener {
             login = (TextView) findViewById(R.id.login);
 
             login.setOnClickListener(this);
-            senha.setText("senha");
-            cpfCnpj.setText("123456");
+            senha.setText("elton");
+            cpfCnpj.setText("92871259372");
         }
 
     private boolean senhaDigitada(String senha) {
@@ -90,11 +106,64 @@ public class LoginActivity extends Activity implements OnClickListener {
         }
 
     private void entrar() {
-        boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),cpfCnpj.getText().toString(), cpfCnpj, validationCpfCnpj);
+        boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj, validationCpfCnpj);
         boolean digitouSenha = senhaDigitada(senha.getText().toString());
         if(cpfCnpjValido && digitouSenha){
-            Intent newActivity0 = new Intent(LoginActivity.this, ListagemActivity.class);
-            startActivity(newActivity0);
+            ProgressDialogAsyncTask task = new ProgressDialogAsyncTask(this, layoutProgress, this);
+            if (!ConexaoUtils.isConexao(getApplicationContext())) {
+                ToastUtils.show(this, getResources().getString(R.string.error_conexao_internet), ToastUtils.ERROR);
+            } else  {
+                task.execute();
+            }
+        }
+    }
+
+    @Override
+    public void executaProgressoDialog() {
+        try {
+            ExecutorMetodoService.invoke(new LoginService(this), "login", CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), senha.getText().toString());
+            registrarIdGcm();
+            redirect();
+        } catch (RetrofitError error) {
+            final Response resp = error.getResponse();
+            ToastUtils.showErro(this, resp);
+        } catch (AcessoNegadoException erro) {
+            ToastUtils.show(LoginActivity.this, getResources().getString(R.string.error_acesso_negado), ToastUtils.WARNING);
+        } catch (RuntimeException erro) {
+            ToastUtils.show(LoginActivity.this, getResources().getString(R.string.error_dados_invalidos), ToastUtils.WARNING);
+        }
+
+    }
+    public void redirect(){
+        Intent intent = new Intent(this, ListagemActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public boolean isAddedValidation() {
+        return true;
+    }
+
+    @Override
+    public void onPostExecute() {}
+
+    private void registrarIdGcm() {
+        try {
+            if (GcmUtils.checkePlayService(this)) {
+                String regId = UsuarioSharedUtils.getElementoSalvo(getApplicationContext(), UsuarioSharedUtils.Preferences.PREFERENCES_REG_ID);
+                if ("".equals(regId) || regId.trim().length() == 0) {
+                    regId = GcmUtils.registerId(getApplicationContext());
+                }
+                if (!"".equals(regId)) {
+                    ExecutorMetodoService.invoke(new GcmService(this), "registrarApi", regId);
+                }
+            }
+        }catch (Exception e){
+            Log.e("Erro", "Ocorreu um erro ao gerar regId");
         }
     }
 }

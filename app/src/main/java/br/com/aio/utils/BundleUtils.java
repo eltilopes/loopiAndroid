@@ -8,6 +8,7 @@ public class BundleUtils {
 
     public static final String USUARIO_SESSION = "USUARIO_SESSION";
     public static final String PROFISSIONAL_CADASTRO = "PROFISSIONAL_CADASTRO";
+    public static final String EM_ATENDIMENTO = "EM_ATENDIMENTO";
     public static final String CADASTRO_PROFISSIONAL = "CADASTRO_PROFISSIONAL";
     public static final String SERVICO_CARD = "SERVICO_CARD";
     public static final String LOCALIZACAO_MAPA = "LOCALIZACAO_MAPA";

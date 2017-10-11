@@ -10,7 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
+
 import br.com.aio.R;
+import br.com.aio.entity.FieldsErroRetrofit;
+import br.com.aio.service.ValidadorCallBack;
+import retrofit.client.Response;
 
 /**
  * Created by elton on 20/09/2017.
@@ -65,5 +70,40 @@ public class ToastUtils {
             });
         }
     }
+
+    public static void showErro(final Activity activity, final Response resp) {
+        JsonUtils<FieldsErroRetrofit> json = new JsonUtils();
+        final FieldsErroRetrofit erroField = json.converteObject(resp, new TypeToken<FieldsErroRetrofit>() {
+        }.getType());
+        if (activity != null)
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    if (erroField != null && erroField.getErrors() != null && erroField.getErrors().size() > 0) {
+                        StringBuilder erroString = new StringBuilder();
+                        for (int i = 0; i < erroField.getErrors().size(); i++) {
+                            erroString.append(erroField.getErrors().get(i));
+                            if (i != erroField.getErrors().size() - 1)
+                                erroString.append(" \n ");
+                        }
+                        ToastUtils.show(activity, erroString.toString(), ToastUtils.WARNING);
+                    } else if (resp == null) {
+                        ToastUtils.show(activity, activity.getResources().getString(R.string.error_conexao_servidor), ToastUtils.ERROR);
+                    } else if (ValidadorCallBack.Status.contemStatus(resp.getStatus())) {
+                        ToastUtils.show(activity, activity.getResources().getString(R.string.error_credenciais_invalidas), ToastUtils.WARNING);
+                    } else if (resp.getStatus() == ValidadorCallBack.Status.ERROR_SERVIDOR.getStatus()) {
+                        ToastUtils.show(activity, activity.getResources().getString(R.string.error_servidor), ToastUtils.ERROR);
+                    } else if (resp.getStatus() == ValidadorCallBack.Status.NAO_ENCONTRADO.getStatus()) {
+                        ToastUtils.show(activity, activity.getResources().getString(R.string.error_nao_encontrado), ToastUtils.WARNING);
+                    } else if (resp.getStatus() == ValidadorCallBack.Status.DADOS_DUPLICADOS.getStatus()) {
+                        ToastUtils.show(activity, activity.getResources().getString(R.string.error_dados_duplicados), ToastUtils.WARNING);
+                    } else if (resp.getStatus() == ValidadorCallBack.Status.DADOS_INVALIDOS.getStatus()) {
+                        ToastUtils.show(activity, activity.getResources().getString(R.string.error_dados_invalidos), ToastUtils.WARNING);
+                    } else {
+                        ToastUtils.show(activity, activity.getResources().getString(R.string.error_inesperado) + resp.getStatus(), ToastUtils.ERROR);
+                    }
+                }
+            });
+    }
+
 
 }

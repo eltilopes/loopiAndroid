@@ -394,10 +394,12 @@ public class ListagemActivity extends AppCompatActivity
         }
     }
 
+/*
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
     }
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

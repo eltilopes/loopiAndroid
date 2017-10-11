@@ -79,6 +79,7 @@ public class IniciarAtendimentoActivity extends AppCompatActivity implements Vie
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (!isChecked){
+            SessionUtils.setEmAtendimento(mPrefs);
             if(slideToUnLock.getTag().equals(getString(R.string.dirigir_cliente))){
                 slideToUnLock.setmThumbDrawable(getDrawable(R.drawable.switch_thumb_arrow_verde));
                 slideToUnLock.setTextOn(getString(R.string.concluir_atendimento));

@@ -16,6 +16,7 @@ import static br.com.aio.utils.BundleUtils.ACTIVITY_ACEITAR_SERVICO;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ANTERIOR;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_SOLICITAR_PEDIDO;
 import static br.com.aio.utils.BundleUtils.CADASTRO_PROFISSIONAL;
+import static br.com.aio.utils.BundleUtils.EM_ATENDIMENTO;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
 import static br.com.aio.utils.BundleUtils.PROFISSIONAL_CADASTRO;
 import static br.com.aio.utils.BundleUtils.SERVICO_CARD;
@@ -80,6 +81,16 @@ public class SessionUtils {
     public static void setCadastroProfissional(SharedPreferences mPreferences ){
         SharedPreferences.Editor prefsEditor = mPreferences.edit();
         prefsEditor.putBoolean(CADASTRO_PROFISSIONAL, true);
+        prefsEditor.commit();
+    }
+
+    public static Boolean isEmAtendimento(SharedPreferences mPreferences){
+        return mPreferences.getBoolean(CADASTRO_PROFISSIONAL, false);
+    }
+
+    public static void setEmAtendimento(SharedPreferences mPreferences ){
+        SharedPreferences.Editor prefsEditor = mPreferences.edit();
+        prefsEditor.putBoolean(EM_ATENDIMENTO, true);
         prefsEditor.commit();
     }
 

@@ -304,4 +304,15 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="sim">Sim</string>
 
+    <string name="error_conexao_internet">Não foi detectado conexão com a internet, verifique a conexão e tente novamente.</string>
+    <string name="error_conexao_servidor">Não foi possível se conectar ao servidor, verifique sua conexão e tente novamente.</string>
+    <string name="error_acesso_negado">Você não tem acesso a este serviço!</string>
+    <string name="error_servidor">Ocorreu um erro ao tentar acessar o servidor, tente novamente.</string>
+    <string name="error_nao_encontrado">Não foi possível estabelecer a requisição, tente novamente.</string>
+    <string name="error_dados_duplicados">Dados já cadastrados.</string>
+    <string name="error_dados_invalidos">Os valores informados são inválidos.</string>
+    <string name="error_credenciais_invalidas">Credenciais inválidas</string>
+    <string name="error_inesperado">Ocorreu o erro: </string>
+
+
 </resources>
