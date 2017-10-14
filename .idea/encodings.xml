@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/endpoint/ConviteEndPoint.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/endpoint/GcmEndPoint.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/entity/FieldError.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/entity/FieldsErroRetrofit.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/entity/Token.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/service/ConviteService.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/service/GcmService.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/utils/GcmUtils.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/br/com/aio/utils/JsonUtils.java" charset="ISO-8859-1" />

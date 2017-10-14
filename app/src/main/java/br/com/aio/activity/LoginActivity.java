@@ -40,7 +40,6 @@ public class LoginActivity extends Activity implements OnClickListener, Progress
         private EditText cpfCnpj;
         private EditText senha;
         private RelativeLayout layoutProgress;
-        private final static String SCREEN = "LOGIN";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +122,6 @@ public class LoginActivity extends Activity implements OnClickListener, Progress
         try {
             ExecutorMetodoService.invoke(new LoginService(this), "login", CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), senha.getText().toString());
             registrarIdGcm();
-            redirect();
         } catch (RetrofitError error) {
             final Response resp = error.getResponse();
             ToastUtils.showErro(this, resp);
@@ -132,8 +130,9 @@ public class LoginActivity extends Activity implements OnClickListener, Progress
         } catch (RuntimeException erro) {
             ToastUtils.show(LoginActivity.this, getResources().getString(R.string.error_dados_invalidos), ToastUtils.WARNING);
         }
-
+        redirect();
     }
+
     public void redirect(){
         Intent intent = new Intent(this, ListagemActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |

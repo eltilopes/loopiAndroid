@@ -7,23 +7,32 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.aio.R;
+import br.com.aio.model.Convite;
+import br.com.aio.service.ConviteService;
+import br.com.aio.service.ExecutorMetodoService;
+import br.com.aio.utils.ConexaoUtils;
 import br.com.aio.utils.CpfCnpjMaks;
+import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.FloatLabeledEditText;
+import br.com.aio.view.ProgressDialogAsyncTask;
+import retrofit.RetrofitError;
 
 /**
  * Created by elton on 17/07/2017.
  */
 
-public class NaoTenhoConviteActivity extends Activity implements View.OnClickListener {
+public class NaoTenhoConviteActivity extends Activity implements View.OnClickListener, ProgressDialogAsyncTask.IProgressActivity {
 
     private FloatLabeledEditText nomeCompleto;
     private FloatLabeledEditText cpfCnpj;
     private FloatLabeledEditText email;
     private TextWatcher cpfCnpjMaks;
+    private RelativeLayout layoutProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,7 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
 
     private void setContentView() {
         setContentView(R.layout.activity_nao_tenho_convite);
+        layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
         cpfCnpj = (FloatLabeledEditText) findViewById(R.id.cpf_cnpj);
         email = (FloatLabeledEditText) findViewById(R.id.edit_text_email);
         nomeCompleto = (FloatLabeledEditText) findViewById(R.id.nome_completo);
@@ -74,6 +84,9 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         pedirConvite = (TextView) findViewById(R.id.pedirConvite);
 
         pedirConvite.setOnClickListener(this);
+        nomeCompleto.setText("Elton Lopes");
+        email.setText("eltilopes@gmail.com");
+        cpfCnpj.setText("01234567890");
     }
 
     public boolean emailValido(String email) {
@@ -113,9 +126,51 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private void encaminharConvite() {
         boolean nomeValido = nomeValido(nomeCompleto.getText().toString());
         boolean emailValido = emailValido(email.getText().toString());
-        boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),cpfCnpj.getText().toString(), cpfCnpj.getEditText(), null);
+        boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),
+                CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj.getEditText(), null);
         if(nomeValido && emailValido && cpfCnpjValido){
+            ProgressDialogAsyncTask task = new ProgressDialogAsyncTask(this, layoutProgress, this);
+            task.execute();
             Toast.makeText(this, "Pedir Convite", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void executaProgressoDialog(){
+        Convite conviteNovo = new Convite(
+                nomeCompleto.getText().toString(),
+                email.getText().toString(),
+                CpfCnpjMaks.unmask(cpfCnpj.getText().toString()));
+        try{
+            if(ConexaoUtils.isConexao(getApplicationContext())){
+
+                try {
+                    Convite conviteResponse = ExecutorMetodoService.invoke(new ConviteService(this), "solicitarConvite", conviteNovo);
+                    ToastUtils.show(NaoTenhoConviteActivity.this, "Chave: " + conviteResponse.getChave(), ToastUtils.INFORMATION);
+                } catch (RetrofitError error) {
+                    ToastUtils.showErro(this, error.getResponse());
+                } catch (RuntimeException erro) {
+                    this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtils.show(NaoTenhoConviteActivity.this, getResources().getString(R.string.error_nao_encontrado), ToastUtils.ERROR);
+                        }
+                    });
+                }
+            }else {
+                ToastUtils.show(this, getResources().getString(R.string.error_conexao_internet), ToastUtils.ERROR);
+            }
+        }catch (RetrofitError error){
+            ToastUtils.showErro(this, error.getResponse());
+        }
+
+    }
+
+
+    @Override
+    public boolean isAddedValidation() {
+        return true;
+    }
+
+    @Override
+    public void onPostExecute() {}
 }

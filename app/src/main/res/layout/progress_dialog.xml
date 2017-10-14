@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:gravity="center"
-        android:background="@drawable/linear_carregando">
+        android:background="@color/backgroundLayout">
 
         <ProgressBar
             android:layout_marginLeft="7dp"

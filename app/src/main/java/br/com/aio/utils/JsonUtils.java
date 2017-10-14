@@ -19,9 +19,6 @@ import java.lang.reflect.Type;
 import retrofit.client.Response;
 import retrofit.mime.TypedByteArray;
 
-/**
- * Created by bezerra.junior on 22/07/2015.
- */
 public class JsonUtils<T> {
 
     ExclusionStrategy exclusionStrategy = new ExclusionStrategy() {

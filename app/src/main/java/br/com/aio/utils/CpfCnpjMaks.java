@@ -88,16 +88,21 @@ public class CpfCnpjMaks {
 
     public static boolean verificarCpfCnpj(Context context, String numero,EditText editText, TextView validationCpfCnpj) {
         boolean validado = true;
-        if(numero.isEmpty()){
-            validado = addValidation(R.string.validation_campo_obrigatorio,context, editText, validationCpfCnpj);
-        }else if(numero.length()==11 && !isValidCPF(numero)){
-            validado = addValidation(R.string.validation_cpf_invalido,context, editText, validationCpfCnpj);
-        }else if(numero.length()==14 && !isValidCNPJ(numero)){
-            validado = addValidation(R.string.validation_cnpj_invalido,context, editText, validationCpfCnpj);
-        }else if(numero.length()!=14 && numero.length()!=11 ){
-            validado = addValidation(R.string.validation_cpf_cnpj_invalido,context, editText, validationCpfCnpj);
-        }else if(validationCpfCnpj != null){
-            validationCpfCnpj.setVisibility(View.GONE);
+        try {
+
+            if (numero.isEmpty()) {
+                validado = addValidation(R.string.validation_campo_obrigatorio, context, editText, validationCpfCnpj);
+            } else if (numero.length() == 11 && !isValidCPF(numero)) {
+                validado = addValidation(R.string.validation_cpf_invalido, context, editText, validationCpfCnpj);
+            } else if (numero.length() == 14 && !isValidCNPJ(numero)) {
+                validado = addValidation(R.string.validation_cnpj_invalido, context, editText, validationCpfCnpj);
+            } else if (numero.length() != 14 && numero.length() != 11) {
+                validado = addValidation(R.string.validation_cpf_cnpj_invalido, context, editText, validationCpfCnpj);
+            } else if (validationCpfCnpj != null) {
+                validationCpfCnpj.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
+            validado = false;
         }
         return validado;
     }
