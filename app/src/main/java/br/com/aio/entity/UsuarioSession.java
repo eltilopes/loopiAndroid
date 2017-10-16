@@ -3,6 +3,8 @@ package br.com.aio.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.aio.model.Convite;
+
 /**
  * Created by elton on 23/09/2017.
  */
@@ -35,12 +37,11 @@ public class UsuarioSession implements Serializable {
         this.cpf = cpf;
     }
 
-    public UsuarioSession(String login, String senha, String nome, String token, String idUsuarioGlpi, List<Role> roles) {
-        this.login = login;
+    public UsuarioSession(Convite convite, String senha) {
+        login = convite.getEmail();
         this.senha = senha;
-        this.token = token;
-        this.roles = roles;
-        this.idUsuarioGlpi = idUsuarioGlpi;
+        nome = convite.getNome();
+        cpf = convite.getCpf();
     }
 
     public UsuarioSession(Integer id, String login, String senha, String nome, String token, String idUsuarioGlpi, String cpf, List<Role> roles) {

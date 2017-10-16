@@ -22,6 +22,11 @@
     <string name="validation_cnpj_invalido">CNPJ não é válido</string>
     <string name="validation_email_invalido">Email não é válido</string>
     <string name="validation_nome_invalido">Nome Completo não é válido</string>
+    <string name="validation_senha_invalida">Senha não é válida. Precisa conter : </string>
+    <string name="validation_letras_maiusculas">letras maiúsculas</string>
+    <string name="validation_letras_minusculas">letras minúsculas</string>
+    <string name="validation_numeros">numeros</string>
+    <string name="validation_caracteres_especiais">caracteres especiais</string>
 
     <string name="skip">PULAR</string>
     <string name="login">LOGIN</string>

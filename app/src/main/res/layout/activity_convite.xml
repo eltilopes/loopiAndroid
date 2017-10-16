@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/backgroundLayout"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="24dp" >
@@ -26,7 +26,7 @@
             android:gravity="center_horizontal"
             android:minWidth="112dp"
             android:text="@string/infoNaoTenhoConvite"
-            android:textColor="@color/textColorAzul"
+            android:textColor="@color/textColorCinzaEscuro"
             android:textSize="20dp" />
 
     </LinearLayout>
@@ -56,8 +56,8 @@
             android:hint="@string/cpf"
             android:inputType="textNoSuggestions"
             android:singleLine="true"
-            android:textColor="@color/textColorAzul"
-            android:textColorHint="@color/textColorAzul"
+            android:textColor="@color/textColorCinza"
+            android:textColorHint="@color/textColorCinza"
             android:textSize="24sp" >
 
             <requestFocus />
@@ -66,7 +66,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorAzul" />
+            android:background="@color/textColorCinzaEscuro" />
 
         <TextView
             android:layout_width="match_parent"
@@ -103,14 +103,14 @@
             android:hint="@string/codigoConvite"
             android:inputType="textNoSuggestions"
             android:singleLine="true"
-            android:textColor="@color/textColorAzul"
-            android:textColorHint="@color/textColorAzul"
+            android:textColor="@color/textColorCinza"
+            android:textColorHint="@color/textColorCinza"
             android:textSize="24sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/textColorAzul" />
+            android:background="@color/textColorCinzaEscuro" />
 
         <TextView
             android:layout_width="match_parent"
@@ -145,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:background="@color/colorButtonAzul"
+                android:background="@color/colorPrimary"
                 android:minWidth="112dp"
                 android:text="@string/continuar"
                 android:textColor="@color/branco"/>
@@ -155,7 +155,7 @@
             android:id="@+id/naoTenhoConvite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:textColor="@color/textColorAzul"
             android:minWidth="112dp"
             android:text="@string/naoTenhoConvite" />

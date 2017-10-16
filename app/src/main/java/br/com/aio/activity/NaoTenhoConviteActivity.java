@@ -1,26 +1,34 @@
 package br.com.aio.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.aio.R;
+import br.com.aio.entity.UsuarioSession;
 import br.com.aio.model.Convite;
 import br.com.aio.service.ConviteService;
 import br.com.aio.service.ExecutorMetodoService;
 import br.com.aio.utils.ConexaoUtils;
 import br.com.aio.utils.CpfCnpjMaks;
+import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
+import br.com.aio.utils.ViewUtils;
 import br.com.aio.view.FloatLabeledEditText;
 import br.com.aio.view.ProgressDialogAsyncTask;
 import retrofit.RetrofitError;
+
+import static br.com.aio.utils.BundleUtils.ACTIVITY_NAO_TENHO_CONVITE;
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
 /**
  * Created by elton on 17/07/2017.
@@ -31,8 +39,10 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private FloatLabeledEditText nomeCompleto;
     private FloatLabeledEditText cpfCnpj;
     private FloatLabeledEditText email;
+    private FloatLabeledEditText senha;
     private TextWatcher cpfCnpjMaks;
     private RelativeLayout layoutProgress;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +53,13 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
 
     private void setContentView() {
         setContentView(R.layout.activity_nao_tenho_convite);
+        mPrefs = getSharedPreferences(PREFS_NAME, 0);
         layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
         cpfCnpj = (FloatLabeledEditText) findViewById(R.id.cpf_cnpj);
         email = (FloatLabeledEditText) findViewById(R.id.edit_text_email);
+        senha = (FloatLabeledEditText) findViewById(R.id.edit_text_senha);
+        senha.setPassword(true);
+        senha.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
         nomeCompleto = (FloatLabeledEditText) findViewById(R.id.nome_completo);
         cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj.getEditText(), null);
         cpfCnpj.getEditText().addTextChangedListener(cpfCnpjMaks);
@@ -80,6 +94,19 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
                 }
             }
         });
+        senha.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                senhaValida(editable.toString());
+            }
+        });
         TextView pedirConvite;
         pedirConvite = (TextView) findViewById(R.id.pedirConvite);
 
@@ -87,6 +114,7 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         nomeCompleto.setText("Elton Lopes");
         email.setText("eltilopes@gmail.com");
         cpfCnpj.setText("01234567890");
+        senha.setText("eltonA2@");
     }
 
     public boolean emailValido(String email) {
@@ -113,6 +141,21 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         return valido;
     }
 
+    public boolean senhaValida(String senha) {
+        boolean valido = true;
+        if (senha == null){
+            valido = false;
+            this.senha.getEditText().setError(getString(R.string.validation_campo_obrigatorio));
+        }else {
+            String validacao = ViewUtils.validarSenha(senha,getApplicationContext());
+            if(validacao!=null){
+                valido = false;
+                this.senha.getEditText().setError(validacao);
+            }
+        }
+        return valido;
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
@@ -126,14 +169,15 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private void encaminharConvite() {
         boolean nomeValido = nomeValido(nomeCompleto.getText().toString());
         boolean emailValido = emailValido(email.getText().toString());
+        boolean senhaValida = senhaValida(senha.getText().toString());
         boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),
                 CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj.getEditText(), null);
-        if(nomeValido && emailValido && cpfCnpjValido){
+        if(nomeValido && emailValido && cpfCnpjValido && senhaValida){
             ProgressDialogAsyncTask task = new ProgressDialogAsyncTask(this, layoutProgress, this);
             task.execute();
-            Toast.makeText(this, "Pedir Convite", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     public void executaProgressoDialog(){
         Convite conviteNovo = new Convite(
@@ -145,7 +189,10 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
 
                 try {
                     Convite conviteResponse = ExecutorMetodoService.invoke(new ConviteService(this), "solicitarConvite", conviteNovo);
-                    ToastUtils.show(NaoTenhoConviteActivity.this, "Chave: " + conviteResponse.getChave(), ToastUtils.INFORMATION);
+                    Intent i = new Intent(NaoTenhoConviteActivity.this, MeuPerfilActivity.class);
+                    SessionUtils.setActivityAnterior(mPrefs,ACTIVITY_NAO_TENHO_CONVITE);
+                    SessionUtils.setUsuarioSession(mPrefs, new UsuarioSession(conviteResponse, senha.getText().toString()));
+                    startActivity(i);
                 } catch (RetrofitError error) {
                     ToastUtils.showErro(this, error.getResponse());
                 } catch (RuntimeException erro) {

@@ -12,11 +12,16 @@ import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import br.com.aio.R;
+
 /**
  * Created by elton on 25/09/2017.
  */
 
 public class ViewUtils {
+    private static final String VIRGULA = ", ";
+    private static final String ESPACO = " ";
+    private static final String EXCLAMACAO = "!";
 
     public static Drawable drawableSetTint(Drawable d, int color) {
         Drawable wrappedDrawable = DrawableCompat.wrap(d);
@@ -55,5 +60,47 @@ public class ViewUtils {
 
     public static boolean editableEmpty( final Editable s ) {
         return s == null || s.toString().trim().isEmpty();
+    }
+
+    public static String validarSenha(String senha, Context context)
+    {
+        String upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
+        String numberChars = "0123456789";
+        String specialChars = "!@#$%^&*()_-+=<>?/{}~|";
+        String validacao = context.getString(R.string.validation_senha_invalida);
+        boolean upperCase = false,lowerCase = false, numbers = false, specialCharacters = false;
+        for(String letra : senha.split("")){
+            if(!letra.equals("")){
+                if(!upperCase && upperCaseChars.contains(letra)){
+                    upperCase = true;
+                }if(!lowerCase && lowerCaseChars.contains(letra)){
+                    lowerCase = true;
+                }if(!numbers && numberChars.contains(letra)){
+                    numbers = true;
+                }if(!specialCharacters && specialChars.contains(letra)){
+                    specialCharacters = true;
+                }
+            }
+        }
+        if(!upperCase) {
+            validacao = validacao + ESPACO + context.getString(R.string.validation_letras_maiusculas) + VIRGULA;
+        }
+        if(!lowerCase) {
+            validacao = validacao + ESPACO + context.getString(R.string.validation_letras_minusculas) + VIRGULA;
+        }
+        if(!numbers) {
+            validacao = validacao + ESPACO + context.getString(R.string.validation_numeros) + VIRGULA;
+        }
+        if(!specialCharacters) {
+            validacao = validacao + ESPACO + context.getString(R.string.validation_caracteres_especiais) + VIRGULA;
+        }
+
+        if(validacao.equals(context.getString(R.string.validation_senha_invalida))){
+            validacao = null;
+        }else{
+            validacao = validacao.substring(0,validacao.length()-2) + EXCLAMACAO;
+        }
+        return  validacao;
     }
 }

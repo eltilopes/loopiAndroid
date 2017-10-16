@@ -19,5 +19,6 @@ public class BundleUtils {
     public static final String ACTIVITY_INICIAR_ATENDIMENTO= "ACTIVITY_INICIAR_ATENDIMENTO";
     public static final String ACTIVITY_LISTAGEM= "ACTIVITY_LISTAGEM";
     public static final String ACTIVITY_MAPS= "ACTIVITY_MAPS";
+    public static final String ACTIVITY_NAO_TENHO_CONVITE= "ACTIVITY_NAO_TENHO_CONVITE";
 
 }
