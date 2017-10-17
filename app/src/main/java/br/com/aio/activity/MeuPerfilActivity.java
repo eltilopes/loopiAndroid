@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.io.File;
 
@@ -28,6 +30,7 @@ import br.com.aio.utils.PermissionsUtils;
 import br.com.aio.utils.SessionUtils;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_NAO_TENHO_CONVITE;
+import static br.com.aio.utils.BundleUtils.PLAY_SERVICES_RESOLUTION_REQUEST;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID;
 import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
@@ -36,7 +39,7 @@ import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
  * Created by elton on 17/07/2017.
  */
 
-public class MeuPerfilActivity extends AppCompatActivity implements AdapterView.OnClickListener {
+public class MeuPerfilActivity extends AppCompatActivity{
 
     private RobotoTextView nomePagina ;
     private RobotoTextView subHeader ;
@@ -107,6 +110,21 @@ public class MeuPerfilActivity extends AppCompatActivity implements AdapterView.
         subHeader = (RobotoTextView) findViewById(R.id.sub_header);
         subHeader.setText(novoUsuario? "Novo Usuário" : "Editar Usuário");
         actionBar.setCustomView(v);
+
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                //finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     private void showFileChooser() {
@@ -144,7 +162,9 @@ public class MeuPerfilActivity extends AppCompatActivity implements AdapterView.
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onBackPressed() {
+        Intent i = new Intent(MeuPerfilActivity.this, ListagemActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY );
+        startActivity(i);
     }
 }

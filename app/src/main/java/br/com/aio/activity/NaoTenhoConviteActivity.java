@@ -1,7 +1,6 @@
 package br.com.aio.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import br.com.aio.R;
 import br.com.aio.entity.UsuarioSession;
+import br.com.aio.exception.EditTextValidation;
 import br.com.aio.model.Convite;
 import br.com.aio.service.ConviteService;
 import br.com.aio.service.ExecutorMetodoService;
@@ -40,6 +40,10 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private FloatLabeledEditText cpfCnpj;
     private FloatLabeledEditText email;
     private FloatLabeledEditText senha;
+    private View validationNome;
+    private View validationCpf;
+    private View validationEmail;
+    private View validationSenha;
     private TextWatcher cpfCnpjMaks;
     private RelativeLayout layoutProgress;
     private SharedPreferences mPrefs;
@@ -60,8 +64,12 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         senha = (FloatLabeledEditText) findViewById(R.id.edit_text_senha);
         senha.setPassword(true);
         senha.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        validationSenha = (View) findViewById(R.id.validation_edit_text_senha);
+        validationNome = (View) findViewById(R.id.validation_edit_text_nome);
+        validationEmail = (View) findViewById(R.id.validation_edit_text_email);
+        validationCpf = (View) findViewById(R.id.validation_edit_text_cpf);
         nomeCompleto = (FloatLabeledEditText) findViewById(R.id.nome_completo);
-        cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj.getEditText(), null);
+        cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj.getEditText(),validationCpf, null);
         cpfCnpj.getEditText().addTextChangedListener(cpfCnpjMaks);
         email.getEditText().setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         email.getEditText().addTextChangedListener(new TextWatcher() {
@@ -76,6 +84,9 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
             public void afterTextChanged(Editable editable) {
                 if(!emailValido(editable.toString())){
                     email.getEditText().setError(getString(R.string.validation_email_invalido));
+                    validationEmail.setBackgroundColor(getResources().getColor(R.color.textColorInfoVermelho));
+                }else{
+                    validationEmail.setBackgroundColor(getResources().getColor(R.color.textColorInfoVerde));
                 }
             }
         });
@@ -90,7 +101,9 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!nomeValido(editable.toString())){
-
+                    validationNome.setBackgroundColor(getResources().getColor(R.color.textColorInfoVermelho));
+                }else{
+                    validationNome.setBackgroundColor(getResources().getColor(R.color.textColorInfoVerde));
                 }
             }
         });
@@ -114,7 +127,7 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         nomeCompleto.setText("Elton Lopes");
         email.setText("eltilopes@gmail.com");
         cpfCnpj.setText("01234567890");
-        senha.setText("eltonA2@");
+        senha.setText("elt#nA2@");
     }
 
     public boolean emailValido(String email) {
@@ -147,10 +160,13 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
             valido = false;
             this.senha.getEditText().setError(getString(R.string.validation_campo_obrigatorio));
         }else {
-            String validacao = ViewUtils.validarSenha(senha,getApplicationContext());
+            EditTextValidation validacao = ViewUtils.validarSenha(senha,getApplicationContext(),4);
             if(validacao!=null){
                 valido = false;
-                this.senha.getEditText().setError(validacao);
+                this.senha.getEditText().setError(validacao.getDescricao());
+                validationSenha.setBackgroundColor(validacao.getCor());
+            }else{
+                validationSenha.setBackgroundColor(getResources().getColor(R.color.textColorInfoVerde));
             }
         }
         return valido;
@@ -171,7 +187,7 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         boolean emailValido = emailValido(email.getText().toString());
         boolean senhaValida = senhaValida(senha.getText().toString());
         boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),
-                CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj.getEditText(), null);
+                CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj.getEditText(), null, validationCpf);
         if(nomeValido && emailValido && cpfCnpjValido && senhaValida){
             ProgressDialogAsyncTask task = new ProgressDialogAsyncTask(this, layoutProgress, this);
             task.execute();
@@ -189,10 +205,9 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
 
                 try {
                     Convite conviteResponse = ExecutorMetodoService.invoke(new ConviteService(this), "solicitarConvite", conviteNovo);
-                    Intent i = new Intent(NaoTenhoConviteActivity.this, MeuPerfilActivity.class);
                     SessionUtils.setActivityAnterior(mPrefs,ACTIVITY_NAO_TENHO_CONVITE);
                     SessionUtils.setUsuarioSession(mPrefs, new UsuarioSession(conviteResponse, senha.getText().toString()));
-                    startActivity(i);
+                    ToastUtils.show(this, getResources().getString(R.string.sucess_convite), ToastUtils.INFORMATION);
                 } catch (RetrofitError error) {
                     ToastUtils.showErro(this, error.getResponse());
                 } catch (RuntimeException erro) {

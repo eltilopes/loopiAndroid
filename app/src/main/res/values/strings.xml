@@ -319,5 +319,5 @@
     <string name="error_credenciais_invalidas">Credenciais inválidas</string>
     <string name="error_inesperado">Ocorreu o erro: </string>
 
-
+    <string name="sucess_convite">Convite solicitado com sucesso</string>
 </resources>

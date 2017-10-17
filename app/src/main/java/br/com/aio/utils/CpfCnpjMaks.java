@@ -26,6 +26,66 @@ public class CpfCnpjMaks {
 
     }
 
+    public static TextWatcher insert(final Context contexto,final EditText editText, final View validationCpf, final TextView validationCpfCnpj) {
+        return new TextWatcher() {
+            boolean isUpdating;
+            String old = "";
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String str = CpfCnpjMaks.unmask(s.toString());
+                String mask;
+                String defaultMask = getDefaultMask(str);
+                switch (str.length()) {
+                    case 11:
+                        mask = cpfMask;
+                        break;
+                    case 14:
+                        mask = cnpjMask;
+                        break;
+
+                    default:
+                        mask = defaultMask;
+                        break;
+                }
+
+                String mascara = "";
+                if (isUpdating) {
+                    old = str;
+                    isUpdating = false;
+                    return;
+                }
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if ((m != '#' && str.length() > old.length()) || (m != '#' && str.length() < old.length() && str.length() != i)) {
+                        mascara += m;
+                        continue;
+                    }
+
+                    try {
+                        mascara += str.charAt(i);
+                    } catch (Exception e) {
+                        break;
+                    }
+                    i++;
+                }
+                isUpdating = true;
+                editText.setText(mascara);
+                editText.setSelection(mascara.length());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String numero = CpfCnpjMaks.unmask(s.toString());
+                verificarCpfCnpj(contexto,numero,editText, validationCpfCnpj,validationCpf);
+            }
+        };
+
+    }
+
     public static TextWatcher insert(final Context contexto,final EditText editText, final TextView validationCpfCnpj) {
         return new TextWatcher() {
             boolean isUpdating;
@@ -80,26 +140,28 @@ public class CpfCnpjMaks {
             @Override
             public void afterTextChanged(Editable s) {
                 String numero = CpfCnpjMaks.unmask(s.toString());
-                verificarCpfCnpj(contexto,numero,editText, validationCpfCnpj);
+                verificarCpfCnpj(contexto,numero,editText, validationCpfCnpj, null);
             }
         };
 
     }
 
-    public static boolean verificarCpfCnpj(Context context, String numero,EditText editText, TextView validationCpfCnpj) {
+    public static boolean verificarCpfCnpj(Context context, String numero,EditText editText, TextView validationCpfCnpj, View validationCpf) {
         boolean validado = true;
         try {
 
             if (numero.isEmpty()) {
-                validado = addValidation(R.string.validation_campo_obrigatorio, context, editText, validationCpfCnpj);
+                validado = addValidation(R.string.validation_campo_obrigatorio, context, editText, validationCpfCnpj, validationCpf);
             } else if (numero.length() == 11 && !isValidCPF(numero)) {
-                validado = addValidation(R.string.validation_cpf_invalido, context, editText, validationCpfCnpj);
+                validado = addValidation(R.string.validation_cpf_invalido, context, editText, validationCpfCnpj, validationCpf);
             } else if (numero.length() == 14 && !isValidCNPJ(numero)) {
-                validado = addValidation(R.string.validation_cnpj_invalido, context, editText, validationCpfCnpj);
+                validado = addValidation(R.string.validation_cnpj_invalido, context, editText, validationCpfCnpj, validationCpf);
             } else if (numero.length() != 14 && numero.length() != 11) {
-                validado = addValidation(R.string.validation_cpf_cnpj_invalido, context, editText, validationCpfCnpj);
+                validado = addValidation(R.string.validation_cpf_cnpj_invalido, context, editText, validationCpfCnpj, validationCpf);
             } else if (validationCpfCnpj != null) {
                 validationCpfCnpj.setVisibility(View.GONE);
+            } else if (validationCpf != null) {
+                validationCpf.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVerde));
             }
         }catch (Exception e){
             validado = false;
@@ -107,10 +169,13 @@ public class CpfCnpjMaks {
         return validado;
     }
 
-    private static boolean addValidation(int idString, Context context, EditText editText, TextView validationCpfCnpj) {
+    private static boolean addValidation(int idString, Context context, EditText editText, TextView validationCpfCnpj, View validationCpf) {
         boolean validado;
         if(validationCpfCnpj == null){
             editText.setError(context.getString(idString));
+            if(validationCpf!=null){
+                validationCpf.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVermelho));
+            }
         }else{
             validationCpfCnpj.setVisibility(View.VISIBLE);
             validationCpfCnpj.setText(context.getString(idString));

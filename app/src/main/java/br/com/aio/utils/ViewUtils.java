@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import br.com.aio.R;
+import br.com.aio.exception.EditTextValidation;
 
 /**
  * Created by elton on 25/09/2017.
@@ -62,7 +63,7 @@ public class ViewUtils {
         return s == null || s.toString().trim().isEmpty();
     }
 
-    public static String validarSenha(String senha, Context context)
+    public static EditTextValidation validarSenha(String senha, Context context, int forcaSenha)
     {
         String upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
@@ -85,15 +86,19 @@ public class ViewUtils {
         }
         if(!upperCase) {
             validacao = validacao + ESPACO + context.getString(R.string.validation_letras_maiusculas) + VIRGULA;
+            forcaSenha = forcaSenha -1;
         }
         if(!lowerCase) {
             validacao = validacao + ESPACO + context.getString(R.string.validation_letras_minusculas) + VIRGULA;
+            forcaSenha = forcaSenha -1;
         }
         if(!numbers) {
             validacao = validacao + ESPACO + context.getString(R.string.validation_numeros) + VIRGULA;
+            forcaSenha = forcaSenha -1;
         }
         if(!specialCharacters) {
             validacao = validacao + ESPACO + context.getString(R.string.validation_caracteres_especiais) + VIRGULA;
+            forcaSenha = forcaSenha -1;
         }
 
         if(validacao.equals(context.getString(R.string.validation_senha_invalida))){
@@ -101,6 +106,7 @@ public class ViewUtils {
         }else{
             validacao = validacao.substring(0,validacao.length()-2) + EXCLAMACAO;
         }
-        return  validacao;
+
+        return validacao!=null ? new EditTextValidation(validacao,forcaSenha, context) : null;
     }
 }

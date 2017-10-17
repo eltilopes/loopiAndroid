@@ -41,7 +41,7 @@
                 android:padding="0dp"
                 android:text="@string/material_icon_account"
                 android:textColor="@color/colorPrimary"
-                android:textSize="42dp" />
+                android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
                 android:id="@+id/nome_completo"
@@ -52,8 +52,14 @@
                 app:fletHintTextColor="@color/textColorCinza"
                 android:inputType="textCapWords"
                 app:fletSingleLine="true"
-                app:fletTextBackground="@drawable/background_float_edit_text"
+                app:fletTextBackground="@drawable/background_float_edit_text_validation"
                 app:fletTextColor="@color/textColorCinza" >
+
+                <View
+                    android:id="@+id/validation_edit_text_nome"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/textColorInfoVerde" />
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
@@ -82,8 +88,14 @@
                 app:fletHintTextColor="@color/textColorCinza"
                 app:fletSingleLine="true"
                 android:inputType="textEmailAddress"
-                app:fletTextBackground="@drawable/background_float_edit_text"
+                app:fletTextBackground="@drawable/background_float_edit_text_validation"
                 app:fletTextColor="@color/textColorCinza" >
+
+                <View
+                    android:id="@+id/validation_edit_text_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/textColorInfoVerde" />
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
@@ -110,8 +122,14 @@
                 app:fletFloatingHint="@string/cpf"
                 app:fletHintTextColor="@color/textColorCinza"
                 app:fletSingleLine="true"
-                app:fletTextBackground="@drawable/background_float_edit_text"
+                app:fletTextBackground="@drawable/background_float_edit_text_validation"
                 app:fletTextColor="@color/textColorCinza" >
+
+                <View
+                    android:id="@+id/validation_edit_text_cpf"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/textColorInfoVerde" />
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
@@ -137,9 +155,15 @@
                 app:fletFloatingHint="@string/senha"
                 app:fletHintTextColor="@color/textColorCinza"
                 app:fletSingleLine="true"
+                app:fletTextBackground="@drawable/background_float_edit_text_validation"
                 android:inputType="textPassword"
-                app:fletTextBackground="@drawable/background_float_edit_text"
                 app:fletTextColor="@color/textColorCinza" >
+
+                <View
+                    android:id="@+id/validation_edit_text_senha"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/textColorInfoVerde" />
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 

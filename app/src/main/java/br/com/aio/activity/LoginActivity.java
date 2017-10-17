@@ -105,7 +105,7 @@ public class LoginActivity extends Activity implements OnClickListener, Progress
         }
 
     private void entrar() {
-        boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj, validationCpfCnpj);
+        boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj, validationCpfCnpj, null);
         boolean digitouSenha = senhaDigitada(senha.getText().toString());
         if(cpfCnpjValido && digitouSenha){
             ProgressDialogAsyncTask task = new ProgressDialogAsyncTask(this, layoutProgress, this);

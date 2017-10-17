@@ -97,7 +97,7 @@ public class ConviteActivity extends Activity implements View.OnClickListener {
 
     }
     private void entrar() {
-        boolean cpfCnpjValidado = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),cpfCnpj.getText().toString(),null, validationCpfCnpj);
+        boolean cpfCnpjValidado = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),cpfCnpj.getText().toString(),null, validationCpfCnpj, null);
         boolean entrar = conviteCorreto(convite.getText().toString())
                 && cpfCnpjValidado;
         if(entrar){

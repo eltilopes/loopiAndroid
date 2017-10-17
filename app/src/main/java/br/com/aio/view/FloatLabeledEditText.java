@@ -47,6 +47,9 @@ public class FloatLabeledEditText extends LinearLayout {
     private int imeActionId;
     private int textLines;
     private int textBackgroundId;
+    private int textBackgroundIdVermelho;
+    private int textBackgroundIdAmarelo;
+    private int textBackgroundIdVerde;
     private String imeActionLabel;
     private boolean singleLine;
     private boolean password;

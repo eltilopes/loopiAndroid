@@ -21,4 +21,8 @@ public class BundleUtils {
     public static final String ACTIVITY_MAPS= "ACTIVITY_MAPS";
     public static final String ACTIVITY_NAO_TENHO_CONVITE= "ACTIVITY_NAO_TENHO_CONVITE";
 
+    public static final String DYNAMIC_LINK_MEU_PERFIL= "http://aio.com.br/meu_perfil";
+
+    public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
 }
