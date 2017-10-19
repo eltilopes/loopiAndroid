@@ -19,8 +19,8 @@
     <color name="textColorInfoVermelho">@color/material_red_300</color>
     <color name="textColorInfoAzul">@color/material_blue_300</color>
     <color name="textColorInfoAmarelo">@color/material_yellow_300</color>
-    <color name="textColorValidation">@color/material_red_400</color>
     <color name="textColorPrimary">#ffffff</color>
+    <color name="textColorValidation">@color/textColorInfoVermelho</color>
     <color name="textColorCard">@color/material_grey_800</color>
     <color name="backgroundLayout">@color/main_color_grey_200</color>
 

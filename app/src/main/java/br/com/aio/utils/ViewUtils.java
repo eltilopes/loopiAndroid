@@ -109,4 +109,5 @@ public class ViewUtils {
 
         return validacao!=null ? new EditTextValidation(validacao,forcaSenha, context) : null;
     }
+
 }

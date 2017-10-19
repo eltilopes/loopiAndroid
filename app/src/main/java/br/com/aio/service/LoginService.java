@@ -47,10 +47,8 @@ public class LoginService extends ValidadorCallBack {
         return service.cadastrarUsuario(email, password, cpf);
     }
 
-    public String solicitarAlteracaoSenha(String novaSenha, String cpf) {
-        Response resp = service.solicitarAlteracaoSenha(novaSenha, cpf);
-        String email =  new String(((TypedByteArray)resp.getBody()).getBytes());
-        return email;
+    public Response solicitarAlteracaoSenha(String novaSenha, String cpf) {
+        return service.solicitarAlteracaoSenha(novaSenha, cpf);
     }
     public Response alterarDadosdoUsuario(String email, String novaSenha){
         String token = UsuarioSharedUtils.getElementoSalvo(ctx, UsuarioSharedUtils.Preferences.PREFERENCES_TOKEN);

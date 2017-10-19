@@ -23,6 +23,7 @@
     <string name="validation_email_invalido">Email não é válido</string>
     <string name="validation_nome_invalido">Nome Completo não é válido</string>
     <string name="validation_senha_invalida">Senha não é válida. Precisa conter : </string>
+    <string name="validation_senha_tamanho">Senha deverá conter 8 caracteres</string>
     <string name="validation_letras_maiusculas">letras maiúsculas</string>
     <string name="validation_letras_minusculas">letras minúsculas</string>
     <string name="validation_numeros">numeros</string>
@@ -71,6 +72,7 @@
     <string name="telefone">TELEFONE</string>
     <string name="cpf">CPF</string>
     <string name="senha">SENHA</string>
+    <string name="nova_senha">NOVA SENHA</string>
     <string name="codigoConvite">Código do Convite</string>
     <string name="infoNaoTenhoConvite">Se você não tem um convie, não se preocupe. É só pedir uma lá embaixo!</string>
     <string name="cada_amigo">Cada amigo que indicar, você ganhará CashBack Friend de 0,5% do valor de cada transação</string>

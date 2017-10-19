@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import br.com.aio.R;
 import br.com.aio.exception.AcessoNegadoException;
+import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.service.ExecutorMetodoService;
 import br.com.aio.service.GcmService;
 import br.com.aio.service.LoginService;
@@ -40,6 +41,7 @@ public class LoginActivity extends Activity implements OnClickListener, Progress
         private EditText cpfCnpj;
         private EditText senha;
         private RelativeLayout layoutProgress;
+        private RobotoTextView esqueciMinhaSenha;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +76,10 @@ public class LoginActivity extends Activity implements OnClickListener, Progress
             ;
             cpfCnpj.setTypeface(sRobotoThin);
             senha.setTypeface(sRobotoThin);
-
+            esqueciMinhaSenha = (RobotoTextView) findViewById(R.id.esqueci_minha_senha);
             TextView login;
             login = (TextView) findViewById(R.id.login);
-
+            esqueciMinhaSenha.setOnClickListener(this);
             login.setOnClickListener(this);
             senha.setText("elton");
             cpfCnpj.setText("92871259372");
@@ -99,6 +101,14 @@ public class LoginActivity extends Activity implements OnClickListener, Progress
             switch(v.getId()) {
                 case R.id.login:
                     entrar();
+                    break;
+                case R.id.esqueci_minha_senha:
+                    Intent intent = new Intent(this, EsqueciMinhaSenhaActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                            Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
                     break;
             }
 

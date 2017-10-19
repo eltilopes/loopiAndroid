@@ -160,6 +160,9 @@ public class CpfCnpjMaks {
                 validado = addValidation(R.string.validation_cpf_cnpj_invalido, context, editText, validationCpfCnpj, validationCpf);
             } else if (validationCpfCnpj != null) {
                 validationCpfCnpj.setVisibility(View.GONE);
+                if (validationCpf != null) {
+                    validationCpf.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVerde));
+                }
             } else if (validationCpf != null) {
                 validationCpf.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVerde));
             }
@@ -173,12 +176,12 @@ public class CpfCnpjMaks {
         boolean validado;
         if(validationCpfCnpj == null){
             editText.setError(context.getString(idString));
-            if(validationCpf!=null){
-                validationCpf.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVermelho));
-            }
         }else{
             validationCpfCnpj.setVisibility(View.VISIBLE);
             validationCpfCnpj.setText(context.getString(idString));
+        }
+        if(validationCpf!=null){
+            validationCpf.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVermelho));
         }
         validado = false;
         return validado;

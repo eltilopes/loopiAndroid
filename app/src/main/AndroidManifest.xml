@@ -95,6 +95,9 @@
         <activity android:name=".activity.TermosActivity"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity android:name=".activity.EsqueciMinhaSenhaActivity"
+            android:theme="@style/AppTheme" >
+        </activity>
 
         <activity android:name=".activity.IniciarAtendimentoActivity"
             android:theme="@style/AppTheme" >
