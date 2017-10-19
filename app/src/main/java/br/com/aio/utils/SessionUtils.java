@@ -16,6 +16,7 @@ import static br.com.aio.utils.BundleUtils.ACTIVITY_ACEITAR_SERVICO;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ANTERIOR;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_SOLICITAR_PEDIDO;
 import static br.com.aio.utils.BundleUtils.CADASTRO_PROFISSIONAL;
+import static br.com.aio.utils.BundleUtils.DEEP_LINK_FIREBASE;
 import static br.com.aio.utils.BundleUtils.EM_ATENDIMENTO;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
 import static br.com.aio.utils.BundleUtils.PROFISSIONAL_CADASTRO;
@@ -76,6 +77,16 @@ public class SessionUtils {
         SharedPreferences.Editor prefsEditor = mPreferences.edit();
         prefsEditor.putString(ACTIVITY_ANTERIOR, activityAnterior);
         prefsEditor.commit();
+    }
+
+    public static void setDeepLinkFireBase(SharedPreferences mPreferences, String deepLink ){
+        SharedPreferences.Editor prefsEditor = mPreferences.edit();
+        prefsEditor.putString(DEEP_LINK_FIREBASE, deepLink);
+        prefsEditor.commit();
+    }
+
+    public static String getDeepLinkFireBase(SharedPreferences mPreferences){
+        return mPreferences.getString(DEEP_LINK_FIREBASE, "");
     }
 
     public static void setCadastroProfissional(SharedPreferences mPreferences ){

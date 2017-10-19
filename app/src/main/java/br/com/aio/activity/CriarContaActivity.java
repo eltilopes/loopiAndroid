@@ -2,6 +2,7 @@ package br.com.aio.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +17,9 @@ import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import br.com.aio.R;
 import br.com.aio.utils.BundleUtils;
-import br.com.aio.utils.ToastUtils;
+import br.com.aio.utils.SessionUtils;
+
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
 /**
  * Created by elton on 17/07/2017.
@@ -24,6 +27,7 @@ import br.com.aio.utils.ToastUtils;
 
 public class CriarContaActivity extends Activity implements View.OnClickListener {
 
+    private SharedPreferences mPrefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         verificarFireBase();
@@ -34,6 +38,7 @@ public class CriarContaActivity extends Activity implements View.OnClickListener
 
     private void setContentView() {
         setContentView(R.layout.activity_criar_conta);
+        mPrefs = getSharedPreferences(PREFS_NAME, 0);
         TextView criarConta, entrar;
         criarConta = (TextView) findViewById(R.id.criarConta);
         entrar = (TextView) findViewById(R.id.entrar);
@@ -68,7 +73,7 @@ public class CriarContaActivity extends Activity implements View.OnClickListener
                         Uri deepLink = null;
                         if (pendingDynamicLinkData != null) {
                             deepLink = pendingDynamicLinkData.getLink();
-                            ToastUtils.show(CriarContaActivity.this,deepLink.toString(),ToastUtils.INFORMATION);
+                            SessionUtils.setDeepLinkFireBase(mPrefs, deepLink.toString());
                             if(deepLink.toString().toUpperCase().contains(BundleUtils.DYNAMIC_LINK_MEU_PERFIL.toUpperCase())){
                                 abrirActivity(new Intent(CriarContaActivity.this, MeuPerfilActivity.class));
                             }

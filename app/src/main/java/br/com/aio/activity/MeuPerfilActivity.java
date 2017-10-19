@@ -1,6 +1,7 @@
 package br.com.aio.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,16 +10,17 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.io.File;
 
@@ -30,7 +32,6 @@ import br.com.aio.utils.PermissionsUtils;
 import br.com.aio.utils.SessionUtils;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_NAO_TENHO_CONVITE;
-import static br.com.aio.utils.BundleUtils.PLAY_SERVICES_RESOLUTION_REQUEST;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID;
 import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
@@ -41,6 +42,10 @@ import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
 
 public class MeuPerfilActivity extends AppCompatActivity{
 
+    private static final String CHAVE = "CHAVE:";
+    private static final String ID_CONVITE = "ID_CONVITE:";
+
+    private Dialog dialogInfo;
     private RobotoTextView nomePagina ;
     private RobotoTextView subHeader ;
     private SharedPreferences mPrefs;
@@ -51,6 +56,7 @@ public class MeuPerfilActivity extends AppCompatActivity{
     private EditText editTextNome;
     private EditText editTextEmail;
     private EditText editTextSenha;
+    private String deepLinkFireBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,21 +116,41 @@ public class MeuPerfilActivity extends AppCompatActivity{
         subHeader = (RobotoTextView) findViewById(R.id.sub_header);
         subHeader.setText(novoUsuario? "Novo Usuário" : "Editar Usuário");
         actionBar.setCustomView(v);
-
+        verificarDeepLink();
     }
 
-    private boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
-            } else {
-                //finish();
-            }
-            return false;
+    private void verificarDeepLink() {
+        deepLinkFireBase = SessionUtils.getDeepLinkFireBase(mPrefs);
+        deepLinkFireBase = deepLinkFireBase.toUpperCase();
+        if(deepLinkFireBase.contains(CHAVE)){
+            abrirDialogInfo("Foi solicitado alteração de senha.", "Chave: " +
+                    deepLinkFireBase.subSequence(
+                            deepLinkFireBase.indexOf(CHAVE) + CHAVE.length(), deepLinkFireBase.length()));
+        }else if(deepLinkFireBase.contains(ID_CONVITE)){
+            abrirDialogInfo("Novo usuário.", " Convite: " +
+                            deepLinkFireBase.subSequence(
+                                    deepLinkFireBase.indexOf(ID_CONVITE) + ID_CONVITE.length(), deepLinkFireBase.length()));
+
         }
-        return true;
+    }
+
+    private void abrirDialogInfo(String info, String parametro) {
+        dialogInfo = new Dialog(this);
+        dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogInfo.setContentView(R.layout.dialog_taxas_termos);
+        dialogInfo.show();
+        TextView alertTitle=(TextView) dialogInfo.getWindow().getDecorView().findViewById(R.id.dialog_title);
+        alertTitle.setText(getString(R.string.meuPerfil));
+        TextView dialogTexto =(TextView) dialogInfo.getWindow().getDecorView().findViewById(R.id.text_dialog);
+        dialogTexto.setText(Html.fromHtml("<h4>"+ info +"</h4>\n" +
+                "    <strong>"+ parametro +"</strong><br>\n"));
+        Button aplicar = (Button) dialogInfo.findViewById(R.id.btn_dialog);
+        aplicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogInfo.dismiss();
+            }
+        });
     }
 
     private void showFileChooser() {
