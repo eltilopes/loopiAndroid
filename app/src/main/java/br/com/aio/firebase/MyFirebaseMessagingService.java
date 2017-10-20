@@ -17,11 +17,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.io.IOException;
 
 import br.com.aio.R;
 import br.com.aio.activity.AceitarServicoFirebaseActivity;
@@ -75,11 +73,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private String getRegistrationToken(){
-        InstanceID instanceID = InstanceID.getInstance(this);
+
+        FirebaseInstanceId instanceID = FirebaseInstanceId.getInstance();
+        /*GcmUtils.checkePlayService(this)
+        InstanceID instanceID = InstanceID.getInstance(this);*/
         String registrationToken = null;
         try {
-            registrationToken = instanceID.getToken( getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null );
-        } catch (IOException e) {
+            registrationToken = instanceID.getToken();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return registrationToken;
