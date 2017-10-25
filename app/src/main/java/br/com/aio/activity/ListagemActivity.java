@@ -468,8 +468,7 @@ public class ListagemActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_location) {
             SessionUtils.setActivityAnterior(mPrefs, ACTIVITY_LISTAGEM);
-            Intent newActivity = new Intent(ListagemActivity.this, MapsActivity.class);
-            startActivity(newActivity);
+            startActivity(new Intent(this, MapsActivity.class));
             return true;
         }else if(id == R.id.action_search) {
             Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();

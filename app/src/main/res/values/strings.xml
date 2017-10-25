@@ -22,6 +22,7 @@
     <string name="validation_cnpj_invalido">CNPJ não é válido</string>
     <string name="validation_email_invalido">Email não é válido</string>
     <string name="validation_nome_invalido">Nome Completo não é válido</string>
+    <string name="validation_convite_invalido">Código do Convite não é válido</string>
     <string name="validation_senha_invalida">Senha não é válida. Precisa conter : </string>
     <string name="validation_senha_tamanho">Senha deverá conter 8 caracteres</string>
     <string name="validation_letras_maiusculas">letras maiúsculas</string>
@@ -39,6 +40,7 @@
     <string name="saque">SAQUE</string>
     <string name="compartilhar">COMPARTILHAR</string>
     <string name="naoTenhoConvite">Não tenho convite</string>
+    <string name="tenhoConvite">Tenho convite</string>
     <string name="renda_extra">Ganhe uma Renda Extra</string>
     <string name="documentos_necessarios">Documentos Necessários</string>
     <string name="bairros_selecionados">Bairros Selecionados</string>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundLayout"
+    android:background="@drawable/login_gradient_background"
     android:gravity="center"
     android:layout_gravity="center"
     android:orientation="vertical"
@@ -109,7 +109,7 @@
 
         <br.com.aio.view.MaterialRippleLayout
             style="@style/RippleStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             app:rippleColor="@color/main_color_grey_400" >
@@ -117,10 +117,10 @@
             <br.com.aio.fonts.RobotoTextView
                 android:id="@+id/enviar"
                 style="@style/ButtonStyle.RaisedEmpty"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorButtonVerde"
                 android:minWidth="112dp"
                 android:text="@string/enviar"
                 android:textColor="@color/branco"/>

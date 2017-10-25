@@ -3,8 +3,8 @@ package br.com.aio.exception;
 import android.content.Context;
 import android.content.Intent;
 
-import br.com.aio.activity.CriarContaActivity;
-import  br.com.aio.service.ValidadorCallBack;
+import br.com.aio.activity.LogarActivity;
+import br.com.aio.service.ValidadorCallBack;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -25,7 +25,7 @@ public class ErrorHandler implements retrofit.ErrorHandler {
         if (r != null && r.getStatus() == ValidadorCallBack.Status.TOKEN_INVALIDO.getStatus() && ctx != null && !cause.getUrl().contains("oauth/token")) {
             throw new TokenException();
         }else if(r != null && r.getStatus() == ValidadorCallBack.Status.ACESSO_NEGADO.getStatus()){
-            Intent intent = new Intent(ctx, CriarContaActivity.class);
+            Intent intent = new Intent(ctx, LogarActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                     Intent.FLAG_ACTIVITY_CLEAR_TASK |
                     Intent.FLAG_ACTIVITY_NEW_TASK);

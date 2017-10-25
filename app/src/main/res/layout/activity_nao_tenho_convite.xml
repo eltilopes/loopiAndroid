@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundLayout"
+    android:background="@drawable/login_gradient_background"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="10dp" >
@@ -25,7 +25,7 @@
             android:gravity="center_horizontal"
             android:text="@string/pedirConvite"
             android:textStyle="bold"
-            android:textColor="@color/textColorCinzaEscuro"
+            android:textColor="@color/branco"
             android:textSize="26dp" />
 
         <LinearLayout
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="@string/material_icon_account"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/branco"
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
@@ -59,7 +59,7 @@
                     android:id="@+id/validation_edit_text_nome"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/textColorInfoVerde" />
+                    android:background="@color/branco" />
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="@string/material_icon_email"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/branco"
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
@@ -95,7 +95,7 @@
                     android:id="@+id/validation_edit_text_email"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/textColorInfoVerde" />
+                    android:background="@color/branco" />
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="@string/material_icon_statistics"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/branco"
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
@@ -129,42 +129,90 @@
                     android:id="@+id/validation_edit_text_cpf"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/textColorInfoVerde" />
+                    android:background="@color/branco" />
             </br.com.aio.view.FloatLabeledEditText>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" >
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <br.com.aio.fonts.MaterialDesignIconsTextView
+                    style="@style/TextViewAppearance.Title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="0dp"
+                    android:text="@string/material_icon_password"
+                    android:textColor="@color/branco"
+                    android:textSize="22dp" />
+
+                <br.com.aio.view.FloatLabeledEditText
+                    android:id="@+id/edit_text_senha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    app:fletFloatingHint="@string/senha"
+                    app:fletHintTextColor="@color/textColorCinza"
+                    app:fletSingleLine="true"
+                    app:fletTextBackground="@drawable/background_float_edit_text_validation"
+                    android:inputType="textPassword"
+                    app:fletTextColor="@color/textColorCinza" >
+
+                    <View
+                        android:id="@+id/validation_edit_text_senha"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/branco" />
+                </br.com.aio.view.FloatLabeledEditText>
+             </LinearLayout>
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/tenho_convite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/branco"
+                android:gravity="right"
+                android:layout_gravity="right"
+                android:text="@string/tenhoConvite" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_convite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
 
             <br.com.aio.fonts.MaterialDesignIconsTextView
                 style="@style/TextViewAppearance.Title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="0dp"
-                android:text="@string/material_icon_password"
-                android:textColor="@color/colorPrimary"
+                android:text="@string/material_icon_plus_box"
+                android:textColor="@color/branco"
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
-                android:id="@+id/edit_text_senha"
+                android:id="@+id/edit_text_convite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                app:fletFloatingHint="@string/senha"
+                app:fletFloatingHint="@string/codigoConvite"
                 app:fletHintTextColor="@color/textColorCinza"
                 app:fletSingleLine="true"
                 app:fletTextBackground="@drawable/background_float_edit_text_validation"
-                android:inputType="textPassword"
                 app:fletTextColor="@color/textColorCinza" >
 
                 <View
-                    android:id="@+id/validation_edit_text_senha"
+                    android:id="@+id/validation_edit_text_convite"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/textColorInfoVerde" />
+                    android:background="@color/branco" />
             </br.com.aio.view.FloatLabeledEditText>
+
         </LinearLayout>
 
         <LinearLayout
@@ -184,7 +232,7 @@
 
                 <br.com.aio.view.MaterialRippleLayout
                     style="@style/RippleStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="3dp"
                     android:gravity="center_horizontal|bottom"
@@ -194,11 +242,11 @@
                     <br.com.aio.fonts.RobotoTextView
                         android:id="@+id/pedirConvite"
                         style="@style/ButtonStyle.RaisedEmpty"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal|bottom"
                         android:layout_gravity="center_horizontal|bottom"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/colorButtonAzul"
                         android:minWidth="112dp"
                         android:text="@string/pedirConvite"
                         android:textColor="#fff" />

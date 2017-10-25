@@ -6,7 +6,7 @@ import android.content.Intent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import br.com.aio.activity.LoginActivity;
+import br.com.aio.activity.LogarActivity;
 import br.com.aio.exception.AcessoNegadoException;
 import br.com.aio.exception.TokenException;
 import br.com.aio.utils.ToastUtils;
@@ -78,7 +78,7 @@ public class ExecutorMetodoService {
 
     private static void redirectLogin(ValidadorCallBack obj) {
         UsuarioSharedUtils.clearToken(obj.ctx);
-        Intent intent = new Intent(obj.ctx, LoginActivity.class);
+        Intent intent = new Intent(obj.ctx, LogarActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         ToastUtils.show((Activity) obj.ctx, "Não foi possível acessar ao sistema. Por favor, faça o login novamente.", ToastUtils.WARNING);
         obj.ctx.startActivity(intent);

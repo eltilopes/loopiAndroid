@@ -112,7 +112,7 @@ public class SaqueActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.solicitar_saque:
-                Intent newActivity0 = new Intent(SaqueActivity.this, cadastroProfissional ? TermosActivity.class : ConfirmarSaqueActivity.class);
+                Intent newActivity0 = new Intent(SaqueActivity.this, ConfirmarSaqueActivity.class);
                 startActivity(newActivity0);
                 break;
         }

@@ -71,7 +71,8 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setIcon(R.drawable.arrow_back_white);
-        textSize = 13 * getResources().getDisplayMetrics().scaledDensity; // sp to px
+        //textSize = 60 / getResources().getDisplayMetrics().density; // PX to DP
+        textSize = 15f;
         inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_title_bar, null);
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
@@ -212,7 +213,7 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
     }
 
     private void mostrarBairro() {
-        bairrosSelecionados.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize); // Tricking the text view for getting a bigger line height
+        bairrosSelecionados.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize); // Tricking the text view for getting a bigger line height
         bairrosSelecionados.setText(emboldenKeywords());
     }
 
@@ -226,8 +227,8 @@ public class CadastroAbrangenciaActivity extends AppCompatActivity implements Ad
             String tag = b.getNome();
             stringBuilder.append(tag);
             stringBuilder.append(between);
-            RoundedBackgroundSpan tagSpan = new RoundedBackgroundSpan(context, b.getIdCor(), R.color.branco, textSize);
-            stringBuilder.setSpan(tagSpan, tagStart, tagStart + tag.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            RoundedBackgroundSpan tagSpan = new RoundedBackgroundSpan(context, b.getIdCor(), R.color.branco, bairrosSelecionados.getTextSize() );
+            stringBuilder.setSpan(tagSpan, tagStart, tagStart + tag.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             tagStart += tag.length() + between.length();
         }
 

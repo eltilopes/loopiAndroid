@@ -19,7 +19,6 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,15 +28,21 @@
         android:configChanges="orientation"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <uses-library
+            android:name="com.google.android.maps" />
         <activity
             android:name=".activity.ListagemActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activity.CriarContaActivity">
+        <activity android:name=".activity.LogarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -45,11 +50,6 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:host="p538r.app.goo.gl/HRJN" android:scheme="http"/>
                 <data android:host="p538r.app.goo.gl/HRJN" android:scheme="https"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.LoginActivity" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.ConviteActivity" />
@@ -81,7 +81,8 @@
         <activity android:name=".activity.SolicitarPedidoActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.MapsActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+        </activity>
         <activity android:name=".activity.CadastroServicoActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.CadastroProfissionalActivity"
@@ -102,7 +103,6 @@
         <activity android:name=".activity.IniciarAtendimentoActivity"
             android:theme="@style/AppTheme" >
         </activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBcU9bk64c7cOig4us1WMlO_o_k7Ococ6o" />

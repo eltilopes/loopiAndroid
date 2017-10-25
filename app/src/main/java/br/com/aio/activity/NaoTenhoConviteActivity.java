@@ -9,12 +9,14 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import br.com.aio.R;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.exception.EditTextValidation;
+import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.model.Convite;
 import br.com.aio.service.ConviteService;
 import br.com.aio.service.ExecutorMetodoService;
@@ -40,12 +42,16 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private FloatLabeledEditText cpfCnpj;
     private FloatLabeledEditText email;
     private FloatLabeledEditText senha;
+    private FloatLabeledEditText convite;
+    private View validationConvite;
     private View validationNome;
     private View validationCpf;
     private View validationEmail;
     private View validationSenha;
     private TextWatcher cpfCnpjMaks;
     private RelativeLayout layoutProgress;
+    private LinearLayout linearConvite;
+    private RobotoTextView tenhoConvite;
     private SharedPreferences mPrefs;
 
     @Override
@@ -58,12 +64,16 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private void setContentView() {
         setContentView(R.layout.activity_nao_tenho_convite);
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
+        linearConvite = (LinearLayout) findViewById(R.id.linear_convite);
+        linearConvite.setVisibility(View.GONE);
         layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
         cpfCnpj = (FloatLabeledEditText) findViewById(R.id.cpf_cnpj);
         email = (FloatLabeledEditText) findViewById(R.id.edit_text_email);
         senha = (FloatLabeledEditText) findViewById(R.id.edit_text_senha);
+        convite = (FloatLabeledEditText) findViewById(R.id.edit_text_convite);
         senha.setPassword(true);
         senha.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        validationConvite = (View) findViewById(R.id.validation_edit_text_convite);
         validationSenha = (View) findViewById(R.id.validation_edit_text_senha);
         validationNome = (View) findViewById(R.id.validation_edit_text_nome);
         validationEmail = (View) findViewById(R.id.validation_edit_text_email);
@@ -90,6 +100,7 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
                 }
             }
         });
+
         nomeCompleto.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -120,14 +131,35 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
                 senhaValida(editable.toString());
             }
         });
+        convite.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if(!conviteValido(editable.toString())){
+                    validationConvite.setBackgroundColor(getResources().getColor(R.color.textColorInfoVermelho));
+                }else{
+                    validationConvite.setBackgroundColor(getResources().getColor(R.color.textColorInfoVerde));
+                }
+            }
+        });
         TextView pedirConvite;
         pedirConvite = (TextView) findViewById(R.id.pedirConvite);
 
+        tenhoConvite = (RobotoTextView) findViewById(R.id.tenho_convite) ;
+        tenhoConvite.setOnClickListener(this);
         pedirConvite.setOnClickListener(this);
         nomeCompleto.setText("Elton Lopes");
         email.setText("eltilopes@gmail.com");
         cpfCnpj.setText("01234567890");
         senha.setText("elt#nA2@");
+        convite.setText("A1B2C3D4");
     }
 
     public boolean emailValido(String email) {
@@ -150,6 +182,14 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         }else if(nome.split(" ").length < 2){
             valido = false;
             nomeCompleto.getEditText().setError(getString(R.string.validation_nome_invalido));
+        }
+        return valido;
+    }
+    public boolean conviteValido(String convite) {
+        boolean valido = true;
+        if (convite == null || convite.length() != 8){
+            valido = false;
+            this.convite.getEditText().setError(getString(R.string.validation_convite_invalido));
         }
         return valido;
     }
@@ -178,6 +218,11 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
             case R.id.pedirConvite:
                 encaminharConvite();
                 break;
+            case R.id.tenho_convite:
+                tenhoConvite.setVisibility(View.GONE);
+                linearConvite.setVisibility(View.VISIBLE);
+                break;
+
         }
 
     }

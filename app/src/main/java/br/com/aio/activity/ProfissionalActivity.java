@@ -97,7 +97,7 @@ public class ProfissionalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SessionUtils.setCadastroProfissional(mPrefs);
-                Intent newActivity0 = new Intent(ProfissionalActivity.this, SaqueActivity.class);
+                Intent newActivity0 = new Intent(ProfissionalActivity.this, TermosActivity.class);
                 startActivity(newActivity0);
             }
         });

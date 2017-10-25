@@ -43,7 +43,7 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
 
         // Draw the rounded background
         paint.setColor(ContextCompat.getColor(context, mBackgroundColor));
-        float textHeightWrapping = 4;
+        float textHeightWrapping = 1;
         float tagBottom = top + textHeightWrapping + PADDING_Y + mTextSize + PADDING_Y + textHeightWrapping;
         float tagRight = x + getTagWidth(text, start, end, paint);
         RectF rect = new RectF(x, top, tagRight, tagBottom);
