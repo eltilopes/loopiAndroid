@@ -36,7 +36,7 @@ import br.com.aio.fonts.RobotoTextView;
 
 public class MeusPedidosActivity extends AppCompatActivity {
 
-    private static final String TAG = "RecyclerViewExample";
+    private static final String TAG = "MeusPedidosActivity";
     private List<ServicoCard> feedsList;
     private RobotoTextView nomePagina ;
     private RecyclerView mRecyclerView;
@@ -59,7 +59,7 @@ public class MeusPedidosActivity extends AppCompatActivity {
         nomePagina.setText("Meus Pedidos");
         actionBar.setCustomView(v);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_meus_pedidos);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_servicos);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         String url = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";

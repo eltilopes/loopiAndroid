@@ -120,20 +120,10 @@ public class LogarActivity extends Activity implements OnClickListener, Progress
                     entrar();
                     break;
                 case R.id.esqueci_minha_senha:
-                    Intent intent = new Intent(this, EsqueciMinhaSenhaActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                            Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
+                    startActivity(new Intent(this, EsqueciMinhaSenhaActivity.class));
                     break;
                 case R.id.criar_conta:
-                    Intent i = new Intent(this, NaoTenhoConviteActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                            Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(i);
-                    finish();
+                    startActivity(new Intent(this, NaoTenhoConviteActivity.class));
                     break;
             }
 

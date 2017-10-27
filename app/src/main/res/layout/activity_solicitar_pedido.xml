@@ -35,7 +35,7 @@
                     <android.support.v7.widget.CardView
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:cardview="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/card_servico"
+                        android:id="@+id/card_servico_profissional"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         cardview:cardCornerRadius="2dp"

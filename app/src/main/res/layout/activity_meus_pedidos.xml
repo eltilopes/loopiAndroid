@@ -10,40 +10,15 @@
     android:orientation="vertical"
     tools:context="br.com.aio.activity.MeusPedidosActivity">
 
-    <FrameLayout
-        android:id="@+id/container_body"
+    <include
+        layout="@layout/recycler_view_servicos"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-
-        <RelativeLayout
-            android:id="@+id/relativeLayoutMeusPedidos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_meus_pedidos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
-
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="40dp" />
-
-    </FrameLayout>
-
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"/>
 </LinearLayout>

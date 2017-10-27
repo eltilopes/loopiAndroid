@@ -38,6 +38,10 @@
         </activity>
         <activity android:name=".activity.LogarActivity">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
             </intent-filter>
             <intent-filter>
@@ -54,7 +58,8 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".activity.MeusPedidosActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme">
+        </activity>
         <activity android:name=".activity.ConfiguracoesActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.RelateProblemaActivity"
@@ -85,10 +90,6 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.CadastroDocumentosActivity"
             android:theme="@style/AppTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.CadastroAbrangenciaActivity"
             android:theme="@style/AppTheme" >

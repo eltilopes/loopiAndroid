@@ -122,15 +122,14 @@
     <string name="usar_saldo">Usar Saldo CashBack</string>
     <string name="valor_movimentacao">VALOR</string>
     <string name="solicitacao_saque">Solicitação de Saque</string>
-    <string name="tempo_inicio_servico">Tempo para início do serviço</string>
-    <string name="ver_taxas_anuncio">Ver taxas de anúncio</string>
     <string name="termos_condicoes">Termos e Condiçôes</string>
     <string name="aceitar_servico">Aceitar Serviço</string>
+    <string name="adicionar_servico">Adicionar Serviço</string>
     <string name="dirigir_cliente">INDO AGORA AO CLIENTE</string>
     <string name="concluir_atendimento">CONCLUIR ATENDIMENTO</string>
     <string name="termos_privacidade">Termos de Privacidade</string>
     <string name="termos_concordar">Li e Concordo com os Termos</string>
-    <string name="anexar_foto_perfil">Anexar foto do perfil</string>
+    <string name="anexar_foto_perfil">Foto do perfil</string>
     <string name="no_location_data_provided">Nenhum dado de localização fornecido</string>
     <string name="service_not_available">Serviço não disponível</string>
     <string name="invalid_lat_long_used">Endereço inválido</string>
@@ -139,6 +138,11 @@
     <string name="digitar_endereco">Clique para digitar o endereço</string>
     <string name="imagem_carregada">IMAGEM CARREGADA</string>
 
+    <string name="servico_nome">Nome</string>
+    <string name="servico_valor">Valor</string>
+    <string name="servico_descricao">Descrição</string>
+    <string name="servico">Serviço</string>
+    <string name="servico_tempo_inicio">Tempo para início</string>
 
     <string name="confirmado">CONFIRMADO</string>
     <string name="endereco">Endereço</string>
@@ -322,6 +326,7 @@
     <string name="error_dados_invalidos">Os valores informados são inválidos.</string>
     <string name="error_credenciais_invalidas">Credenciais inválidas</string>
     <string name="error_inesperado">Ocorreu o erro: </string>
+    <string name="error_adicionar_servico">É necessário adicionar pelo menos um serviço</string>
 
     <string name="sucess_convite">Convite solicitado com sucesso</string>
 </resources>

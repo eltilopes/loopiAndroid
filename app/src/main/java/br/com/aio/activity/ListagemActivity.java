@@ -72,7 +72,7 @@ public class ListagemActivity extends AppCompatActivity
     public static final int idCard = -1;
     private List<ServicoCard> servicoCards;
     private RecyclerView mRecyclerView;
-    private MyRecyclerViewAdapter adapter;
+    private MyRecyclerViewAdapter myRecyclerViewAdapter;
     private ProgressBar progressBar;
     private LinearLayout buttonFiltro;
     private LinearLayout buttonCategoria;
@@ -305,8 +305,8 @@ public class ListagemActivity extends AppCompatActivity
         switch(id) {
             case R.id.card_favorito:
                 servicoCard.setFavorito(!servicoCard.getFavorito());
-                adapter.deleteItem(position);
-                adapter.addItem(servicoCard,position);
+                myRecyclerViewAdapter.deleteItem(position);
+                myRecyclerViewAdapter.addItem(servicoCard,position);
                 break;
             case idCard:
                 abrirPedido(servicoCard);
@@ -315,7 +315,7 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     public void getUsuarioLogado() {
-        usuarioSession = new UsuarioSession(1,"Elton Lopes","92871259372");
+        usuarioSession = new UsuarioSession(1,"Rodger Maia","92871259372");
     }
 
     @Override
@@ -363,9 +363,9 @@ public class ListagemActivity extends AppCompatActivity
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                adapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards);
-                mRecyclerView.setAdapter(adapter);
-                adapter.setOnItemClickListener(ListagemActivity.this);
+                myRecyclerViewAdapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards);
+                mRecyclerView.setAdapter(myRecyclerViewAdapter);
+                myRecyclerViewAdapter.setOnItemClickListener(ListagemActivity.this);
             } else {
                 Toast.makeText(ListagemActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }

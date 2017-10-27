@@ -12,8 +12,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import br.com.aio.R;
+import br.com.aio.entity.Categoria;
+import br.com.aio.entity.Especialidade;
 import br.com.aio.entity.Profissional;
+import br.com.aio.entity.ServicoProfissional;
+import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.SessionUtils;
@@ -64,7 +70,9 @@ public class CadastroServicoActivity extends AppCompatActivity implements Adapte
     }
 
     private void getProfissional() {
-        profissional = new Profissional(1,usuarioSession);
+        profissional = new Profissional(1,usuarioSession,
+                new Categoria(1,"Saúde"), new SubCategoria(1,"Médico"),
+                new Especialidade(1,"Dermatologista"),new ArrayList<ServicoProfissional>());
     }
 
 

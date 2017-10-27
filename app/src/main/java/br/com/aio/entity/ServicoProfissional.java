@@ -7,9 +7,13 @@ package br.com.aio.entity;
 public class ServicoProfissional {
 
     private Integer id;
+    private String nome;
     private String descricao;
+    private Double valor;
+    private Integer tempo;
     private Especialidade especialidade;
 
+    public ServicoProfissional() {}
     public ServicoProfissional(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
@@ -29,6 +33,30 @@ public class ServicoProfissional {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public Integer getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(Integer tempo) {
+        this.tempo = tempo;
     }
 
     public Especialidade getEspecialidade() {

@@ -12,25 +12,36 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.aio.R;
+import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.entity.Profissional;
+import br.com.aio.entity.ServicoCard;
+import br.com.aio.entity.ServicoProfissional;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.PathUtils;
 import br.com.aio.utils.PermissionsUtils;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
+import br.com.aio.view.ServicosAsyncTask;
 
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_NECESSARIO;
@@ -42,16 +53,26 @@ import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
  * Created by elton on 17/07/2017.
  */
 
-public class ProfissionalActivity extends AppCompatActivity {
+public class ProfissionalActivity extends AppCompatActivity implements MyRecyclerViewAdapter.OnRecyclerViewItemClickListener{
 
+    private static final String TAG = "ProfissionalActivity";
+    private static final String URL = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
     private RobotoTextView continuar ;
+    private List<ServicoCard> servicos;
     private RobotoTextView nomePagina ;
-    private LinearLayout anexarFoto ;
+    private RecyclerView mRecyclerView;
+    private ProgressBar progressBar;
+    private MyRecyclerViewAdapter adapter;
+    private LinearLayout adicionarServico;
     private LinearLayout verTaxasAnuncio ;
     private Dialog dialogTaxasAnuncio ;
+    private Dialog dialogAdicionarServico ;
     private Context context;
-    private ImageView thumbnail;
+    private ImageView fotoPerfil;
     private SharedPreferences mPrefs;
+    private Profissional profissional;
+    private ServicoProfissional novoServicoProfissional;
+    private Integer idServico = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +80,8 @@ public class ProfissionalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profissional);
         context = this;
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
+        getProfissional();
+        carregarCardProfgissional();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -77,8 +100,15 @@ public class ProfissionalActivity extends AppCompatActivity {
                 abrirDialogTaxasAnuncio();
             }
         });
-        anexarFoto = (LinearLayout) findViewById(R.id.anexar_foto_perfil);
-        anexarFoto.setOnClickListener(new View.OnClickListener() {
+        adicionarServico = (LinearLayout) findViewById(R.id.adicionar_servico);
+        adicionarServico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirDialogAdicionarServico();
+            }
+        });
+        fotoPerfil = (ImageView) findViewById(R.id.foto_perfil);
+        fotoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View v) {
@@ -91,18 +121,38 @@ public class ProfissionalActivity extends AppCompatActivity {
 
             }
         });
-        thumbnail = (ImageView) findViewById(R.id.thumbnail);
         continuar = (RobotoTextView) findViewById(R.id.continuar);
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SessionUtils.setCadastroProfissional(mPrefs);
-                Intent newActivity0 = new Intent(ProfissionalActivity.this, TermosActivity.class);
-                startActivity(newActivity0);
+                if(profissional.getServicos().isEmpty()){
+                    ToastUtils.show(ProfissionalActivity.this, getResources().getString(R.string.error_adicionar_servico), ToastUtils.WARNING);
+                }else{
+                    SessionUtils.setCadastroProfissional(mPrefs);
+                    Intent newActivity0 = new Intent(ProfissionalActivity.this, TermosActivity.class);
+                    startActivity(newActivity0);
+                }
             }
         });
 
         actionBar.setCustomView(v);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_servicos);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void carregarCardProfgissional() {
+        TextView nome, categoria, subCategoria,especialidade;
+        nome = (TextView) findViewById(R.id.nome_profissional);
+        categoria = (TextView) findViewById(R.id.categoria_profissional);
+        subCategoria = (TextView) findViewById(R.id.sub_categoria_profissional);
+        especialidade = (TextView) findViewById(R.id.especialidade_profissional);
+
+        nome.setText(Html.fromHtml(profissional.getUsuario().getNome()));
+        categoria.setText(Html.fromHtml(profissional.getCategoria().getDescricao()));
+        subCategoria.setText(Html.fromHtml(profissional.getSubCategoria().getDescricao()));
+        especialidade.setText(Html.fromHtml(profissional.getEspecialidade().getDescricao()));
     }
 
     private void showFileChooser() {
@@ -115,6 +165,52 @@ public class ProfissionalActivity extends AppCompatActivity {
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "Instale um gerenciador de arquivos no seu aplicativo!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void abrirDialogAdicionarServico() {
+        novoServicoProfissional = new ServicoProfissional();
+        novoServicoProfissional.setEspecialidade(profissional.getEspecialidade());
+        dialogAdicionarServico = new Dialog(this);
+        dialogAdicionarServico.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogAdicionarServico.setContentView(R.layout.dialog_adicionar_servico);
+        dialogAdicionarServico.show();
+        final EditText nomeServico,descricaoServico,tempoServico,valorServico;
+        nomeServico = (EditText) dialogAdicionarServico.findViewById(R.id.nome_servico);
+        descricaoServico = (EditText) dialogAdicionarServico.findViewById(R.id.descricao_servico);
+        tempoServico = (EditText) dialogAdicionarServico.findViewById(R.id.tempo_servico);
+        valorServico = (EditText) dialogAdicionarServico.findViewById(R.id.valor_servico);
+        RobotoTextView adicionar = (RobotoTextView) dialogAdicionarServico.findViewById(R.id.dialog_ok);
+        adicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    novoServicoProfissional.setNome(nomeServico.getEditableText().toString());
+                    novoServicoProfissional.setDescricao(descricaoServico.getEditableText().toString());
+                    novoServicoProfissional.setValor(Double.parseDouble(valorServico.getEditableText().toString()));
+                    novoServicoProfissional.setTempo(Integer.parseInt(tempoServico.getEditableText().toString()));
+                    novoServicoProfissional.setId(idServico++);
+                    profissional.getServicos().add(novoServicoProfissional);
+                    servicos = getServicosProfissional();
+                    new ServicosAsyncTask(getApplicationContext(), servicos, progressBar, mRecyclerView, adapter, TAG).execute(URL);
+                    dialogAdicionarServico.dismiss();
+                }catch (Exception e){
+                    ToastUtils.show(ProfissionalActivity.this, "Verifique os valores informados", ToastUtils.ERROR);
+                }
+            }
+        });
+    }
+
+    private List<ServicoCard> getServicosProfissional() {
+        List<ServicoCard> lista = new ArrayList<ServicoCard>();
+        for(ServicoProfissional s : profissional.getServicos()){
+            lista.add(new ServicoCard(
+                    s.getId().longValue(), profissional.getUsuario().getNome(),
+                    "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA0hAAAAJGY0Yjg0YTdkLWZhNTgtNDMwNC05MTkyLWQzMjlkMWRiZmUwZg.jpg",profissional.getCategoria().getDescricao(),
+                    profissional.getSubCategoria().getDescricao(),profissional.getEspecialidade().getDescricao(),s.getId(),false,
+                    s.getValor(),"distancia", s.getTempo()));
+
+        }
+        return lista;
     }
 
     private void abrirDialogTaxasAnuncio() {
@@ -152,7 +248,8 @@ public class ProfissionalActivity extends AppCompatActivity {
                     File imgFile = new  File(imagem);
                     if(imgFile.exists()){
                         Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                        thumbnail.setImageBitmap(myBitmap);
+                        fotoPerfil.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        fotoPerfil.setImageBitmap(myBitmap);
                     }
                 }
                 break;
@@ -165,6 +262,12 @@ public class ProfissionalActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    public void getProfissional() {
+        profissional = SessionUtils.getProfissionalCadastro(mPrefs);
+        profissional.setServicos(new ArrayList<ServicoProfissional>());
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -180,4 +283,8 @@ public class ProfissionalActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRecyclerViewItemClicked(int position, int id) {
+
+    }
 }
