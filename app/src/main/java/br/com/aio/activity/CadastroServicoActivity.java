@@ -23,6 +23,7 @@ import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.SessionUtils;
+import br.com.aio.utils.UsuarioSharedUtils;
 
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
@@ -103,7 +104,7 @@ public class CadastroServicoActivity extends AppCompatActivity implements Adapte
     }
 
     public void getUsuarioLogado() {
-        usuarioSession = SessionUtils.getUsuarioSession(mPrefs);
+        usuarioSession =  UsuarioSharedUtils.getUsuarioShared(getApplicationContext());
     }
 
 }

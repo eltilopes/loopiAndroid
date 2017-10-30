@@ -1,5 +1,8 @@
 package br.com.aio.entity;
 
+import com.google.gson.annotations.Expose;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +10,13 @@ import java.util.List;
  * Created by elton on 23/09/2017.
  */
 
-public class SubCategoria extends SpinnerModel {
+public class SubCategoria extends SpinnerModel implements Serializable {
 
+    @Expose
     private Integer id;
+    @Expose
     private String descricao;
+    @Expose
     private Categoria categoria;
 
     public SubCategoria(Integer id, String descricao) {

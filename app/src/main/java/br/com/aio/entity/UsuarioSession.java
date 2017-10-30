@@ -1,5 +1,7 @@
 package br.com.aio.entity;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,12 +13,16 @@ import br.com.aio.model.Convite;
 
 public class UsuarioSession implements Serializable {
 
+    @Expose
     private Integer id;
+    @Expose
     private String nome;
+    @Expose
     private String senha;
     private String login;
     private String token;
     private String cpf;
+    private String telefone;
     private List<Role> roles;
     private String idUsuarioGlpi;
 
@@ -91,6 +97,14 @@ public class UsuarioSession implements Serializable {
 
     public String getCpf() { return cpf; }
     public void setCpf(String cpf) { this.cpf = cpf; }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
     public List<Role> getRoles() { return roles; }
     public void setRoles(List<Role> roles) { this.roles = roles; }

@@ -55,6 +55,7 @@ public class UsuarioSharedUtils {
         Gson gson = new Gson();
         SharedPreferences sharedPreferences = context.getSharedPreferences(Preferences.PREFERENCES_LOCAL.preferencia, Context.MODE_PRIVATE);
         UsuarioSession usuario = new UsuarioSession();
+        usuario.setId(Integer.parseInt(sharedPreferences.getString(Preferences.PREFERENCES_ID.preferencia, "1")));
         usuario.setLogin(sharedPreferences.getString(Preferences.PREFERENCES_LOGIN.preferencia, ""));
         usuario.setSenha(sharedPreferences.getString(Preferences.PREFERENCES_PASSWORD.preferencia, ""));
         usuario.setNome(sharedPreferences.getString(Preferences.PREFERENCES_NOME.preferencia, ""));

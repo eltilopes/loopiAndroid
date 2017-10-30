@@ -25,10 +25,15 @@ import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Profissional;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.fonts.RobotoTextView;
+import br.com.aio.service.ExecutorMetodoService;
+import br.com.aio.service.ProfissionalService;
+import br.com.aio.utils.ConexaoUtils;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.TelefoneMaskUtil;
 import br.com.aio.utils.ToastUtils;
-import br.com.aio.view.DadosBancarios;
+import br.com.aio.view.DadosBancariosView;
+import br.com.aio.view.ProgressDialogAsyncTask;
+import retrofit.RetrofitError;
 
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
@@ -36,7 +41,7 @@ import static br.com.aio.utils.BundleUtils.PREFS_NAME;
  * Created by elton on 17/07/2017.
  */
 
-public class CadastroProfissionalActivity extends AppCompatActivity implements AdapterView.OnClickListener{
+public class CadastroProfissionalActivity extends AppCompatActivity implements AdapterView.OnClickListener, ProgressDialogAsyncTask.IProgressActivity{
 
     private RobotoTextView nomePagina ;
     private TextView continuar ;
@@ -48,11 +53,12 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
     private EditText editTextNome;
     private EditText editTextEmail;
     private EditText editTextTelefone;
-    private DadosBancarios dadosBancarios;
+    private DadosBancariosView dadosBancarios;
     private RelativeLayout layoutDadosBancarios;
     private LinearLayout linearDadosBancarios;
     private LinearLayout layoutDadosPessoais;
     private LinearLayout linearDadosPessoais;
+    private RelativeLayout layoutProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setIcon(R.drawable.arrow_back_white);
+        layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_title_bar, null);
         nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
@@ -113,6 +120,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         });
         editTextCpf= (EditText) findViewById(R.id.edit_text_cpf);
         editTextCpf.setFocusableInTouchMode(false);
+        editTextCpf.setText(profissional.getUsuario().getCpf());
         editTextCpf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +134,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         });
         editTextNome= (EditText) findViewById(R.id.edit_text_nome);
         editTextNome.setFocusableInTouchMode(false);
+        editTextNome.setText(profissional.getUsuario().getNome());
         editTextNome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +161,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         });
         editTextTelefone= (EditText) findViewById(R.id.edit_text_telefone);
         editTextTelefone.setFocusableInTouchMode(false);
+        editTextTelefone.setText(profissional.getUsuario().getTelefone());
         editTextTelefone.addTextChangedListener(TelefoneMaskUtil.insert(editTextTelefone));
         editTextTelefone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +222,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
             }
         });
 
-        dadosBancarios = new DadosBancarios(this);
+        dadosBancarios = new DadosBancariosView(this);
 
     }
 
@@ -226,6 +236,8 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.continuar:
+                ProgressDialogAsyncTask task = new ProgressDialogAsyncTask(this, layoutProgress, this);
+                task.execute();
                 Intent newActivity0 = new Intent(CadastroProfissionalActivity.this, CadastroDocumentosActivity.class);
                 startActivity(newActivity0);
                 break;
@@ -241,4 +253,42 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         dadosBancarios.getBanco();
         dadosBancarios.getFinalidade();
     }
+
+
+    public void executaProgressoDialog(){
+        try{
+            if(ConexaoUtils.isConexao(getApplicationContext())){
+
+                try {
+                    Profissional profissionalResponse = ExecutorMetodoService.invoke(new ProfissionalService(this), "salvarProfissional",
+                            profissional);
+                    SessionUtils.setProfissionalCadastro(mPrefs, profissionalResponse);
+                    ToastUtils.show(this, getResources().getString(R.string.sucess_profissional), ToastUtils.INFORMATION);
+                } catch (RetrofitError error) {
+                    ToastUtils.showErro(this, error.getResponse());
+                } catch (RuntimeException erro) {
+                    this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtils.show(CadastroProfissionalActivity.this, getResources().getString(R.string.error_nao_encontrado), ToastUtils.ERROR);
+                        }
+                    });
+                }
+            }else {
+                ToastUtils.show(this, getResources().getString(R.string.error_conexao_internet), ToastUtils.ERROR);
+            }
+        }catch (RetrofitError error){
+            ToastUtils.showErro(this, error.getResponse());
+        }
+
+    }
+
+
+    @Override
+    public boolean isAddedValidation() {
+        return true;
+    }
+
+    @Override
+    public void onPostExecute() {}
 }

@@ -1,5 +1,7 @@
 package br.com.aio.entity;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,11 +11,17 @@ import java.util.List;
 
 public class Profissional implements Serializable{
 
+    @Expose
     private Integer id;
+    @Expose
     private UsuarioSession usuario;
+    @Expose
     private Categoria categoria;
+    @Expose
     private SubCategoria subCategoria;
+    @Expose
     private Especialidade especialidade;
+    @Expose
     private List<ServicoProfissional> servicos;
 
     public Profissional(Integer id, UsuarioSession usuario) {

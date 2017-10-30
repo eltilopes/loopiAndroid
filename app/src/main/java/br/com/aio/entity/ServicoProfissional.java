@@ -1,16 +1,26 @@
 package br.com.aio.entity;
 
+import com.google.gson.annotations.Expose;
+
+import java.io.Serializable;
+
 /**
  * Created by elton on 23/09/2017.
  */
 
-public class ServicoProfissional {
+public class ServicoProfissional implements Serializable {
 
+    @Expose
     private Integer id;
+    @Expose
     private String nome;
+    @Expose
     private String descricao;
+    @Expose
     private Double valor;
+    @Expose
     private Integer tempo;
+    @Expose
     private Especialidade especialidade;
 
     public ServicoProfissional() {}

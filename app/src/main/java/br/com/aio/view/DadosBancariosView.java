@@ -19,7 +19,7 @@ import br.com.aio.utils.ToastUtils;
  * Created by elton on 01/10/2017.
  */
 
-public class DadosBancarios {
+public class DadosBancariosView {
 
     private Activity activity;
 
@@ -33,7 +33,7 @@ public class DadosBancarios {
     private Finalidade finalidade;
     private Banco banco;
 
-    public DadosBancarios(final Activity tela) {
+    public DadosBancariosView(final Activity tela) {
         setActivity(tela);
         editTextAgencia = (EditText) activity.findViewById(R.id.agencia);
         editTextDvAgencia = (EditText) activity.findViewById(R.id.dv_agencia);

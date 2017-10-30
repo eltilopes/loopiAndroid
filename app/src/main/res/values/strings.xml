@@ -329,4 +329,5 @@
     <string name="error_adicionar_servico">É necessário adicionar pelo menos um serviço</string>
 
     <string name="sucess_convite">Convite solicitado com sucesso</string>
+    <string name="sucess_profissional">Profissional salvo com sucesso</string>
 </resources>

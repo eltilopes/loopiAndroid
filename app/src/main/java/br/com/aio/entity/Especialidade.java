@@ -1,13 +1,20 @@
 package br.com.aio.entity;
 
+import com.google.gson.annotations.Expose;
+
+import java.io.Serializable;
+
 /**
  * Created by elton on 23/09/2017.
  */
 
-public class Especialidade {
+public class Especialidade implements Serializable {
 
+    @Expose
     private Integer id;
+    @Expose
     private String descricao;
+    @Expose
     private SubCategoria subCategoria;
 
     public Especialidade(Integer id, String descricao) {
