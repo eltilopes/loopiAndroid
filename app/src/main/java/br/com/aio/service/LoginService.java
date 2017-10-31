@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.aio.endpoint.LoginEndPoint;
 import br.com.aio.entity.Categoria;
+import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.Token;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.utils.JsonUtils;
@@ -43,6 +44,7 @@ public class LoginService extends ValidadorCallBack {
             UsuarioSharedUtils.setUsuarioShared(new UsuarioSession(token.getUser().getId(), login, senha, token.getUser().getNome(), token.getAccess_token(),token.getIdUsuarioGlpi(), token.getUser().getCpf(), token.getRoles()), ctx);
             SharedPreferences mPrefs = ctx.getSharedPreferences(PREFS_NAME, 0);
             carregarCategorias(mPrefs);
+            carregarSubCategorias(mPrefs);
         }else{
             throw new RuntimeException();
         }
@@ -53,6 +55,14 @@ public class LoginService extends ValidadorCallBack {
         List<Categoria> categorias = categoriaService.getCategorias();
         if(categorias!= null){
             SessionUtils.setCategorias(mPrefs, categorias);
+        }
+    }
+
+    private void carregarSubCategorias(SharedPreferences mPrefs) {
+        SubCategoriaService subCategoriaService= new SubCategoriaService(ctx);
+        List<SubCategoria> subCategorias = subCategoriaService.getSubCategorias();
+        if(subCategorias!= null){
+            SessionUtils.setSubCategorias(mPrefs, subCategorias);
         }
     }
 

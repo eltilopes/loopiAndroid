@@ -263,7 +263,7 @@ public class ListagemActivity extends AppCompatActivity
         TextView alertTitle=(TextView)dialogSubCategoria.getWindow().getDecorView().findViewById(R.id.dialog_title);
         spinnerSubCategoria = (SpinnerActionsHeader) dialogSubCategoria.findViewById(R.id.spinner_header_subcategoria);
         final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
-                SubCategoria.getSubCategorias(), SubCategoria.class, R.id.spinner_header_subcategoria);
+                SessionUtils.getSubCategorias(mPrefs), SubCategoria.class, R.id.spinner_header_subcategoria);
         spinnerSubCategoria.setAdapter(adapterSub);
         spinnerSubCategoria.setSpinnerEventsListener(new SpinnerActionsHeader.OnSpinnerEventsListener() {
             @Override

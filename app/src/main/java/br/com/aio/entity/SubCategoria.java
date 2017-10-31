@@ -38,6 +38,7 @@ public class SubCategoria extends SpinnerModel implements Serializable {
     }
 
     public void setDescricao(String descricao) {
+        super.setDescricaoSpinner(descricao);
         this.descricao = descricao;
     }
 
@@ -57,4 +58,10 @@ public class SubCategoria extends SpinnerModel implements Serializable {
         return lista;
     }
 
+    public static List<SubCategoria> prepareSubCategorias(List<SubCategoria> subCategorias) {
+        for(SubCategoria sc : subCategorias){
+            sc.setDescricao(sc.getDescricao());
+        }
+        return subCategorias;
+    }
 }

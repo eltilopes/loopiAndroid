@@ -12,6 +12,7 @@ public class BundleUtils {
     public static final String CADASTRO_PROFISSIONAL = "CADASTRO_PROFISSIONAL";
     public static final String SERVICO_CARD = "SERVICO_CARD";
     public static final String CATEGORIAS = "CATEGORIAS";
+    public static final String SUB_CATEGORIAS = "SUB_CATEGORIAS";
     public static final String LOCALIZACAO_MAPA = "LOCALIZACAO_MAPA";
     public static final String PREFS_NAME = "PREFS_NAME";
     public static final String ACTIVITY_ANTERIOR = "ACTIVITY_ANTERIOR";

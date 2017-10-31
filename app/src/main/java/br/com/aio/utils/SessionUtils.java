@@ -16,6 +16,7 @@ import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.Profissional;
 import br.com.aio.entity.ServicoCard;
+import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ACEITAR_SERVICO;
@@ -28,6 +29,7 @@ import static br.com.aio.utils.BundleUtils.EM_ATENDIMENTO;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
 import static br.com.aio.utils.BundleUtils.PROFISSIONAL_CADASTRO;
 import static br.com.aio.utils.BundleUtils.SERVICO_CARD;
+import static br.com.aio.utils.BundleUtils.SUB_CATEGORIAS;
 import static br.com.aio.utils.BundleUtils.USUARIO_SESSION;
 
 /**
@@ -37,6 +39,7 @@ import static br.com.aio.utils.BundleUtils.USUARIO_SESSION;
 public class SessionUtils {
 
     private static Type listTypeCategoria = new TypeToken<ArrayList<Categoria>>(){}.getType();
+    private static Type listTypeSubCategoria = new TypeToken<ArrayList<SubCategoria>>(){}.getType();
 
     public static ServicoCard getServicoCard(SharedPreferences mPreferences){
         Gson gson = new Gson();
@@ -159,4 +162,19 @@ public class SessionUtils {
         List<Categoria> lista = gson.fromJson(json, listTypeCategoria);
         return lista;
     }
+
+    public static void setSubCategorias(SharedPreferences mPrefs, List<SubCategoria> subCategorias) {
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();;
+        prefsEditor.putString(SUB_CATEGORIAS, gson.toJson(subCategorias, listTypeSubCategoria) );
+        prefsEditor.commit();
+    }
+
+    public static List<SubCategoria> getSubCategorias(SharedPreferences mPrefs) {
+        Gson gson = new Gson();
+        String json = mPrefs.getString(SUB_CATEGORIAS, null);
+        List<SubCategoria> lista = gson.fromJson(json, listTypeSubCategoria);
+        return lista;
+    }
+
 }
