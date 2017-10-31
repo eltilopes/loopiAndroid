@@ -3,10 +3,16 @@ package br.com.aio.utils;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.aio.activity.AceitarServicoFirebaseActivity;
 import br.com.aio.activity.ListagemActivity;
 import br.com.aio.activity.SolicitarPedidoActivity;
+import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.Profissional;
 import br.com.aio.entity.ServicoCard;
@@ -16,6 +22,7 @@ import static br.com.aio.utils.BundleUtils.ACTIVITY_ACEITAR_SERVICO;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_ANTERIOR;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_SOLICITAR_PEDIDO;
 import static br.com.aio.utils.BundleUtils.CADASTRO_PROFISSIONAL;
+import static br.com.aio.utils.BundleUtils.CATEGORIAS;
 import static br.com.aio.utils.BundleUtils.DEEP_LINK_FIREBASE;
 import static br.com.aio.utils.BundleUtils.EM_ATENDIMENTO;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
@@ -28,6 +35,8 @@ import static br.com.aio.utils.BundleUtils.USUARIO_SESSION;
  */
 
 public class SessionUtils {
+
+    private static Type listTypeCategoria = new TypeToken<ArrayList<Categoria>>(){}.getType();
 
     public static ServicoCard getServicoCard(SharedPreferences mPreferences){
         Gson gson = new Gson();
@@ -135,5 +144,19 @@ public class SessionUtils {
         Gson gson = new Gson();
         String json = mPreferences.getString(PROFISSIONAL_CADASTRO, null);
         return gson.fromJson(json, Profissional.class);
+    }
+
+    public static void setCategorias(SharedPreferences mPrefs, List<Categoria> categorias) {
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();;
+        prefsEditor.putString(CATEGORIAS, gson.toJson(categorias, listTypeCategoria) );
+        prefsEditor.commit();
+    }
+
+    public static List<Categoria> getCategorias(SharedPreferences mPrefs) {
+        Gson gson = new Gson();
+        String json = mPrefs.getString(CATEGORIAS, null);
+        List<Categoria> lista = gson.fromJson(json, listTypeCategoria);
+        return lista;
     }
 }

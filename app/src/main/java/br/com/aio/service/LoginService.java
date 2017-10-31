@@ -1,16 +1,23 @@
 package br.com.aio.service;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.util.List;
+
 import br.com.aio.endpoint.LoginEndPoint;
+import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Token;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.utils.JsonUtils;
+import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.UsuarioSharedUtils;
 import retrofit.client.Response;
 import retrofit.mime.TypedByteArray;
+
+import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 
 /**
  * Created by elton on 11/10/2017.
@@ -34,8 +41,18 @@ public class LoginService extends ValidadorCallBack {
         Token token = (Token)jsonUtil.converteObject(response, new TypeToken<Token>(){}.getType());
         if(response.getStatus() == Status.SUCESSO.getStatus()) {
             UsuarioSharedUtils.setUsuarioShared(new UsuarioSession(token.getUser().getId(), login, senha, token.getUser().getNome(), token.getAccess_token(),token.getIdUsuarioGlpi(), token.getUser().getCpf(), token.getRoles()), ctx);
+            SharedPreferences mPrefs = ctx.getSharedPreferences(PREFS_NAME, 0);
+            carregarCategorias(mPrefs);
         }else{
             throw new RuntimeException();
+        }
+    }
+
+    private void carregarCategorias(SharedPreferences mPrefs) {
+        CategoriaService categoriaService = new CategoriaService(ctx);
+        List<Categoria> categorias = categoriaService.getCategorias();
+        if(categorias!= null){
+            SessionUtils.setCategorias(mPrefs, categorias);
         }
     }
 

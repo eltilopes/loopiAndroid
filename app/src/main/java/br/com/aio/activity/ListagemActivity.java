@@ -433,7 +433,7 @@ public class ListagemActivity extends AppCompatActivity
         MenuItem item = menu.findItem(R.id.spinner_header_categoria);
         spinnerCategoria = (Spinner) MenuItemCompat.getActionView(item);
         spinnerCategoria.setBackground(null);
-        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), Categoria.getCategorias(), Categoria.class, R.id.spinner_header_categoria);
+        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), SessionUtils.getCategorias(mPrefs), Categoria.class, R.id.spinner_header_categoria);
         spinnerCategoria.setAdapter(spinAdapter);
         spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
