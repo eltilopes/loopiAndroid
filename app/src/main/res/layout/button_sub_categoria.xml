@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/layout_button_sub_categoria"
     android:background="@color/colorButtonHeader"
     android:padding="1dp"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/layout_button_sub_categoria"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="2dp"

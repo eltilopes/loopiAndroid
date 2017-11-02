@@ -50,11 +50,14 @@ import br.com.aio.R;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
 import br.com.aio.adapter.SpinnerAdapter;
 import br.com.aio.entity.Categoria;
+import br.com.aio.entity.Especialidade;
+import br.com.aio.entity.Filtro;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
+import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.SpinnerActionsHeader;
@@ -68,26 +71,30 @@ public class ListagemActivity extends AppCompatActivity
                    MyRecyclerViewAdapter.OnRecyclerViewItemClickListener,
         View.OnClickListener {
 
-    private static final String TAG = "RecyclerViewExample";
+    private String url = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
+    private static final String TAG = "RecyclerViewListagem";
     public static final int idCard = -1;
     private List<ServicoCard> servicoCards;
     private RecyclerView mRecyclerView;
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
     private ProgressBar progressBar;
     private LinearLayout buttonFiltro;
-    private LinearLayout buttonCategoria;
+    private LinearLayout buttonEspecialidade;
     private LinearLayout buttonSubCategoria;
     private TextView nomeUsuario;
     private MaterialDesignIconsTextView imagemUsuario;
     private Dialog dialogMostrarFiltro;
     private Dialog dialogSubCategoria;
     private SpinnerActionsHeader spinnerSubCategoria;
+    private Dialog dialogEspecialidade;
+    private SpinnerActionsHeader spinnerEspecialidade;
     private SearchView.OnQueryTextListener queryTextListener;
     private SearchView searchView;
     private Spinner spinnerCategoria;
     private SharedPreferences mPrefs;
     private Localizacao localizacaoMapa;
     private UsuarioSession usuarioSession;
+    private Filtro filtro;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -98,11 +105,11 @@ public class ListagemActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
-
+        filtro =  new Filtro();
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
         getUsuarioLogado();
         setButtonFiltro();
-        setButtonCategoria();
+        setButtonEspecialidade();
         setButtonSubCategoria();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -131,7 +138,6 @@ public class ListagemActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        String url = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
         new DownloadTask().execute(url);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -148,6 +154,10 @@ public class ListagemActivity extends AppCompatActivity
         if (spinnerSubCategoria != null && !hasFocus && spinnerSubCategoria.isEnabled()){
             spinnerSubCategoria.setDropDownMenuShown(true);
             spinnerSubCategoria.setActivated(true);
+        }
+        if (spinnerEspecialidade != null && !hasFocus && spinnerEspecialidade.isEnabled()){
+            spinnerEspecialidade.setDropDownMenuShown(true);
+            spinnerEspecialidade.setActivated(true);
         }
 
 
@@ -182,7 +192,7 @@ public class ListagemActivity extends AppCompatActivity
         dialogMostrarFiltro.setContentView(R.layout.dialog_filtro);
         dialogMostrarFiltro.show();
         TextView alertTitle=(TextView)dialogMostrarFiltro.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.spinner_header_subcategoria);
+        Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.spinner_button_header);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -218,6 +228,7 @@ public class ListagemActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb=(RadioButton) dialogMostrarFiltro.findViewById(checkedId);
+                filtro.setMenorValor(Boolean.valueOf(rb.getTag().toString()));
                 Toast.makeText(getApplicationContext(), rb.getText(), Toast.LENGTH_SHORT).show();
 
             }
@@ -227,6 +238,7 @@ public class ListagemActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 dialogMostrarFiltro.dismiss();
+                new DownloadTask().execute(url);
             }
         });
     }
@@ -236,15 +248,70 @@ public class ListagemActivity extends AppCompatActivity
         spinnerSubCategoria.performClick();
     }
 
-    private void setButtonCategoria() {
+    private void mostrarEspecialidades() {
+        dialogEspecialidade.show();
+        spinnerEspecialidade.performClick();
+    }
+
+    private void setButtonEspecialidade() {
         View v = findViewById(R.id.button_especialidade);
-        buttonCategoria = (LinearLayout) v;
-        buttonCategoria.setOnClickListener(new View.OnClickListener() {
+        buttonEspecialidade = (LinearLayout) v;
+        buttonEspecialidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarSubCategorias();
+                if(filtro.getSubCategoria()==null){
+                    ToastUtils.show(ListagemActivity.this,
+                            getString(R.string.alert_select_sub_categoria) ,ToastUtils.WARNING);
+                }else {
+                    mostrarEspecialidades();
+                }
             }
         });
+        dialogEspecialidade = new Dialog(this);
+        dialogEspecialidade.setCancelable(true);
+        dialogEspecialidade.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogEspecialidade.setContentView(R.layout.dialog_button_header);
+        RobotoTextView dialogTitle=(RobotoTextView)dialogEspecialidade.getWindow().getDecorView().findViewById(R.id.dialog_title);
+        dialogTitle.setText(getString(R.string.especialidade));
+        RobotoTextView title=(RobotoTextView) dialogEspecialidade.findViewById(R.id.dialog_title);
+        title.setText(getString(R.string.especialidade));
+        spinnerEspecialidade = (SpinnerActionsHeader) dialogEspecialidade.findViewById(R.id.spinner_button_header);
+        spinnerEspecialidade.setPrompt(getString(R.string.especialidade));
+        final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
+                SessionUtils.getEspecialidades(mPrefs, filtro.getSubCategoria()), Especialidade.class, R.id.spinner_button_header);
+        spinnerEspecialidade.setAdapter(adapterSub);
+        spinnerEspecialidade.setSpinnerEventsListener(new SpinnerActionsHeader.OnSpinnerEventsListener() {
+            @Override
+            public void onSpinnerOpened(Spinner spinner) {
+                spinnerEspecialidade.setActivated(false);
+            }
+
+            @Override
+            public void onSpinnerClosed(Spinner spinner) {
+                spinnerEspecialidade.setActivated(false);
+                spinnerEspecialidade.clearFocus();
+                Window window = dialogEspecialidade.getWindow();
+                window.getDecorView().setVisibility(View.INVISIBLE);
+            }
+        });
+        spinnerEspecialidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0) {
+                    adapterSub.setItemChecked(view, position);
+                    ToastUtils.show(ListagemActivity.this,
+                            "Selecionado : " + ((Especialidade) adapterSub.getItemAtPosition(position)).getDescricao(),
+                            ToastUtils.INFORMATION);
+                    dialogEspecialidade.dismiss();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                dialogEspecialidade.dismiss();
+            }
+        });
+
     }
 
     private void setButtonSubCategoria() {
@@ -253,17 +320,22 @@ public class ListagemActivity extends AppCompatActivity
         buttonSubCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarSubCategorias();
+                if(filtro.getCategoria()==null){
+                    ToastUtils.show(ListagemActivity.this,
+                            getString(R.string.alert_select_categoria) ,ToastUtils.WARNING);
+                }else {
+                    mostrarSubCategorias();
+                }
             }
         });
         dialogSubCategoria = new Dialog(this);
         dialogSubCategoria.setCancelable(true);
         dialogSubCategoria.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogSubCategoria.setContentView(R.layout.dialog_sub_categoria);
+        dialogSubCategoria.setContentView(R.layout.dialog_button_header);
         TextView alertTitle=(TextView)dialogSubCategoria.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        spinnerSubCategoria = (SpinnerActionsHeader) dialogSubCategoria.findViewById(R.id.spinner_header_subcategoria);
+        spinnerSubCategoria = (SpinnerActionsHeader) dialogSubCategoria.findViewById(R.id.spinner_button_header);
         final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
-                SessionUtils.getSubCategorias(mPrefs), SubCategoria.class, R.id.spinner_header_subcategoria);
+                SessionUtils.getSubCategorias(mPrefs, filtro.getCategoria()), SubCategoria.class, R.id.spinner_button_header);
         spinnerSubCategoria.setAdapter(adapterSub);
         spinnerSubCategoria.setSpinnerEventsListener(new SpinnerActionsHeader.OnSpinnerEventsListener() {
             @Override
@@ -284,10 +356,18 @@ public class ListagemActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position>0) {
                     adapterSub.setItemChecked(view, position);
+                    SubCategoria subCategoria = (SubCategoria) adapterSub.getItemAtPosition(position);
+                    if(subCategoria.getId()!=0){
+                        filtro.setSubCategoria(subCategoria);
+                        setButtonEspecialidade();
+                    }
                     ToastUtils.show(ListagemActivity.this,
                             "Selecionado : " + ((SubCategoria) adapterSub.getItemAtPosition(position)).getDescricao(),
                             ToastUtils.INFORMATION);
                     dialogSubCategoria.dismiss();
+                }else{
+                    filtro.setSubCategoria(null);
+                    setButtonEspecialidade();
                 }
             }
 
@@ -363,7 +443,7 @@ public class ListagemActivity extends AppCompatActivity
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                myRecyclerViewAdapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards);
+                myRecyclerViewAdapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards, filtro);
                 mRecyclerView.setAdapter(myRecyclerViewAdapter);
                 myRecyclerViewAdapter.setOnItemClickListener(ListagemActivity.this);
             } else {
@@ -441,9 +521,17 @@ public class ListagemActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> adapter, View v,int position, long id) {
                 if(position>0) {
                     spinAdapter.setItemChecked(v, position);
+                    Categoria categoria = (Categoria) spinAdapter.getItemAtPosition(position);
+                    if(categoria.getId()!=0){
+                        filtro.setCategoria(categoria);
+                        setButtonSubCategoria();
+                    }
                     ToastUtils.show(ListagemActivity.this,
                             "Selecionado : " + ((Categoria) spinAdapter.getItemAtPosition(position)).getDescricao(),
                             ToastUtils.INFORMATION);
+                }else{
+                    filtro.setCategoria(null);
+                    setButtonSubCategoria();
                 }
             }
 

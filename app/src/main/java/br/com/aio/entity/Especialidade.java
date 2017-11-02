@@ -3,12 +3,13 @@ package br.com.aio.entity;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by elton on 23/09/2017.
  */
 
-public class Especialidade implements Serializable {
+public class Especialidade extends SpinnerModel implements Serializable {
 
     @Expose
     private Integer id;
@@ -20,6 +21,7 @@ public class Especialidade implements Serializable {
     public Especialidade(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
+        super.setDescricaoSpinner(descricao);
     }
 
     public Integer getId() {
@@ -35,6 +37,7 @@ public class Especialidade implements Serializable {
     }
 
     public void setDescricao(String descricao) {
+        super.setDescricaoSpinner(descricao);
         this.descricao = descricao;
     }
 
@@ -44,5 +47,12 @@ public class Especialidade implements Serializable {
 
     public void setSubCategoria(SubCategoria subCategoria) {
         this.subCategoria = subCategoria;
+    }
+
+    public static List<Especialidade> prepareEspecialidades(List<Especialidade> especialidades) {
+        for(Especialidade e : especialidades){
+            e.setDescricao(e.getDescricao());
+        }
+        return especialidades;
     }
 }

@@ -14,10 +14,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import br.com.aio.R;
 import br.com.aio.activity.ListagemActivity;
+import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 
@@ -29,6 +32,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private List<ServicoCard> servicoCardList;
     private Context mContext;
     private OnRecyclerViewItemClickListener listener;
+    private Filtro filtro;
 
     public interface OnRecyclerViewItemClickListener {
         public void onRecyclerViewItemClicked(int position, int id);
@@ -37,9 +41,22 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     {
         this.listener = listener;
     }
-    public MyRecyclerViewAdapter(Context context, List<ServicoCard> servicoCardList) {
+    public MyRecyclerViewAdapter(Context context, List<ServicoCard> servicoCardList, Filtro filtro) {
         this.servicoCardList = servicoCardList;
         this.mContext = context;
+        this.filtro = filtro;
+        if(filtro.getMenorValor()!=null){
+            final int menorValor = filtro.getMenorValor() ? 1 : -1;
+            Collections.sort(servicoCardList, new Comparator<ServicoCard>() {
+                @Override
+                public int compare(ServicoCard s1, ServicoCard s2) {
+                    return Double.compare(s1.getPreco(),s2.getPreco())*menorValor;
+                    // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                    //return s1.getPreco()> s2.getPreco()? -1*menorValor : ( s1.getPreco()> s2.getPreco()) ? 1*menorValor : 0;
+                }
+            });
+        }
+
     }
 
     public void addItem(ServicoCard servicoCard, int index) {

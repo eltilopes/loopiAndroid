@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="@string/subcategoria"
         android:padding="10dp"
         android:textStyle="bold"
         android:textSize="18dp"/>
@@ -42,7 +41,7 @@
             android:orientation="vertical">
 
             <br.com.aio.view.SpinnerActionsHeader
-                android:id="@+id/spinner_header_subcategoria"
+                android:id="@+id/spinner_button_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:spinnerMode="dialog"

@@ -328,6 +328,9 @@
     <string name="error_inesperado">Ocorreu o erro: </string>
     <string name="error_adicionar_servico">É necessário adicionar pelo menos um serviço</string>
 
+    <string name="alert_select_categoria">É necessário selecionar alguma Categoria</string>
+    <string name="alert_select_sub_categoria">É necessário selecionar alguma SubCategoria</string>
+
     <string name="sucess_convite">Convite solicitado com sucesso</string>
     <string name="sucess_profissional">Profissional salvo com sucesso</string>
 </resources>

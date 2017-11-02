@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.aio.endpoint.LoginEndPoint;
 import br.com.aio.entity.Categoria;
+import br.com.aio.entity.Especialidade;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.Token;
 import br.com.aio.entity.UsuarioSession;
@@ -45,6 +46,7 @@ public class LoginService extends ValidadorCallBack {
             SharedPreferences mPrefs = ctx.getSharedPreferences(PREFS_NAME, 0);
             carregarCategorias(mPrefs);
             carregarSubCategorias(mPrefs);
+            carregarEspecialidades(mPrefs);
         }else{
             throw new RuntimeException();
         }
@@ -63,6 +65,14 @@ public class LoginService extends ValidadorCallBack {
         List<SubCategoria> subCategorias = subCategoriaService.getSubCategorias();
         if(subCategorias!= null){
             SessionUtils.setSubCategorias(mPrefs, subCategorias);
+        }
+    }
+
+    private void carregarEspecialidades(SharedPreferences mPrefs) {
+        EspecialidadeService especialidadeService= new EspecialidadeService(ctx);
+        List<Especialidade> especialidades = especialidadeService.getEspecialidades();
+        if(especialidades!= null){
+            SessionUtils.setEspecialidades(mPrefs, especialidades);
         }
     }
 

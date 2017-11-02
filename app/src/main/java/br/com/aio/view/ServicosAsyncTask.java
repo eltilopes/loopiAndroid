@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 
 /**
@@ -87,7 +88,7 @@ public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
         progressBar.setVisibility(View.GONE);
 
         if (result == 1) {
-            adapter = new MyRecyclerViewAdapter(context, servicoCardList);
+            adapter = new MyRecyclerViewAdapter(context, servicoCardList, new Filtro());
             mRecyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener(new MyRecyclerViewAdapter.OnRecyclerViewItemClickListener() {
                 @Override

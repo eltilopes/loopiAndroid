@@ -13,6 +13,7 @@ import br.com.aio.activity.AceitarServicoFirebaseActivity;
 import br.com.aio.activity.ListagemActivity;
 import br.com.aio.activity.SolicitarPedidoActivity;
 import br.com.aio.entity.Categoria;
+import br.com.aio.entity.Especialidade;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.Profissional;
 import br.com.aio.entity.ServicoCard;
@@ -26,6 +27,7 @@ import static br.com.aio.utils.BundleUtils.CADASTRO_PROFISSIONAL;
 import static br.com.aio.utils.BundleUtils.CATEGORIAS;
 import static br.com.aio.utils.BundleUtils.DEEP_LINK_FIREBASE;
 import static br.com.aio.utils.BundleUtils.EM_ATENDIMENTO;
+import static br.com.aio.utils.BundleUtils.ESPECIALIDADES;
 import static br.com.aio.utils.BundleUtils.LOCALIZACAO_MAPA;
 import static br.com.aio.utils.BundleUtils.PROFISSIONAL_CADASTRO;
 import static br.com.aio.utils.BundleUtils.SERVICO_CARD;
@@ -40,6 +42,7 @@ public class SessionUtils {
 
     private static Type listTypeCategoria = new TypeToken<ArrayList<Categoria>>(){}.getType();
     private static Type listTypeSubCategoria = new TypeToken<ArrayList<SubCategoria>>(){}.getType();
+    private static Type listTypeEspecialidade = new TypeToken<ArrayList<Especialidade>>(){}.getType();
 
     public static ServicoCard getServicoCard(SharedPreferences mPreferences){
         Gson gson = new Gson();
@@ -160,7 +163,7 @@ public class SessionUtils {
         Gson gson = new Gson();
         String json = mPrefs.getString(CATEGORIAS, null);
         List<Categoria> lista = gson.fromJson(json, listTypeCategoria);
-        return lista;
+        return lista == null ? new ArrayList<Categoria>() : lista;
     }
 
     public static void setSubCategorias(SharedPreferences mPrefs, List<SubCategoria> subCategorias) {
@@ -170,10 +173,44 @@ public class SessionUtils {
         prefsEditor.commit();
     }
 
-    public static List<SubCategoria> getSubCategorias(SharedPreferences mPrefs) {
+    public static List<SubCategoria> getSubCategorias(SharedPreferences mPrefs, final Categoria categoria) {
         Gson gson = new Gson();
         String json = mPrefs.getString(SUB_CATEGORIAS, null);
         List<SubCategoria> lista = gson.fromJson(json, listTypeSubCategoria);
+        lista = lista == null ? new ArrayList<SubCategoria>() : lista;
+        if(categoria!=null) {
+            List<SubCategoria> listaFiltrada = new ArrayList<SubCategoria>();
+            for (SubCategoria s : lista) {
+                if (s.getCategoria().equals(categoria)) {
+                    listaFiltrada.add(s);
+                }
+            }
+            lista = listaFiltrada;
+        }
+        return lista;
+    }
+
+    public static void setEspecialidades(SharedPreferences mPrefs, List<Especialidade> especialidades) {
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();;
+        prefsEditor.putString(ESPECIALIDADES, gson.toJson(especialidades, listTypeEspecialidade) );
+        prefsEditor.commit();
+    }
+
+    public static List<Especialidade> getEspecialidades(SharedPreferences mPrefs, SubCategoria subCategoria) {
+        Gson gson = new Gson();
+        String json = mPrefs.getString(ESPECIALIDADES, null);
+        List<Especialidade> lista = gson.fromJson(json, listTypeEspecialidade);
+        lista = lista == null ? new ArrayList<Especialidade>() : lista;
+        if(subCategoria!=null) {
+            List<Especialidade> listaFiltrada = new ArrayList<Especialidade>();
+            for (Especialidade e : lista) {
+                if (e.getSubCategoria().equals(subCategoria)) {
+                    listaFiltrada.add(e);
+                }
+            }
+            lista = listaFiltrada;
+        }
         return lista;
     }
 

@@ -76,7 +76,7 @@ public class SpinnerAdapter extends ArrayAdapter {
         Drawable icon = ViewUtils.drawableSetTint(context.getResources().getDrawable(idDrawable),
                 context.getResources().getColor(R.color.branco));
         switch (idViewParent){
-            case R.id.spinner_header_subcategoria:
+            case R.id.spinner_button_header:
                 layoutSpinner.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
                 titleSpinner.setTextColor(context.getResources().getColor(R.color.textColorCinzaEscuro));
                 int top = position == 0 ? 10 : 0;

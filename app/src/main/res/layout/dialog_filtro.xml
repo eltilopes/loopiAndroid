@@ -56,7 +56,7 @@
                 android:text="@string/subcategoria" />
 
             <Spinner
-                android:id="@+id/spinner_header_subcategoria"
+                android:id="@+id/spinner_button_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
@@ -97,6 +97,7 @@
                     android:id="@+id/radio_menor_valor"
                     style="@style/MyRadioButton"
                     android:button="@null"
+                    android:tag="true"
                     android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
                     android:text="Menor Valor"
                     android:padding="2dp"/>
@@ -105,6 +106,7 @@
                     android:id="@+id/radio_maior_valor"
                     style="@style/MyRadioButton"
                     android:button="@null"
+                    android:tag="false"
                     android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
                     android:text="Maior Valor"
                     android:padding="2dp"/>
