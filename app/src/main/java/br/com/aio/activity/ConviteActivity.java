@@ -40,7 +40,7 @@ public class ConviteActivity extends Activity implements View.OnClickListener {
         validationCpfCnpj.setVisibility(View.GONE);
         validationConvite = (TextView) findViewById(R.id.codigo_convite_validation);
         validationConvite.setVisibility(View.GONE);
-        cpfCnpj = (EditText) findViewById(R.id.cpf_cnpj);
+        cpfCnpj = (EditText) findViewById(R.id.edit_text_cpf_cnpj);
         convite = (EditText) findViewById(R.id.codigo_convite);
         cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj,validationCpfCnpj);
         cpfCnpj.addTextChangedListener(cpfCnpjMaks);

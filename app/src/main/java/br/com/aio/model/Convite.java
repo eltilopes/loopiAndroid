@@ -10,13 +10,6 @@ import java.io.Serializable;
 
 public class Convite implements Serializable {
 
-    public static final String TABLE = "convite";
-    public static final String COLUMN_ID_CONVITE = "id_convite";
-    public static final String COLUMN_NOME = "nome";
-    public static final String COLUMN_EMAIL = "email";
-    public static final String COLUMN_CPF = "cpf";
-    public static final String COLUMN_CHAVE = "chave";
-
     @Expose
     private Integer idConvite;
 
@@ -30,14 +23,18 @@ public class Convite implements Serializable {
     private String cpf;
 
     @Expose
-    private String chave;
+    private String telefone;
+
+    @Expose
+    private String codigoConvite;
 
     public Convite() { super();}
 
-    public Convite(String nome, String email, String cpf) {
+    public Convite(String nome, String email, String cpf, String telefone) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
+        this.telefone = telefone;
     }
 
     public Integer getIdConvite() {
@@ -72,11 +69,19 @@ public class Convite implements Serializable {
         this.cpf = cpf;
     }
 
-    public String getChave() {
-        return chave;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setChave(String chave) {
-        this.chave = chave;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCodigoConvite() {
+        return codigoConvite;
+    }
+
+    public void setCodigoConvite(String codigoConvite) {
+        this.codigoConvite = codigoConvite;
     }
 }

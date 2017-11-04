@@ -20,6 +20,7 @@
     <string name="validation_cpf_invalido">CPF não é válido</string>
     <string name="validation_cpf_cnpj_invalido">Numeração não é CNPJ ou CPF</string>
     <string name="validation_cnpj_invalido">CNPJ não é válido</string>
+    <string name="validation_telefone_invalido">Telefone não é válido</string>
     <string name="validation_email_invalido">Email não é válido</string>
     <string name="validation_nome_invalido">Nome Completo não é válido</string>
     <string name="validation_convite_invalido">Código do Convite não é válido</string>

@@ -23,6 +23,7 @@ import br.com.aio.service.ExecutorMetodoService;
 import br.com.aio.utils.ConexaoUtils;
 import br.com.aio.utils.CpfCnpjMaks;
 import br.com.aio.utils.SessionUtils;
+import br.com.aio.utils.TelefoneMaskUtil;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.utils.ViewUtils;
 import br.com.aio.view.FloatLabeledEditText;
@@ -43,12 +44,15 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
     private FloatLabeledEditText email;
     private FloatLabeledEditText senha;
     private FloatLabeledEditText convite;
+    private FloatLabeledEditText telefone;
+    private View validationTelefone;
     private View validationConvite;
     private View validationNome;
     private View validationCpf;
     private View validationEmail;
     private View validationSenha;
     private TextWatcher cpfCnpjMaks;
+    private TextWatcher telefoneMask;
     private RelativeLayout layoutProgress;
     private LinearLayout linearConvite;
     private RobotoTextView tenhoConvite;
@@ -67,12 +71,14 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         linearConvite = (LinearLayout) findViewById(R.id.linear_convite);
         linearConvite.setVisibility(View.GONE);
         layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
-        cpfCnpj = (FloatLabeledEditText) findViewById(R.id.cpf_cnpj);
+        cpfCnpj = (FloatLabeledEditText) findViewById(R.id.edit_text_cpf_cnpj);
         email = (FloatLabeledEditText) findViewById(R.id.edit_text_email);
         senha = (FloatLabeledEditText) findViewById(R.id.edit_text_senha);
         convite = (FloatLabeledEditText) findViewById(R.id.edit_text_convite);
+        telefone = (FloatLabeledEditText) findViewById(R.id.edit_text_telefone);
         senha.setPassword(true);
         senha.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        validationTelefone = (View) findViewById(R.id.validation_edit_text_telefone);
         validationConvite = (View) findViewById(R.id.validation_edit_text_convite);
         validationSenha = (View) findViewById(R.id.validation_edit_text_senha);
         validationNome = (View) findViewById(R.id.validation_edit_text_nome);
@@ -80,6 +86,10 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         validationCpf = (View) findViewById(R.id.validation_edit_text_cpf);
         nomeCompleto = (FloatLabeledEditText) findViewById(R.id.nome_completo);
         cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj.getEditText(),validationCpf, null);
+        telefoneMask = TelefoneMaskUtil.insert(getApplicationContext(),telefone.getEditText(),validationTelefone );
+        telefone.getEditText().addTextChangedListener(telefoneMask);
+        telefone.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
+        cpfCnpj.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
         cpfCnpj.getEditText().addTextChangedListener(cpfCnpjMaks);
         email.getEditText().setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         email.getEditText().addTextChangedListener(new TextWatcher() {
@@ -100,7 +110,6 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
                 }
             }
         });
-
         nomeCompleto.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -159,6 +168,7 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         email.setText("eltilopes@gmail.com");
         cpfCnpj.setText("01234567890");
         senha.setText("elt#nA2@");
+        telefone.setText("85989214075");
         convite.setText("A1B2C3D4");
     }
 
@@ -233,7 +243,9 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         boolean senhaValida = senhaValida(senha.getText().toString());
         boolean cpfCnpjValido = CpfCnpjMaks.verificarCpfCnpj(getApplicationContext(),
                 CpfCnpjMaks.unmask(cpfCnpj.getText().toString()), cpfCnpj.getEditText(), null, validationCpf);
-        if(nomeValido && emailValido && cpfCnpjValido && senhaValida){
+        boolean telefoneValido = TelefoneMaskUtil.verificarTelefone(getApplicationContext(),
+                TelefoneMaskUtil.unmask(telefone.getText().toString()), telefone.getEditText(), validationTelefone);
+        if(telefoneValido && nomeValido && emailValido && cpfCnpjValido && senhaValida){
             ProgressDialogAsyncTask task = new ProgressDialogAsyncTask(this, layoutProgress, this);
             task.execute();
         }
@@ -244,7 +256,12 @@ public class NaoTenhoConviteActivity extends Activity implements View.OnClickLis
         Convite conviteNovo = new Convite(
                 nomeCompleto.getText().toString(),
                 email.getText().toString(),
-                CpfCnpjMaks.unmask(cpfCnpj.getText().toString()));
+                CpfCnpjMaks.unmask(cpfCnpj.getText().toString()),
+                TelefoneMaskUtil.unmask(telefone.getText().toString()));
+        if(conviteValido(convite.getText().toString())){
+            conviteNovo.setCodigoConvite(convite.getText().toString());
+        }
+
         try{
             if(ConexaoUtils.isConexao(getApplicationContext())){
 

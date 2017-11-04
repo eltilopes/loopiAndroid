@@ -114,7 +114,7 @@
                 android:textSize="22dp" />
 
             <br.com.aio.view.FloatLabeledEditText
-                android:id="@+id/cpf_cnpj"
+                android:id="@+id/edit_text_cpf_cnpj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -127,6 +127,40 @@
 
                 <View
                     android:id="@+id/validation_edit_text_cpf"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/branco" />
+            </br.com.aio.view.FloatLabeledEditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <br.com.aio.fonts.MaterialDesignIconsTextView
+                style="@style/TextViewAppearance.Title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:text="@string/material_icon_bookmark"
+                android:textColor="@color/branco"
+                android:textSize="22dp" />
+
+            <br.com.aio.view.FloatLabeledEditText
+                android:id="@+id/edit_text_telefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:inputType="number"
+                app:fletFloatingHint="@string/telefone"
+                app:fletHintTextColor="@color/textColorCinza"
+                app:fletSingleLine="true"
+                app:fletTextBackground="@drawable/background_float_edit_text_validation"
+                app:fletTextColor="@color/textColorCinza" >
+
+                <View
+                    android:id="@+id/validation_edit_text_telefone"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/branco" />

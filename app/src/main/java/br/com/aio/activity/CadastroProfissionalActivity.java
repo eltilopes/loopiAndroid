@@ -162,7 +162,7 @@ public class CadastroProfissionalActivity extends AppCompatActivity implements A
         editTextTelefone= (EditText) findViewById(R.id.edit_text_telefone);
         editTextTelefone.setFocusableInTouchMode(false);
         editTextTelefone.setText(profissional.getUsuario().getTelefone());
-        editTextTelefone.addTextChangedListener(TelefoneMaskUtil.insert(editTextTelefone));
+        editTextTelefone.addTextChangedListener(TelefoneMaskUtil.insert(null,editTextTelefone, null));
         editTextTelefone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

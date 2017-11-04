@@ -65,7 +65,7 @@ public class EsqueciMinhaSenhaActivity extends Activity implements View.OnClickL
         validationTextSenha = (TextView) findViewById(R.id.validation_senha);
         validationTextSenha.setVisibility(View.GONE);
         validationSenha = (View) findViewById(R.id.validation_edit_text_nova_senha);
-        cpfCnpj = (EditText) findViewById(R.id.cpf_cnpj);
+        cpfCnpj = (EditText) findViewById(R.id.edit_text_cpf_cnpj);
         validationCpf = (View) findViewById(R.id.validation_edit_text_cpf);
         cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj,validationCpf, validationCpfCnpj);
         cpfCnpj.addTextChangedListener(cpfCnpjMaks);

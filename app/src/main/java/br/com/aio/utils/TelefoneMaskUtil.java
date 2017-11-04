@@ -1,8 +1,13 @@
 package br.com.aio.utils;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
+import android.view.View;
 import android.widget.EditText;
+
+import br.com.aio.R;
 
 /**
  * Created by elton on 01/10/2017.
@@ -19,7 +24,7 @@ public class TelefoneMaskUtil {
         return s.replaceAll("[^0-9]*", "");
     }
 
-    public static TextWatcher insert(final EditText editText) {
+    public static TextWatcher insert(final Context contexto, final EditText editText, final View validation) {
         return new TextWatcher() {
             boolean isUpdating;
             String old = "";
@@ -73,10 +78,40 @@ public class TelefoneMaskUtil {
             }
 
             public void afterTextChanged(Editable s) {
+                if(contexto!=null){
+                    String numero = CpfCnpjMaks.unmask(s.toString());
+                    verificarTelefone(contexto,numero,editText, validation);
+                }
             }
         };
     }
 
+    public static boolean verificarTelefone(Context context, String numero, EditText editText, View validation) {
+        boolean validado = true;
+        try {
+
+            if (numero.isEmpty()) {
+                validado = addValidation(R.string.validation_campo_obrigatorio, context, editText, validation);
+            } else if(!Patterns.PHONE.matcher(numero).matches() || numero.length()!= 11){
+                validado = addValidation(R.string.validation_telefone_invalido, context, editText, validation);
+            } else if (validation != null) {
+                validation.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVerde));
+            }
+        }catch (Exception e){
+            validado = false;
+        }
+        return validado;
+    }
+
+    private static boolean addValidation(int idString, Context context, EditText editText, View validation) {
+        boolean validado;
+        if(validation!=null){
+            validation.setBackgroundColor(context.getResources().getColor(R.color.textColorInfoVermelho));
+            editText.setError(context.getString(idString));
+        }
+        validado = false;
+        return validado;
+    }
     private static String getDefaultMask(String str) {
         String defaultMask = mask8;
         if (str.length() > 11){

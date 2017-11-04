@@ -68,7 +68,7 @@ public class LogarActivity extends Activity implements OnClickListener, Progress
             validationCpfCnpj.setVisibility(View.GONE);
             validationSenha = (TextView) findViewById(R.id.senha_validation);
             validationSenha.setVisibility(View.GONE);
-            cpfCnpj = (EditText) findViewById(R.id.cpf_cnpj);
+            cpfCnpj = (EditText) findViewById(R.id.edit_text_cpf_cnpj);
             senha = (EditText) findViewById(R.id.senha);
             cpfCnpjMaks = CpfCnpjMaks.insert(getApplicationContext(),cpfCnpj,validationCpfCnpj);
             cpfCnpj.addTextChangedListener(cpfCnpjMaks);
