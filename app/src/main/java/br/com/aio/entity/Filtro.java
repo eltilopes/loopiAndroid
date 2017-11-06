@@ -10,6 +10,15 @@ public class Filtro {
     private SubCategoria subCategoria;
     private Especialidade especialidade;
     private Boolean menorValor;
+    private Boolean distanciaMenor;
+
+    public Boolean getDistanciaMenor() {
+        return distanciaMenor;
+    }
+
+    public void setDistanciaMenor(Boolean distanciaMenor) {
+        this.distanciaMenor = distanciaMenor;
+    }
 
     public Boolean getMenorValor() {
         return menorValor;

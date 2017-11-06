@@ -95,6 +95,10 @@ public class ListagemActivity extends AppCompatActivity
     private Localizacao localizacaoMapa;
     private UsuarioSession usuarioSession;
     private Filtro filtro;
+    private RadioGroup radioGroupValor;
+    private RadioButton radioButtonMenorValor;
+    private RadioButton radioButtonMaiorValor;
+    private CheckBox checkboxDistanciaMenor;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -211,28 +215,47 @@ public class ListagemActivity extends AppCompatActivity
             }
         });
         spinner.performClick();
-        CheckBox checkboxDistancia = (CheckBox) dialogMostrarFiltro.findViewById(R.id.checkbox_distancia);
-        checkboxDistancia.setOnClickListener(new View.OnClickListener() {
+        checkboxDistanciaMenor = (CheckBox) dialogMostrarFiltro.findViewById(R.id.checkbox_distancia);
+        checkboxDistanciaMenor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                filtro.setDistanciaMenor(checkboxDistanciaMenor.isChecked());
                 Toast.makeText(v.getContext(),
                         "checkbox_distancia",
                         Toast.LENGTH_SHORT).show();
 
             }
         });
-
-        RadioGroup radioGroup = (RadioGroup) dialogMostrarFiltro.findViewById(R.id.radio_group_valor);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        if(filtro.getDistanciaMenor()!=null){
+            checkboxDistanciaMenor.setChecked(filtro.getDistanciaMenor());
+        }
+        radioGroupValor = (RadioGroup) dialogMostrarFiltro.findViewById(R.id.radio_group_valor);
+        radioButtonMenorValor =(RadioButton) dialogMostrarFiltro.findViewById(R.id.radio_menor_valor);
+        radioButtonMaiorValor =(RadioButton) dialogMostrarFiltro.findViewById(R.id.radio_maior_valor);
+        radioGroupValor.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton rb=(RadioButton) dialogMostrarFiltro.findViewById(checkedId);
-                filtro.setMenorValor(Boolean.valueOf(rb.getTag().toString()));
-                Toast.makeText(getApplicationContext(), rb.getText(), Toast.LENGTH_SHORT).show();
-
+                switch (checkedId){
+                    case R.id.radio_menor_valor:
+                        radioButtonMenorValor.setChecked(true);
+                        radioButtonMaiorValor.setChecked(false);
+                        filtro.setMenorValor(true);
+                        Toast.makeText(getApplicationContext(), radioButtonMenorValor.getText(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radio_maior_valor:
+                        radioButtonMenorValor.setChecked(false);
+                        radioButtonMaiorValor.setChecked(true);
+                        filtro.setMenorValor(false);
+                        Toast.makeText(getApplicationContext(), radioButtonMaiorValor.getText(), Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
+        if(filtro.getMenorValor()!=null){
+            radioButtonMenorValor.setChecked(filtro.getMenorValor());
+            radioButtonMaiorValor.setChecked(!filtro.getMenorValor());
+        }
         TextView aplicar = (TextView) dialogMostrarFiltro.findViewById(R.id.dialog_ok);
         aplicar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -531,7 +554,9 @@ public class ListagemActivity extends AppCompatActivity
                             ToastUtils.INFORMATION);
                 }else{
                     filtro.setCategoria(null);
+                    filtro.setSubCategoria(null);
                     setButtonSubCategoria();
+                    setButtonEspecialidade();
                 }
             }
 
