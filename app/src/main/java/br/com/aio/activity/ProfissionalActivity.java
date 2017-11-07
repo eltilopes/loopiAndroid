@@ -205,8 +205,8 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
         for(ServicoProfissional s : profissional.getServicos()){
             lista.add(new ServicoCard(
                     s.getId().longValue(), profissional.getUsuario().getNome(),
-                    "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA0hAAAAJGY0Yjg0YTdkLWZhNTgtNDMwNC05MTkyLWQzMjlkMWRiZmUwZg.jpg",profissional.getCategoria().getDescricao(),
-                    profissional.getSubCategoria().getDescricao(),profissional.getEspecialidade().getDescricao(),s.getId(),false,
+                    "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA0hAAAAJGY0Yjg0YTdkLWZhNTgtNDMwNC05MTkyLWQzMjlkMWRiZmUwZg.jpg",profissional.getCategoria(),
+                    profissional.getSubCategoria(),profissional.getEspecialidade(),s.getId(),false,
                     s.getValor(),"distancia", s.getTempo()));
 
         }

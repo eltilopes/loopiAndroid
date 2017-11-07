@@ -35,9 +35,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -71,7 +70,7 @@ public class ListagemActivity extends AppCompatActivity
                    MyRecyclerViewAdapter.OnRecyclerViewItemClickListener,
         View.OnClickListener {
 
-    private String url = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
+    private String url = "http://192.168.2.7:8080/allinoneserver/servico/listar";
     private static final String TAG = "RecyclerViewListagem";
     public static final int idCard = -1;
     private List<ServicoCard> servicoCards;
@@ -478,21 +477,23 @@ public class ListagemActivity extends AppCompatActivity
     private void parseResult(String result) {
 
         try {
-            JSONObject response = new JSONObject(result);
-            JSONArray posts = response.optJSONArray("posts");
+            Gson gson = new Gson();
+            /*JSONObject response = new JSONObject(result);
+            JSONArray posts = response.optJSONArray("posts");*/
             servicoCards = new ArrayList<>();
+            servicoCards = gson.fromJson(result, new TypeToken<ArrayList<ServicoCard>>(){}.getType());
 
-            for (int i = 0; i < posts.length(); i++) {
+            /*for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
                 ServicoCard item = new ServicoCard();
                 item.setTitle(post.optString("title"));
                 item.setThumbnail(post.optString("thumbnail"));
                 servicoCards.add(item);
-            }
-            servicoCards.isEmpty();
+            }*/
+            /*servicoCards.isEmpty();
             servicoCards.clear();
-            servicoCards.addAll(ServicoCard.getServicos());
-        } catch (JSONException e) {
+            servicoCards.addAll(ServicoCard.getServicos());*/
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

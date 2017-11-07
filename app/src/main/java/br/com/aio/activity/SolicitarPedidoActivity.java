@@ -110,12 +110,12 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
 
         //Setting text view title
         title.setText(Html.fromHtml(servicoCard.getTitle()));
-        categoria.setText(Html.fromHtml(servicoCard.getCategoria()));
+        categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
         preco.setText(Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
         tempo.setText(Html.fromHtml("Em até " +servicoCard.getTempo()+ "min."));
         localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
-        subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria()));
-        especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade()));
+        subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
+        especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade().getDescricao()));
         favorito.setImageResource(servicoCard.getFavorito()? R.drawable.ic_favorite_full : R.drawable.ic_favorite_empty);
         estrela1.setText(servicoCard.getEstrelas()>0? R.string.material_icon_star : R.string.material_icon_star_border);
         estrela2.setText(servicoCard.getEstrelas()>1? R.string.material_icon_star : R.string.material_icon_star_border);

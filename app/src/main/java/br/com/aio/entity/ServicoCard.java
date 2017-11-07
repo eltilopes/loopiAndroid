@@ -1,5 +1,7 @@
 package br.com.aio.entity;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +12,32 @@ import java.util.List;
 
 public class ServicoCard implements Serializable {
 
+    @Expose
     private Long id;
+    @Expose
     private String title;
+    @Expose
     private String thumbnail;
-    private String categoria;
-    private String subCategoria;
-    private String especialidade;
+    @Expose
     private Double preco;
-    private String distancia;
+    @Expose
+    private Double latitude;
+    @Expose
+    private Double longitude;
+    private String distancia = "3";
+    @Expose
     private Integer tempo;
+    @Expose
     private Integer estrelas;
+    @Expose
     private Boolean favorito;
+    @Expose
+    private Categoria categoria;
+    @Expose
+    private SubCategoria subCategoria;
+    @Expose
+    private Especialidade especialidade;
+
 
     public Long getId() {
         return id;
@@ -46,27 +63,43 @@ public class ServicoCard implements Serializable {
         this.thumbnail = thumbnail;
     }
 
-    public String getCategoria() {
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public String getSubCategoria() {
+    public SubCategoria getSubCategoria() {
         return subCategoria;
     }
 
-    public void setSubCategoria(String subCategoria) {
+    public void setSubCategoria(SubCategoria subCategoria) {
         this.subCategoria = subCategoria;
     }
 
-    public String getEspecialidade() {
+    public Especialidade getEspecialidade() {
         return especialidade;
     }
 
-    public void setEspecialidade(String especialidade) {
+    public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
 
@@ -112,7 +145,7 @@ public class ServicoCard implements Serializable {
 
     public ServicoCard(){}
 
-    public ServicoCard(	Long id, String title, String thumbnail,String categoria,String subCategoria,String especialidade,
+    public ServicoCard(	Long id, String title, String thumbnail,Categoria categoria,SubCategoria subCategoria,Especialidade especialidade,
                        Integer estrelas,Boolean favorito,Double preco, String distancia ,Integer tempo){
         setId(id);
         setTitle(title);
@@ -135,7 +168,7 @@ public class ServicoCard implements Serializable {
 //        ServicoCard servicoCard5 = new ServicoCard("Médica" ,"http://www.medicel.com.br/galeria/noticia/49/thumb_20141020113329168.jpg");
 //        ServicoCard servicoCard6 = new ServicoCard("Entrega Água" ,"https://static9.depositphotos.com/1051435/1221/i/950/depositphotos_12217291-stock-photo-bottled-water-delivery-service.jpg");
         List<ServicoCard> lista = new ArrayList<ServicoCard>();
-        lista.add(new ServicoCard(1L,"Eduardo Turma","http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png","Direito","Advogado","Trabalhista",4,
+       /* lista.add(new ServicoCard(1L,"Eduardo Turma","http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png","Direito","Advogado","Trabalhista",4,
                 true,200D, "Guararapes - 0,1Km", 2));
         lista.add(new ServicoCard(2L,"Lucia Alves","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm2E2fsLZZuoVqHKAuGt4wnedIjS8wxgHC5QobZpHAJLDpAJxqlQ","Estética","Manicure","",2,
                 false,120D, "Aldeota - 0,2Km", 4));
@@ -149,7 +182,7 @@ public class ServicoCard implements Serializable {
                 true,60D, "Edson Q. - 0,8Km", 15));
         lista.add(new ServicoCard(7L,"Mercadinho","https://static9.depositphotos.com/1051435/1221/i/950/depositphotos_12217291-stock-photo-bottled-water-delivery-service.jpg","Alimentação","Água","",2,
                 false,10D, "Aldeota - 0,2Km", 4));
-
+*/
         return lista;
 
     }

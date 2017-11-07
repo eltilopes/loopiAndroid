@@ -90,12 +90,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         //Setting text view title
         customViewHolder.title.setText(Html.fromHtml(servicoCard.getTitle()));
-        customViewHolder.categoria.setText(Html.fromHtml(servicoCard.getCategoria()));
+        customViewHolder.categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
         customViewHolder.preco.setText(Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
         customViewHolder.tempo.setText(Html.fromHtml("Em até " +servicoCard.getTempo()+ "min."));
         customViewHolder.localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
-        customViewHolder.subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria()));
-        customViewHolder.especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade()));
+        customViewHolder.subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
+        customViewHolder.especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade().getDescricao()));
         customViewHolder.favorito.setImageResource(servicoCard.getFavorito()? R.drawable.ic_favorite_full : R.drawable.ic_favorite_empty);
         customViewHolder.estrela1.setText(servicoCard.getEstrelas()>0? R.string.material_icon_star : R.string.material_icon_star_border);
         customViewHolder.estrela2.setText(servicoCard.getEstrelas()>1? R.string.material_icon_star : R.string.material_icon_star_border);
