@@ -35,13 +35,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,12 +49,14 @@ import br.com.aio.adapter.SpinnerAdapter;
 import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Especialidade;
 import br.com.aio.entity.Filtro;
+import br.com.aio.entity.GoogleDirectionsResponse;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;
+import br.com.aio.utils.DirectionUtils;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.SpinnerActionsHeader;
@@ -436,7 +436,7 @@ public class ListagemActivity extends AppCompatActivity
         protected Integer doInBackground(String... params) {
             Integer result = 0;
             HttpURLConnection urlConnection;
-            try {
+            /*try {
                 URL url = new URL(params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 int statusCode = urlConnection.getResponseCode();
@@ -456,8 +456,12 @@ public class ListagemActivity extends AppCompatActivity
                 }
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
-            }
-            return result; //"Failed to fetch data!";
+            }*/
+            String resultTest = "[{\"id\":3,\"title\":\"elton\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":100.0,\"tempo\":15,\"estrelas\":3,\"favorito\":true,\"latitude\":-3.741395,\"longitude\":-38.499196},{\"id\":2,\"title\":\"elton\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":60.0,\"tempo\":5,\"estrelas\":3,\"favorito\":true,\"latitude\":-2.741395,\"longitude\":-37.499196}]";
+
+            parseResult(resultTest);
+            return 1;
+            //return result; //"Failed to fetch data!";
         }
 
         @Override
@@ -475,14 +479,20 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     private void parseResult(String result) {
-
+        DirectionUtils directionUtils = new DirectionUtils();
+        GoogleDirectionsResponse googleDirectionsResponse;
+        LatLng minhaLatLng = new LatLng(-3.741395,-38.499196);
         try {
             Gson gson = new Gson();
             /*JSONObject response = new JSONObject(result);
             JSONArray posts = response.optJSONArray("posts");*/
             servicoCards = new ArrayList<>();
             servicoCards = gson.fromJson(result, new TypeToken<ArrayList<ServicoCard>>(){}.getType());
-
+            for(ServicoCard sc : servicoCards){
+                googleDirectionsResponse = directionUtils.getGoogleDirectionsResponse(minhaLatLng, new LatLng(sc.getLatitude(),sc.getLongitude()));
+                sc.setDistancia(googleDirectionsResponse != null ? googleDirectionsResponse.getDistance() : "Distância não calculada");
+                sc.setDuracao(googleDirectionsResponse != null ? googleDirectionsResponse.getDuration() : "Tempo não calculada");
+            }
             /*for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
                 ServicoCard item = new ServicoCard();

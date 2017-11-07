@@ -24,7 +24,8 @@ public class ServicoCard implements Serializable {
     private Double latitude;
     @Expose
     private Double longitude;
-    private String distancia = "3";
+    private String distancia ;
+    private String duracao ;
     @Expose
     private Integer tempo;
     @Expose
@@ -38,6 +39,13 @@ public class ServicoCard implements Serializable {
     @Expose
     private Especialidade especialidade;
 
+    public String getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(String duracao) {
+        this.duracao = duracao;
+    }
 
     public Long getId() {
         return id;
