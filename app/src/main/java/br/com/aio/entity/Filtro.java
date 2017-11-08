@@ -11,6 +11,15 @@ public class Filtro {
     private Especialidade especialidade;
     private Boolean menorValor;
     private Boolean distanciaMenor;
+    private Boolean ordemAlfabeticaCrescente;
+
+    public Boolean getOrdemAlfabeticaCrescente() {
+        return ordemAlfabeticaCrescente;
+    }
+
+    public void setOrdemAlfabeticaCrescente(Boolean ordemAlfabeticaCrescente) {
+        this.ordemAlfabeticaCrescente = ordemAlfabeticaCrescente;
+    }
 
     public Boolean getDistanciaMenor() {
         return distanciaMenor;

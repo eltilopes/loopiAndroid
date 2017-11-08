@@ -19,12 +19,28 @@ public class GoogleDirectionsResponse implements Parcelable {
 
     public String getDuration() {
         ensureNotRaw();
-        return routes.isEmpty() ? "Não existe Rotas" : routes.get(0).legs.get(0).duration.text;
+        return routes.isEmpty() ? "1 min" : routes.get(0).legs.get(0).duration.text;
     }
 
     public String getDistance() {
         ensureNotRaw();
-        return routes.isEmpty() ? "Não existe Rotas" : routes.get(0).legs.get(0).distance.text;
+        if(routes.isEmpty()){
+            return "Alguns metros";
+        }
+        String bairro = getBairro(routes.get(0).legs.get(0).end_address);
+        String distancia = routes.get(0).legs.get(0).distance.text;
+        return bairro+ " - " + distancia;
+    }
+
+    public Integer getDistanceMeters() {
+        ensureNotRaw();
+        return routes.isEmpty() ? 0 : routes.get(0).legs.get(0).distance.value;
+    }
+
+    private String getBairro(String endereco) {
+        String[] enderecos = endereco.split(",");
+        endereco = enderecos[1].substring(enderecos[1].lastIndexOf("-")+1,enderecos[1].length()).trim();
+        return  endereco;
     }
 
     private void ensureNotRaw() {

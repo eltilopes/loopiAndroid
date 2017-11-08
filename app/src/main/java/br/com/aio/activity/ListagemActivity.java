@@ -25,7 +25,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -97,6 +96,9 @@ public class ListagemActivity extends AppCompatActivity
     private RadioGroup radioGroupValor;
     private RadioButton radioButtonMenorValor;
     private RadioButton radioButtonMaiorValor;
+    private RadioGroup radioGroupOrdemAlfabetica;
+    private RadioButton radioButtonAZ;
+    private RadioButton radioButtonZA;
     private CheckBox checkboxDistanciaMenor;
 
     @Override
@@ -195,7 +197,7 @@ public class ListagemActivity extends AppCompatActivity
         dialogMostrarFiltro.setContentView(R.layout.dialog_filtro);
         dialogMostrarFiltro.show();
         TextView alertTitle=(TextView)dialogMostrarFiltro.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.spinner_button_header);
+        /*Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.spinner_button_header);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -213,7 +215,7 @@ public class ListagemActivity extends AppCompatActivity
 
             }
         });
-        spinner.performClick();
+        spinner.performClick();*/
         checkboxDistanciaMenor = (CheckBox) dialogMostrarFiltro.findViewById(R.id.checkbox_distancia);
         checkboxDistanciaMenor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,6 +256,34 @@ public class ListagemActivity extends AppCompatActivity
         if(filtro.getMenorValor()!=null){
             radioButtonMenorValor.setChecked(filtro.getMenorValor());
             radioButtonMaiorValor.setChecked(!filtro.getMenorValor());
+        }
+
+        radioGroupOrdemAlfabetica = (RadioGroup) dialogMostrarFiltro.findViewById(R.id.radio_group_ordem_alfabetica);
+        radioButtonAZ =(RadioButton) dialogMostrarFiltro.findViewById(R.id.radio_a_z);
+        radioButtonZA =(RadioButton) dialogMostrarFiltro.findViewById(R.id.radio_z_a);
+        radioGroupOrdemAlfabetica.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.radio_a_z:
+                        radioButtonAZ.setChecked(true);
+                        radioButtonZA.setChecked(false);
+                        filtro.setOrdemAlfabeticaCrescente(true);
+                        Toast.makeText(getApplicationContext(), radioButtonAZ.getText(), Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radio_z_a:
+                        radioButtonAZ.setChecked(false);
+                        radioButtonZA.setChecked(true);
+                        filtro.setOrdemAlfabeticaCrescente(false);
+                        Toast.makeText(getApplicationContext(), radioButtonZA.getText(), Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+        if(filtro.getOrdemAlfabeticaCrescente()!=null){
+            radioButtonAZ.setChecked(filtro.getOrdemAlfabeticaCrescente());
+            radioButtonZA.setChecked(!filtro.getOrdemAlfabeticaCrescente());
         }
         TextView aplicar = (TextView) dialogMostrarFiltro.findViewById(R.id.dialog_ok);
         aplicar.setOnClickListener(new View.OnClickListener() {
@@ -457,7 +487,7 @@ public class ListagemActivity extends AppCompatActivity
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
             }*/
-            String resultTest = "[{\"id\":3,\"title\":\"elton\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":100.0,\"tempo\":15,\"estrelas\":3,\"favorito\":true,\"latitude\":-3.741395,\"longitude\":-38.499196},{\"id\":2,\"title\":\"elton\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":60.0,\"tempo\":5,\"estrelas\":3,\"favorito\":true,\"latitude\":-2.741395,\"longitude\":-37.499196}]";
+            String resultTest = "[{\"id\":3,\"title\":\"bruno\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":100.0,\"tempo\":15,\"estrelas\":3,\"favorito\":true,\"latitude\":-3.741395,\"longitude\":-38.499196},{\"id\":2,\"title\":\"elton\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":60.0,\"tempo\":5,\"estrelas\":4,\"favorito\":true,\"latitude\":-3.736912,\"longitude\":-38.494797}]";
 
             parseResult(resultTest);
             return 1;
@@ -479,7 +509,7 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     private void parseResult(String result) {
-        DirectionUtils directionUtils = new DirectionUtils();
+        DirectionUtils directionUtils = new DirectionUtils(getApplicationContext());
         GoogleDirectionsResponse googleDirectionsResponse;
         LatLng minhaLatLng = new LatLng(-3.741395,-38.499196);
         try {
@@ -491,7 +521,8 @@ public class ListagemActivity extends AppCompatActivity
             for(ServicoCard sc : servicoCards){
                 googleDirectionsResponse = directionUtils.getGoogleDirectionsResponse(minhaLatLng, new LatLng(sc.getLatitude(),sc.getLongitude()));
                 sc.setDistancia(googleDirectionsResponse != null ? googleDirectionsResponse.getDistance() : "Distância não calculada");
-                sc.setDuracao(googleDirectionsResponse != null ? googleDirectionsResponse.getDuration() : "Tempo não calculada");
+                sc.setDuracao(googleDirectionsResponse != null ? "Em até " +googleDirectionsResponse.getDuration() : "Tempo não calculado");
+                sc.setDistanciaMetros(googleDirectionsResponse != null ? googleDirectionsResponse.getDistanceMeters() : 0);
             }
             /*for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);

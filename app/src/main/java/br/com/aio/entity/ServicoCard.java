@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,8 +25,9 @@ public class ServicoCard implements Serializable {
     private Double latitude;
     @Expose
     private Double longitude;
-    private String distancia ;
-    private String duracao ;
+    private String distancia = "Distância não calculada";
+    private Integer distanciaMetros = 0;
+    private String duracao = "Tempo não calculado";
     @Expose
     private Integer tempo;
     @Expose
@@ -38,6 +40,14 @@ public class ServicoCard implements Serializable {
     private SubCategoria subCategoria;
     @Expose
     private Especialidade especialidade;
+
+    public Integer getDistanciaMetros() {
+        return distanciaMetros;
+    }
+
+    public void setDistanciaMetros(Integer distanciaMetros) {
+        this.distanciaMetros = distanciaMetros;
+    }
 
     public String getDuracao() {
         return duracao;
@@ -56,6 +66,7 @@ public class ServicoCard implements Serializable {
     }
 
     public String getTitle() {
+
         return title;
     }
 
@@ -141,6 +152,11 @@ public class ServicoCard implements Serializable {
 
     public void setDistancia(String distancia) {
         this.distancia = distancia;
+        distanciaMetros = getDistanciaMetros(distancia);
+    }
+
+    private Integer getDistanciaMetros(String distancia) {
+        return 0;
     }
 
     public Integer getTempo() {
@@ -166,6 +182,11 @@ public class ServicoCard implements Serializable {
         setTempo(tempo);
         setPreco(preco);
         setDistancia(distancia);
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 
     public static List<ServicoCard> getServicos(){
@@ -194,5 +215,21 @@ public class ServicoCard implements Serializable {
         return lista;
 
     }
+    public static Comparator<ServicoCard> ServicoCardNameComparator
+            = new Comparator<ServicoCard>() {
+
+        public int compare(ServicoCard ServicoCard1, ServicoCard ServicoCard2) {
+
+            String ServicoCardName1 = ServicoCard1.getTitle().toUpperCase();
+            String ServicoCardName2 = ServicoCard2.getTitle().toUpperCase();
+
+            //ascending order
+            return ServicoCardName1.compareTo(ServicoCardName2);
+
+            //descending order
+            //return ServicoCardName2.compareTo(ServicoCardName1);
+        }
+
+    };
 
 }

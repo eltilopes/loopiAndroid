@@ -11,6 +11,7 @@ import java.util.List;
 public class Leg {
     public Distance distance;
     public Duration duration;
+    public String end_address;
     public List<Step> steps;
 
     public Collection<Step> getStepList() {

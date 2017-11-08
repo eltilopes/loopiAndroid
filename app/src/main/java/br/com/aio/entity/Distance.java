@@ -6,4 +6,5 @@ package br.com.aio.entity;
 
 public class Distance {
     public String text;
+    public Integer value;
 }

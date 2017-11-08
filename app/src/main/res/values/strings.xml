@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">AIO</string>
+    <string name="app_name">Loopi</string>
     <string name="key_open_activity_aceitar_servico">br.com.aio.activity.AceitarServicoFirebaseActivity</string>
 
+    <string name="api_key">AIzaSyBcU9bk64c7cOig4us1WMlO_o_k7Ococ6o</string>
     <string name="navigation_drawer_open">Abrir Menu</string>
     <string name="navigation_drawer_close">Fechar Menu</string>
 
@@ -87,6 +88,7 @@
     <string name="valor">VALOR</string>
     <string name="distancia">DISTÂNCIA</string>
     <string name="nome">NOME</string>
+    <string name="nome_prestador">NOME DO PRESTADOR</string>
     <string name="mais_proximo">Mais Próximo</string>
     <string name="subcategoria">Subcategoria</string>
     <string name="banco">BANCO</string>

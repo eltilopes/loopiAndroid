@@ -112,7 +112,7 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
         title.setText(Html.fromHtml(servicoCard.getTitle()));
         categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
         preco.setText(Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
-        tempo.setText(Html.fromHtml("Em até " +servicoCard.getDuracao()));
+        tempo.setText(Html.fromHtml(servicoCard.getDuracao()));
         localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
         especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade().getDescricao()));

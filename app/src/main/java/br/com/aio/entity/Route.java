@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Route {
     public List<Leg> legs;
-
+    public String summary;
     public List<Step> getAllSteps() {
         List<Step> result = new ArrayList<Step>();
         for (Leg leg : legs) {

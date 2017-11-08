@@ -53,14 +53,33 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/textColorAzul"
                 android:textStyle="bold"
-                android:text="@string/subcategoria" />
+                android:text="@string/nome_prestador" />
 
-            <Spinner
-                android:id="@+id/spinner_button_header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                style="@style/MySpinnerStyle"/>
+            <RadioGroup
+                android:id="@+id/radio_group_ordem_alfabetica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="25dp">
+
+                <RadioButton
+                    android:id="@+id/radio_a_z"
+                    style="@style/MyRadioButton"
+                    android:button="@null"
+                    android:tag="true"
+                    android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                    android:text="A - Z"
+                    android:padding="2dp"/>
+
+                <RadioButton
+                    android:id="@+id/radio_z_a"
+                    style="@style/MyRadioButton"
+                    android:button="@null"
+                    android:tag="false"
+                    android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                    android:text="Z - A"
+                    android:padding="2dp"/>
+            </RadioGroup>
 
             <br.com.aio.fonts.RobotoTextView
                 android:layout_width="match_parent"

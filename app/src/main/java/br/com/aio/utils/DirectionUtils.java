@@ -1,6 +1,7 @@
 package br.com.aio.utils;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -11,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import br.com.aio.R;
 import br.com.aio.entity.GoogleDirectionsResponse;
 
 /**
@@ -19,13 +21,16 @@ import br.com.aio.entity.GoogleDirectionsResponse;
 
 public class DirectionUtils {
 
-    public DirectionUtils(){   }
+    private Context context;
+    public DirectionUtils(Context context){
+        this.context = context;
+    }
 
     public GoogleDirectionsResponse getGoogleDirectionsResponse(LatLng start, LatLng end) {
         String link = "https://maps.googleapis.com/maps/api/directions/json?"
                 + "origin=" + start.latitude + "," + start.longitude
                 + "&destination=" + end.latitude + "," + end.longitude
-                + "&sensor=false&units=metric&mode=driving&key=AIzaSyBcU9bk64c7cOig4us1WMlO_o_k7Ococ6o";
+                + "&sensor=false&units=metric&mode=driving&key="+ context.getString(R.string.api_key);
         HttpURLConnection urlConnection = null;
         InputStream in = null;
         GoogleDirectionsResponse googleDirectionsResponse = null;

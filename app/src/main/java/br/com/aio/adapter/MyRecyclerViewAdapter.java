@@ -45,18 +45,46 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         this.servicoCardList = servicoCardList;
         this.mContext = context;
         this.filtro = filtro;
+        ordenarServicosPorValor();
+        ordenarServicosPorDistancia();
+        ordenarServicosPorNomePrestador();
+    }
+
+    private void ordenarServicosPorValor() {
         if(filtro.getMenorValor()!=null){
             final int menorValor = filtro.getMenorValor() ? 1 : -1;
             Collections.sort(servicoCardList, new Comparator<ServicoCard>() {
                 @Override
                 public int compare(ServicoCard s1, ServicoCard s2) {
                     return Double.compare(s1.getPreco(),s2.getPreco())*menorValor;
-                    // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-                    //return s1.getPreco()> s2.getPreco()? -1*menorValor : ( s1.getPreco()> s2.getPreco()) ? 1*menorValor : 0;
                 }
             });
         }
+    }
 
+    private void ordenarServicosPorDistancia() {
+        if(filtro.getDistanciaMenor() !=null){
+            final int distanciaMenor = filtro.getDistanciaMenor() ? 1 : -1;
+            Collections.sort(servicoCardList, new Comparator<ServicoCard>() {
+                @Override
+                public int compare(ServicoCard s1, ServicoCard s2) {
+                    return Integer.compare(s1.getDistanciaMetros(),s2.getDistanciaMetros())*distanciaMenor;
+                }
+            });
+        }
+    }
+    private void ordenarServicosPorNomePrestador() {
+        if(filtro.getOrdemAlfabeticaCrescente()!=null){
+            final int ordemAlfabeticaCrescente = filtro.getOrdemAlfabeticaCrescente() ? 1 : -1;
+            Collections.sort(servicoCardList,
+                    new Comparator<ServicoCard>()
+                    {
+                        public int compare(ServicoCard f1, ServicoCard f2)
+                        {
+                            return f1.toString().compareTo(f2.toString())*ordemAlfabeticaCrescente;
+                        }
+                    });
+        }
     }
 
     public void addItem(ServicoCard servicoCard, int index) {
@@ -92,7 +120,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         customViewHolder.title.setText(Html.fromHtml(servicoCard.getTitle()));
         customViewHolder.categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
         customViewHolder.preco.setText(Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
-        customViewHolder.tempo.setText(Html.fromHtml("Em até " +servicoCard.getDuracao()));
+        customViewHolder.tempo.setText(Html.fromHtml(servicoCard.getDuracao()));
         customViewHolder.localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         customViewHolder.subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
         customViewHolder.especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade().getDescricao()));
