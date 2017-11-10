@@ -2,22 +2,22 @@
 xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/spinner_header_categoria"
+        android:id="@+id/action_spinner_header_categoria"
         android:title="@string/categoria"
         android:icon="@drawable/ic_categoria"
         yourapp:actionViewClass="android.widget.Spinner"
         yourapp:showAsAction="always|collapseActionView" />
 
     <item android:id="@+id/action_search"
-        android:title="Pesquisar"
+        android:title="@string/pesquisar_toolbar"
         android:icon="@drawable/ic_search"
-        yourapp:showAsAction="ifRoom|collapseActionView"
+        yourapp:showAsAction="always|collapseActionView"
         yourapp:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item
         android:id="@+id/action_location"
         android:icon="@drawable/ic_edit_location"
         android:title="@string/action_location"
-        yourapp:showAsAction="ifRoom|collapseActionView" />
+        yourapp:showAsAction="always|collapseActionView" />
 
 </menu>

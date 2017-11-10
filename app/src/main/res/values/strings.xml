@@ -336,4 +336,5 @@
 
     <string name="sucess_convite">Convite solicitado com sucesso</string>
     <string name="sucess_profissional">Profissional salvo com sucesso</string>
+    <string name="pesquisar_toolbar">Buscar Serviço, Profissional, Categoria...</string>
 </resources>

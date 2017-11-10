@@ -38,7 +38,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +63,7 @@ import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.SpinnerActionsHeader;
 
+import static br.com.aio.service.ServicoProfissionalService.URL_GET_SERVICOS;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
@@ -69,7 +73,6 @@ public class ListagemActivity extends AppCompatActivity
                    MyRecyclerViewAdapter.OnRecyclerViewItemClickListener,
         View.OnClickListener {
 
-    private String url = "http://192.168.2.7:8080/allinoneserver/servico/listar";
     private static final String TAG = "RecyclerViewListagem";
     public static final int idCard = -1;
     private List<ServicoCard> servicoCards;
@@ -100,6 +103,8 @@ public class ListagemActivity extends AppCompatActivity
     private RadioButton radioButtonAZ;
     private RadioButton radioButtonZA;
     private CheckBox checkboxDistanciaMenor;
+    private MenuItem menuSpinnerCategoria;
+    private MenuItem menuPesquisar;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -143,7 +148,7 @@ public class ListagemActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        new DownloadTask().execute(url);
+        new ServicosCardAsyncTask().execute(URL_GET_SERVICOS );
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         if(ACTIVITY_MAPS.equals(SessionUtils.getNomeActivityAnterior(mPrefs))){
@@ -290,7 +295,7 @@ public class ListagemActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 dialogMostrarFiltro.dismiss();
-                new DownloadTask().execute(url);
+                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
             }
         });
     }
@@ -329,9 +334,9 @@ public class ListagemActivity extends AppCompatActivity
         title.setText(getString(R.string.especialidade));
         spinnerEspecialidade = (SpinnerActionsHeader) dialogEspecialidade.findViewById(R.id.spinner_button_header);
         spinnerEspecialidade.setPrompt(getString(R.string.especialidade));
-        final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
+        final SpinnerAdapter adapterEspecialidade = new SpinnerAdapter(getApplicationContext(),
                 SessionUtils.getEspecialidades(mPrefs, filtro.getSubCategoria()), Especialidade.class, R.id.spinner_button_header);
-        spinnerEspecialidade.setAdapter(adapterSub);
+        spinnerEspecialidade.setAdapter(adapterEspecialidade);
         spinnerEspecialidade.setSpinnerEventsListener(new SpinnerActionsHeader.OnSpinnerEventsListener() {
             @Override
             public void onSpinnerOpened(Spinner spinner) {
@@ -350,12 +355,18 @@ public class ListagemActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position>0) {
-                    adapterSub.setItemChecked(view, position);
+                    adapterEspecialidade.setItemChecked(view, position);
+                    Especialidade especialidade = (Especialidade) adapterEspecialidade.getItemAtPosition(position);
+                    if(especialidade.getId()!=0){
+                        filtro.setEspecialidade(especialidade);
+                    }
                     ToastUtils.show(ListagemActivity.this,
-                            "Selecionado : " + ((Especialidade) adapterSub.getItemAtPosition(position)).getDescricao(),
-                            ToastUtils.INFORMATION);
+                            "Selecionado : " + especialidade.getDescricao(),ToastUtils.INFORMATION);
                     dialogEspecialidade.dismiss();
+                }else{
+                    filtro.setEspecialidade(null);
                 }
+                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
             }
 
             @Override
@@ -419,8 +430,10 @@ public class ListagemActivity extends AppCompatActivity
                     dialogSubCategoria.dismiss();
                 }else{
                     filtro.setSubCategoria(null);
+                    filtro.setEspecialidade(null);
                     setButtonEspecialidade();
                 }
+                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
             }
 
             @Override
@@ -455,7 +468,7 @@ public class ListagemActivity extends AppCompatActivity
         finish();
     }
 
-    public class DownloadTask extends AsyncTask<String, Void, Integer> {
+    public class ServicosCardAsyncTask extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
@@ -466,7 +479,7 @@ public class ListagemActivity extends AppCompatActivity
         protected Integer doInBackground(String... params) {
             Integer result = 0;
             HttpURLConnection urlConnection;
-            /*try {
+            try {
                 URL url = new URL(params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 int statusCode = urlConnection.getResponseCode();
@@ -486,12 +499,12 @@ public class ListagemActivity extends AppCompatActivity
                 }
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
-            }*/
+            }
             String resultTest = "[{\"id\":3,\"title\":\"bruno\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":100.0,\"tempo\":15,\"estrelas\":3,\"favorito\":true,\"latitude\":-3.741395,\"longitude\":-38.499196},{\"id\":2,\"title\":\"elton\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":60.0,\"tempo\":5,\"estrelas\":4,\"favorito\":true,\"latitude\":-3.736912,\"longitude\":-38.494797}]";
 
-            parseResult(resultTest);
-            return 1;
-            //return result; //"Failed to fetch data!";
+            /*parseResult(resultTest);
+            return 1;*/
+            return result; //"Failed to fetch data!";
         }
 
         @Override
@@ -514,8 +527,6 @@ public class ListagemActivity extends AppCompatActivity
         LatLng minhaLatLng = new LatLng(-3.741395,-38.499196);
         try {
             Gson gson = new Gson();
-            /*JSONObject response = new JSONObject(result);
-            JSONArray posts = response.optJSONArray("posts");*/
             servicoCards = new ArrayList<>();
             servicoCards = gson.fromJson(result, new TypeToken<ArrayList<ServicoCard>>(){}.getType());
             for(ServicoCard sc : servicoCards){
@@ -524,37 +535,44 @@ public class ListagemActivity extends AppCompatActivity
                 sc.setDuracao(googleDirectionsResponse != null ? "Em até " +googleDirectionsResponse.getDuration() : "Tempo não calculado");
                 sc.setDistanciaMetros(googleDirectionsResponse != null ? googleDirectionsResponse.getDistanceMeters() : 0);
             }
-            /*for (int i = 0; i < posts.length(); i++) {
-                JSONObject post = posts.optJSONObject(i);
-                ServicoCard item = new ServicoCard();
-                item.setTitle(post.optString("title"));
-                item.setThumbnail(post.optString("thumbnail"));
-                servicoCards.add(item);
-            }*/
-            /*servicoCards.isEmpty();
-            servicoCards.clear();
-            servicoCards.addAll(ServicoCard.getServicos());*/
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-/*
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
     }
-*/
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        menuSpinnerCategoria = menu.findItem(R.id.action_spinner_header_categoria);
+        spinnerCategoria = (Spinner) MenuItemCompat.getActionView(menuSpinnerCategoria);
+        spinnerCategoria.setBackground(null);
+        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), SessionUtils.getCategorias(mPrefs), Categoria.class, R.id.action_spinner_header_categoria);
+        spinnerCategoria.setAdapter(spinAdapter);
+        menuPesquisar = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuPesquisar);
         SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
-
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint(getString(R.string.pesquisar_toolbar));
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                return false;
+            }
+        });
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MenuItemCompat.collapseActionView(menuSpinnerCategoria);
+                searchView.requestFocus();
+            }
+        });
+        if (menuPesquisar != null) {
+            searchView = (SearchView) menuPesquisar.getActionView();
         }
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
@@ -562,24 +580,22 @@ public class ListagemActivity extends AppCompatActivity
             queryTextListener = new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    Log.i("onQueryTextChange", newText);
-
+                    filtro.setPesquisaToolbar(newText);
+                    if(newText.isEmpty()){
+                        new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
+                    }
                     return true;
                 }
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Log.i("onQueryTextSubmit", query);
-
+                    filtro.setPesquisaToolbar(query);
+                    new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
                     return true;
                 }
             };
             searchView.setOnQueryTextListener(queryTextListener);
         }
-        MenuItem item = menu.findItem(R.id.spinner_header_categoria);
-        spinnerCategoria = (Spinner) MenuItemCompat.getActionView(item);
-        spinnerCategoria.setBackground(null);
-        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), SessionUtils.getCategorias(mPrefs), Categoria.class, R.id.spinner_header_categoria);
-        spinnerCategoria.setAdapter(spinAdapter);
+
         spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -597,9 +613,11 @@ public class ListagemActivity extends AppCompatActivity
                 }else{
                     filtro.setCategoria(null);
                     filtro.setSubCategoria(null);
+                    filtro.setEspecialidade(null);
                     setButtonSubCategoria();
                     setButtonEspecialidade();
                 }
+                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
             }
 
             @Override
@@ -626,7 +644,10 @@ public class ListagemActivity extends AppCompatActivity
             startActivity(new Intent(this, MapsActivity.class));
             return true;
         }else if(id == R.id.action_search) {
-            Toast.makeText(ListagemActivity.this, "Id: " + id, Toast.LENGTH_SHORT).show();
+            MenuItemCompat.collapseActionView(menuSpinnerCategoria);
+            return false;
+        }else if(id == R.id.action_spinner_header_categoria) {
+            MenuItemCompat.collapseActionView(menuPesquisar);
             return false;
         }
 

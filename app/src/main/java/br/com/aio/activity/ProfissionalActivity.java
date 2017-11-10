@@ -43,6 +43,7 @@ import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.ServicosAsyncTask;
 
+import static br.com.aio.service.ServicoProfissionalService.URL_GET_SERVICOS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_NECESSARIO;
 import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_PERMITIDO;
@@ -56,7 +57,6 @@ import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
 public class ProfissionalActivity extends AppCompatActivity implements MyRecyclerViewAdapter.OnRecyclerViewItemClickListener{
 
     private static final String TAG = "ProfissionalActivity";
-    private static final String URL = "http://stacktips.com/?json=get_category_posts&slug=news&count=30";
     private RobotoTextView continuar ;
     private List<ServicoCard> servicos;
     private RobotoTextView nomePagina ;
@@ -191,7 +191,7 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
                     novoServicoProfissional.setId(idServico++);
                     profissional.getServicos().add(novoServicoProfissional);
                     servicos = getServicosProfissional();
-                    new ServicosAsyncTask(getApplicationContext(), servicos, progressBar, mRecyclerView, adapter, TAG).execute(URL);
+                    new ServicosAsyncTask(getApplicationContext(), servicos, progressBar, mRecyclerView, adapter, TAG).execute(URL_GET_SERVICOS);
                     dialogAdicionarServico.dismiss();
                 }catch (Exception e){
                     ToastUtils.show(ProfissionalActivity.this, "Verifique os valores informados", ToastUtils.ERROR);
@@ -207,7 +207,7 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
                     s.getId().longValue(), profissional.getUsuario().getNome(),
                     "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA0hAAAAJGY0Yjg0YTdkLWZhNTgtNDMwNC05MTkyLWQzMjlkMWRiZmUwZg.jpg",profissional.getCategoria(),
                     profissional.getSubCategoria(),profissional.getEspecialidade(),s.getId(),false,
-                    s.getValor(),"distancia", s.getTempo()));
+                    s.getValor(),"distancia", s.getTempo(), s.getNome()));
 
         }
         return lista;

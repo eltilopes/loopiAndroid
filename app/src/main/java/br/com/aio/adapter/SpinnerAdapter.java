@@ -87,7 +87,7 @@ public class SpinnerAdapter extends ArrayAdapter {
                 titleSpinner.setPadding(40,10,40,10);
                 icon = ViewUtils.drawableSetTint(icon,context.getResources().getColor(R.color.textColorCinzaEscuro));
                 break;
-            case R.id.spinner_header_categoria:
+            case R.id.action_spinner_header_categoria:
                 margins.setMargins(10, 10, 10, 10);
                 titleSpinner.setLayoutParams(margins);
                 layoutSpinner.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
@@ -122,7 +122,7 @@ public class SpinnerAdapter extends ArrayAdapter {
         Drawable icon = ViewUtils.drawableSetTint(context.getResources().getDrawable(R.drawable.ic_check_box_select),
                 context.getResources().getColor(R.color.branco));
         switch (idViewParent){
-            case R.id.spinner_header_categoria:
+            case R.id.action_spinner_header_categoria:
                 break;
             default:
                 titleSpinner.setTextColor(context.getResources().getColor(R.color.textColorCinzaEscuro));

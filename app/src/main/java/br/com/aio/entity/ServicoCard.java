@@ -18,6 +18,8 @@ public class ServicoCard implements Serializable {
     @Expose
     private String title;
     @Expose
+    private String descricao;
+    @Expose
     private String thumbnail;
     @Expose
     private Double preco;
@@ -28,6 +30,7 @@ public class ServicoCard implements Serializable {
     private String distancia = "Distância não calculada";
     private Integer distanciaMetros = 0;
     private String duracao = "Tempo não calculado";
+    private String pesquisaOtimizada;
     @Expose
     private Integer tempo;
     @Expose
@@ -170,7 +173,7 @@ public class ServicoCard implements Serializable {
     public ServicoCard(){}
 
     public ServicoCard(	Long id, String title, String thumbnail,Categoria categoria,SubCategoria subCategoria,Especialidade especialidade,
-                       Integer estrelas,Boolean favorito,Double preco, String distancia ,Integer tempo){
+                       Integer estrelas,Boolean favorito,Double preco, String distancia ,Integer tempo, String descricao){
         setId(id);
         setTitle(title);
         setThumbnail(thumbnail);
@@ -182,6 +185,7 @@ public class ServicoCard implements Serializable {
         setTempo(tempo);
         setPreco(preco);
         setDistancia(distancia);
+        setDescricao(descricao);
     }
 
     @Override
@@ -232,4 +236,19 @@ public class ServicoCard implements Serializable {
 
     };
 
+    public String getPesquisaOtimizada() {
+        return pesquisaOtimizada;
+    }
+
+    public void setPesquisaOtimizada(String pesquisaOtimizada) {
+        this.pesquisaOtimizada = pesquisaOtimizada;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 }

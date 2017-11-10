@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,13 +27,13 @@ import br.com.aio.entity.ServicoCard;
 
 public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
 
-    private String TAG = "";
+    private String TAG = "ServicosAsyncTask";
     private Context context;
     private List<ServicoCard> servicoCardList;
     private List<ServicoCard> servicos;
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
-    private MyRecyclerViewAdapter adapter;
+    private MyRecyclerViewAdapter myRecyclerViewAdapter;
 
     public ServicosAsyncTask(Context context, List<ServicoCard> servicoCardList, ProgressBar progressBar,
                              RecyclerView mRecyclerView,MyRecyclerViewAdapter adapter,String tag){
@@ -44,7 +42,7 @@ public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
         servicos = servicoCardList;
         this.progressBar = progressBar;
         this.mRecyclerView = mRecyclerView;
-        this.adapter = adapter;
+        this.myRecyclerViewAdapter = adapter;
         TAG = tag;
     }
 
@@ -75,12 +73,10 @@ public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
             } else {
                 result = 0; //"Failed to fetch data!";
             }
-
-
         } catch (Exception e) {
             Log.d(TAG, e.getLocalizedMessage());
         }
-        return result; //"Failed to fetch data!";
+        return result;
     }
 
     @Override
@@ -88,9 +84,9 @@ public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
         progressBar.setVisibility(View.GONE);
 
         if (result == 1) {
-            adapter = new MyRecyclerViewAdapter(context, servicoCardList, new Filtro());
-            mRecyclerView.setAdapter(adapter);
-            adapter.setOnItemClickListener(new MyRecyclerViewAdapter.OnRecyclerViewItemClickListener() {
+            myRecyclerViewAdapter = new MyRecyclerViewAdapter(context, servicoCardList, new Filtro());
+            mRecyclerView.setAdapter(myRecyclerViewAdapter);
+            myRecyclerViewAdapter.setOnItemClickListener(new MyRecyclerViewAdapter.OnRecyclerViewItemClickListener() {
                 @Override
                 public void onRecyclerViewItemClicked(int position, int id) {
 
@@ -100,27 +96,17 @@ public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
             Toast.makeText(context, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void parseResult(String result) {
-
         try {
-            JSONObject response = new JSONObject(result);
-            JSONArray posts = response.optJSONArray("posts");
+            Gson gson = new Gson();
             servicoCardList = new ArrayList<>();
-
-            for (int i = 0; i < posts.length(); i++) {
-                JSONObject post = posts.optJSONObject(i);
-                ServicoCard item = new ServicoCard();
-                item.setTitle(post.optString("title"));
-                item.setThumbnail(post.optString("thumbnail"));
-                servicoCardList.add(item);
-            }
-            servicoCardList.isEmpty();
-            servicoCardList.clear();
-            servicoCardList.addAll(servicos);
-        } catch (JSONException e) {
+            //servicoCardList = gson.fromJson(result, new TypeToken<ArrayList<ServicoCard>>(){}.getType());
+            //TODO enquanto nao esta implementado salvar novo serviço, esta na memoria
+            servicoCardList = servicos;
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 }

@@ -12,6 +12,7 @@ public class Filtro {
     private Boolean menorValor;
     private Boolean distanciaMenor;
     private Boolean ordemAlfabeticaCrescente;
+    private String pesquisaToolbar;
 
     public Boolean getOrdemAlfabeticaCrescente() {
         return ordemAlfabeticaCrescente;
@@ -59,5 +60,13 @@ public class Filtro {
 
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
+    }
+
+    public String getPesquisaToolbar() {
+        return pesquisaToolbar;
+    }
+
+    public void setPesquisaToolbar(String pesquisaToolbar) {
+        this.pesquisaToolbar = pesquisaToolbar;
     }
 }

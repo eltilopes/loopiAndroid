@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import br.com.aio.R;
@@ -23,6 +21,7 @@ import br.com.aio.activity.ListagemActivity;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
+import br.com.aio.utils.FiltroUtils;
 
 /**
  * Created by elton on 24/07/2017.
@@ -32,7 +31,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private List<ServicoCard> servicoCardList;
     private Context mContext;
     private OnRecyclerViewItemClickListener listener;
-    private Filtro filtro;
 
     public interface OnRecyclerViewItemClickListener {
         public void onRecyclerViewItemClicked(int position, int id);
@@ -42,50 +40,17 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         this.listener = listener;
     }
     public MyRecyclerViewAdapter(Context context, List<ServicoCard> servicoCardList, Filtro filtro) {
-        this.servicoCardList = servicoCardList;
         this.mContext = context;
-        this.filtro = filtro;
-        ordenarServicosPorValor();
-        ordenarServicosPorDistancia();
-        ordenarServicosPorNomePrestador();
+        servicoCardList = FiltroUtils.pesquisaToolbar(servicoCardList,filtro);
+        servicoCardList = FiltroUtils.filtrarPorCategoria(servicoCardList,filtro);
+        servicoCardList = FiltroUtils.filtrarPorSubCategoria(servicoCardList,filtro);
+        servicoCardList = FiltroUtils.filtrarPorEspecialidade(servicoCardList,filtro);
+        servicoCardList = FiltroUtils.ordenarServicosPorValor(servicoCardList,filtro);
+        servicoCardList = FiltroUtils.ordenarServicosPorDistancia(servicoCardList,filtro);
+        servicoCardList = FiltroUtils.ordenarServicosPorNomePrestador(servicoCardList,filtro);
+        this.servicoCardList = servicoCardList;
     }
 
-    private void ordenarServicosPorValor() {
-        if(filtro.getMenorValor()!=null){
-            final int menorValor = filtro.getMenorValor() ? 1 : -1;
-            Collections.sort(servicoCardList, new Comparator<ServicoCard>() {
-                @Override
-                public int compare(ServicoCard s1, ServicoCard s2) {
-                    return Double.compare(s1.getPreco(),s2.getPreco())*menorValor;
-                }
-            });
-        }
-    }
-
-    private void ordenarServicosPorDistancia() {
-        if(filtro.getDistanciaMenor() !=null){
-            final int distanciaMenor = filtro.getDistanciaMenor() ? 1 : -1;
-            Collections.sort(servicoCardList, new Comparator<ServicoCard>() {
-                @Override
-                public int compare(ServicoCard s1, ServicoCard s2) {
-                    return Integer.compare(s1.getDistanciaMetros(),s2.getDistanciaMetros())*distanciaMenor;
-                }
-            });
-        }
-    }
-    private void ordenarServicosPorNomePrestador() {
-        if(filtro.getOrdemAlfabeticaCrescente()!=null){
-            final int ordemAlfabeticaCrescente = filtro.getOrdemAlfabeticaCrescente() ? 1 : -1;
-            Collections.sort(servicoCardList,
-                    new Comparator<ServicoCard>()
-                    {
-                        public int compare(ServicoCard f1, ServicoCard f2)
-                        {
-                            return f1.toString().compareTo(f2.toString())*ordemAlfabeticaCrescente;
-                        }
-                    });
-        }
-    }
 
     public void addItem(ServicoCard servicoCard, int index) {
         servicoCardList.add(index, servicoCard);
@@ -118,6 +83,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         //Setting text view title
         customViewHolder.title.setText(Html.fromHtml(servicoCard.getTitle()));
+        customViewHolder.descricao.setText(Html.fromHtml(servicoCard.getDescricao()));
         customViewHolder.categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
         customViewHolder.preco.setText(Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
         customViewHolder.tempo.setText(Html.fromHtml(servicoCard.getDuracao()));
@@ -159,6 +125,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ImageView thumbnail;
         ImageView favorito;
         TextView title;
+        TextView descricao;
         TextView categoria;
         TextView subCategoria;
         TextView especialidade;
@@ -176,6 +143,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             this.cardServico = (CardView) view.findViewById(R.id.card_servico);
             this.thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             this.title = (TextView) view.findViewById(R.id.title);
+            this.descricao = (TextView) view.findViewById(R.id.card_descricao);
             this.categoria = (TextView) view.findViewById(R.id.card_categoria);
             this.tempo = (TextView) view.findViewById(R.id.card_tempo);
             this.localizacao = (TextView) view.findViewById(R.id.card_localizacao);
