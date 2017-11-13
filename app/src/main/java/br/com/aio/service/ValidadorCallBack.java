@@ -25,9 +25,14 @@ public class ValidadorCallBack {
     //HOM
 //    public static final String API_URL = "http://172.23.7.125:8080/apisme";
 //    LOCAL ip do compuadopr que esta o servidor localhost quando conectado com o celular
-    public static final String API_URL = "http://192.168.2.7:8080/allinoneserver";
+    public static final String API_URL = "http://192.168.2.8:8080/allinoneserver";
 
     protected RestAdapter restAdapter;
+
+    public Context getCtx() {
+        return ctx;
+    }
+
     protected Context ctx;
 
     public ValidadorCallBack(Context context) {

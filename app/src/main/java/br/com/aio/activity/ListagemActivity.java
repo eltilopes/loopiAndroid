@@ -5,7 +5,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +17,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -27,22 +25,13 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
@@ -51,19 +40,21 @@ import br.com.aio.adapter.SpinnerAdapter;
 import br.com.aio.entity.Categoria;
 import br.com.aio.entity.Especialidade;
 import br.com.aio.entity.Filtro;
-import br.com.aio.entity.GoogleDirectionsResponse;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;
-import br.com.aio.utils.DirectionUtils;
+import br.com.aio.service.ExecutorMetodoService;
+import br.com.aio.service.ServicoProfissionalService;
+import br.com.aio.utils.ConexaoUtils;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
+import br.com.aio.view.ProgressDialogAsyncTask;
 import br.com.aio.view.SpinnerActionsHeader;
+import retrofit.RetrofitError;
 
-import static br.com.aio.service.ServicoProfissionalService.URL_GET_SERVICOS;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
@@ -71,14 +62,15 @@ import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                    MyRecyclerViewAdapter.OnRecyclerViewItemClickListener,
-        View.OnClickListener {
+                   View.OnClickListener
+        , ProgressDialogAsyncTask.IProgressActivity  {
 
     private static final String TAG = "RecyclerViewListagem";
     public static final int idCard = -1;
     private List<ServicoCard> servicoCards;
     private RecyclerView mRecyclerView;
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
-    private ProgressBar progressBar;
+    private RelativeLayout layoutProgress;
     private LinearLayout buttonFiltro;
     private LinearLayout buttonEspecialidade;
     private LinearLayout buttonSubCategoria;
@@ -115,6 +107,7 @@ public class ListagemActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
+        layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
         filtro =  new Filtro();
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
         getUsuarioLogado();
@@ -147,8 +140,7 @@ public class ListagemActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        new ServicosCardAsyncTask().execute(URL_GET_SERVICOS );
+        new ProgressDialogAsyncTask(this, layoutProgress, this).execute();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         if(ACTIVITY_MAPS.equals(SessionUtils.getNomeActivityAnterior(mPrefs))){
@@ -202,25 +194,7 @@ public class ListagemActivity extends AppCompatActivity
         dialogMostrarFiltro.setContentView(R.layout.dialog_filtro);
         dialogMostrarFiltro.show();
         TextView alertTitle=(TextView)dialogMostrarFiltro.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        /*Spinner spinner = (Spinner) dialogMostrarFiltro.findViewById(R.id.spinner_button_header);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.list_sub_categoria, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(),
-                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinner.performClick();*/
         checkboxDistanciaMenor = (CheckBox) dialogMostrarFiltro.findViewById(R.id.checkbox_distancia);
         checkboxDistanciaMenor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,7 +269,7 @@ public class ListagemActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 dialogMostrarFiltro.dismiss();
-                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
+                new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
             }
         });
     }
@@ -366,7 +340,7 @@ public class ListagemActivity extends AppCompatActivity
                 }else{
                     filtro.setEspecialidade(null);
                 }
-                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
+                new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
             }
 
             @Override
@@ -433,7 +407,7 @@ public class ListagemActivity extends AppCompatActivity
                     filtro.setEspecialidade(null);
                     setButtonEspecialidade();
                 }
-                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
+                new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
             }
 
             @Override
@@ -468,75 +442,43 @@ public class ListagemActivity extends AppCompatActivity
         finish();
     }
 
-    public class ServicosCardAsyncTask extends AsyncTask<String, Void, Integer> {
+    @Override
+    public void executaProgressoDialog() {
 
-        @Override
-        protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
-        }
+            try{
+                if(ConexaoUtils.isConexao(getApplicationContext())){
 
-        @Override
-        protected Integer doInBackground(String... params) {
-            Integer result = 0;
-            HttpURLConnection urlConnection;
-            try {
-                URL url = new URL(params[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                int statusCode = urlConnection.getResponseCode();
-
-                // 200 represents HTTP OK
-                if (statusCode == 200) {
-                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-                    while ((line = r.readLine()) != null) {
-                        response.append(line);
+                    try {
+                        servicoCards = ExecutorMetodoService.invoke(new ServicoProfissionalService(this), "getServicoCardPorFiltro", filtro);
+                    } catch (RetrofitError error) {
+                        ToastUtils.showErro(this, error.getResponse());
+                    } catch (RuntimeException erro) {
+                        this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtils.show(ListagemActivity.this, getResources().getString(R.string.error_nao_encontrado), ToastUtils.ERROR);
+                            }
+                        });
                     }
-                    parseResult(response.toString());
-                    result = 1; // Successful
-                } else {
-                    result = 0; //"Failed to fetch data!";
+                }else {
+                    ToastUtils.show(this, getResources().getString(R.string.error_conexao_internet), ToastUtils.ERROR);
                 }
-            } catch (Exception e) {
-                Log.d(TAG, e.getLocalizedMessage());
+            }catch (RetrofitError error){
+                ToastUtils.showErro(this, error.getResponse());
             }
-            String resultTest = "[{\"id\":3,\"title\":\"bruno\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":100.0,\"tempo\":15,\"estrelas\":3,\"favorito\":true,\"latitude\":-3.741395,\"longitude\":-38.499196},{\"id\":2,\"title\":\"elton\",\"thumbnail\":\"http://www.vereadoreduardotuma.com.br/img/Foto-Site-FundoBranco-500x750.png\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"},\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}},\"especialidade\":{\"id\":1,\"descricao\":\"Dermatologista\",\"subCategoria\":{\"id\":1,\"descricao\":\"Médicos\",\"categoria\":{\"id\":1,\"descricao\":\"Saúde\"}}},\"preco\":60.0,\"tempo\":5,\"estrelas\":4,\"favorito\":true,\"latitude\":-3.736912,\"longitude\":-38.494797}]";
-
-            /*parseResult(resultTest);
-            return 1;*/
-            return result; //"Failed to fetch data!";
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            progressBar.setVisibility(View.GONE);
-
-            if (result == 1) {
-                myRecyclerViewAdapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards, filtro);
-                mRecyclerView.setAdapter(myRecyclerViewAdapter);
-                myRecyclerViewAdapter.setOnItemClickListener(ListagemActivity.this);
-            } else {
-                Toast.makeText(ListagemActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
-    private void parseResult(String result) {
-        DirectionUtils directionUtils = new DirectionUtils(getApplicationContext());
-        GoogleDirectionsResponse googleDirectionsResponse;
-        LatLng minhaLatLng = new LatLng(-3.741395,-38.499196);
-        try {
-            Gson gson = new Gson();
-            servicoCards = new ArrayList<>();
-            servicoCards = gson.fromJson(result, new TypeToken<ArrayList<ServicoCard>>(){}.getType());
-            for(ServicoCard sc : servicoCards){
-                googleDirectionsResponse = directionUtils.getGoogleDirectionsResponse(minhaLatLng, new LatLng(sc.getLatitude(),sc.getLongitude()));
-                sc.setDistancia(googleDirectionsResponse != null ? googleDirectionsResponse.getDistance() : "Distância não calculada");
-                sc.setDuracao(googleDirectionsResponse != null ? "Em até " +googleDirectionsResponse.getDuration() : "Tempo não calculado");
-                sc.setDistanciaMetros(googleDirectionsResponse != null ? googleDirectionsResponse.getDistanceMeters() : 0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    @Override
+    public boolean isAddedValidation() {
+        return true;
+    }
+
+    @Override
+    public void onPostExecute() {
+        if (servicoCards != null && !servicoCards.isEmpty()) {
+            myRecyclerViewAdapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards, filtro);
+            mRecyclerView.setAdapter(myRecyclerViewAdapter);
+            myRecyclerViewAdapter.setOnItemClickListener(ListagemActivity.this);
         }
     }
 
@@ -580,16 +522,18 @@ public class ListagemActivity extends AppCompatActivity
             queryTextListener = new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    filtro.setPesquisaToolbar(newText);
-                    if(newText.isEmpty()){
-                        new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
+                    if(filtro.getPesquisaToolbar()!=null){
+                        filtro.setPesquisaToolbar(newText);
+                        if(newText.isEmpty()){
+                            new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
+                        }
                     }
                     return true;
                 }
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     filtro.setPesquisaToolbar(query);
-                    new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
+                    new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
                     return true;
                 }
             };
@@ -617,7 +561,7 @@ public class ListagemActivity extends AppCompatActivity
                     setButtonSubCategoria();
                     setButtonEspecialidade();
                 }
-                new ServicosCardAsyncTask().execute(URL_GET_SERVICOS);
+                new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
             }
 
             @Override

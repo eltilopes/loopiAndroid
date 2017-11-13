@@ -1,6 +1,6 @@
 package br.com.aio.endpoint;
 
-import br.com.aio.model.Convite;
+import br.com.aio.entity.Filtro;
 import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.POST;
@@ -10,7 +10,6 @@ import retrofit.http.POST;
  */
 public interface ServicoProfissionalEndPoint {
 
-    @POST("/servico/novo")
-    Response solicitarConvite(@Body Convite convite);
-
+    @POST("/servico/listar")
+    Response getServicoCardPorFiltro(@Body Filtro filtro);
 }

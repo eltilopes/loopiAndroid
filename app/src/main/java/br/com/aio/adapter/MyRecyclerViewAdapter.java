@@ -21,7 +21,6 @@ import br.com.aio.activity.ListagemActivity;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
-import br.com.aio.utils.FiltroUtils;
 
 /**
  * Created by elton on 24/07/2017.
@@ -41,13 +40,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
     public MyRecyclerViewAdapter(Context context, List<ServicoCard> servicoCardList, Filtro filtro) {
         this.mContext = context;
-        servicoCardList = FiltroUtils.pesquisaToolbar(servicoCardList,filtro);
-        servicoCardList = FiltroUtils.filtrarPorCategoria(servicoCardList,filtro);
-        servicoCardList = FiltroUtils.filtrarPorSubCategoria(servicoCardList,filtro);
-        servicoCardList = FiltroUtils.filtrarPorEspecialidade(servicoCardList,filtro);
-        servicoCardList = FiltroUtils.ordenarServicosPorValor(servicoCardList,filtro);
-        servicoCardList = FiltroUtils.ordenarServicosPorDistancia(servicoCardList,filtro);
-        servicoCardList = FiltroUtils.ordenarServicosPorNomePrestador(servicoCardList,filtro);
         this.servicoCardList = servicoCardList;
     }
 

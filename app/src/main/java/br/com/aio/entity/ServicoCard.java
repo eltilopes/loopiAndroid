@@ -251,4 +251,5 @@ public class ServicoCard implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }

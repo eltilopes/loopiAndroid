@@ -1,18 +1,36 @@
 package br.com.aio.entity;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.annotations.Expose;
+
+import java.io.Serializable;
+
 /**
  * Created by elton on 01/11/2017.
  */
 
-public class Filtro {
+public class Filtro implements Serializable {
 
+    @Expose
     private Categoria categoria;
+    @Expose
     private SubCategoria subCategoria;
+    @Expose
     private Especialidade especialidade;
     private Boolean menorValor;
     private Boolean distanciaMenor;
     private Boolean ordemAlfabeticaCrescente;
+    @Expose
     private String pesquisaToolbar;
+    private LatLng minhaLatLng = new LatLng(-3.741395,-38.499196);
+
+    public LatLng getMinhaLatLng() {
+        return minhaLatLng;
+    }
+
+    public void setMinhaLatLng(LatLng minhaLatLng) {
+        this.minhaLatLng = minhaLatLng;
+    }
 
     public Boolean getOrdemAlfabeticaCrescente() {
         return ordemAlfabeticaCrescente;

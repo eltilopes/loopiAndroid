@@ -330,6 +330,7 @@
     <string name="error_credenciais_invalidas">Credenciais inválidas</string>
     <string name="error_inesperado">Ocorreu o erro: </string>
     <string name="error_adicionar_servico">É necessário adicionar pelo menos um serviço</string>
+    <string name="error_buscar_dados">Falha ao buscar dados!</string>
 
     <string name="alert_select_categoria">É necessário selecionar alguma Categoria</string>
     <string name="alert_select_sub_categoria">É necessário selecionar alguma SubCategoria</string>
@@ -337,4 +338,7 @@
     <string name="sucess_convite">Convite solicitado com sucesso</string>
     <string name="sucess_profissional">Profissional salvo com sucesso</string>
     <string name="pesquisar_toolbar">Buscar Serviço, Profissional, Categoria...</string>
+    <string name="distancia_nao_calculada">Distância não calculada</string>
+    <string name="tempo_nao_calculado">Tempo não calculado</string>
+    <string name="em_ate">Em até</string>
 </resources>
