@@ -1,5 +1,7 @@
 package br.com.aio.entity;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 
 import br.com.aio.enumeration.TipoLocalizacao;
@@ -10,9 +12,12 @@ import br.com.aio.enumeration.TipoLocalizacao;
 
 public class Localizacao implements Serializable {
 
+    @Expose
     private Long id;
     private String nome;
+    @Expose
     private Double latitude;
+    @Expose
     private Double longitude;
     private TipoLocalizacao tipoLocalizacao;
 

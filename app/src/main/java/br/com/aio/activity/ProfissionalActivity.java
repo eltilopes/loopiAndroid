@@ -23,7 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,17 +33,21 @@ import java.util.List;
 
 import br.com.aio.R;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.entity.Filtro;
 import br.com.aio.entity.Profissional;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.entity.ServicoProfissional;
 import br.com.aio.fonts.RobotoTextView;
+import br.com.aio.service.ExecutorMetodoService;
+import br.com.aio.service.ServicoProfissionalService;
+import br.com.aio.utils.ConexaoUtils;
 import br.com.aio.utils.PathUtils;
 import br.com.aio.utils.PermissionsUtils;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
-import br.com.aio.view.ServicosAsyncTask;
+import br.com.aio.view.ProgressDialogAsyncTask;
+import retrofit.RetrofitError;
 
-import static br.com.aio.service.ServicoProfissionalService.URL_GET_SERVICOS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
 import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_NECESSARIO;
 import static br.com.aio.utils.PermissionsUtils.ACESSO_GRAVAR_ARMAZENAMENTO_PERMITIDO;
@@ -54,14 +58,13 @@ import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
  * Created by elton on 17/07/2017.
  */
 
-public class ProfissionalActivity extends AppCompatActivity implements MyRecyclerViewAdapter.OnRecyclerViewItemClickListener{
+public class ProfissionalActivity extends AppCompatActivity implements MyRecyclerViewAdapter.OnRecyclerViewItemClickListener, ProgressDialogAsyncTask.IProgressActivity {
 
     private static final String TAG = "ProfissionalActivity";
     private RobotoTextView continuar ;
     private List<ServicoCard> servicos;
     private RobotoTextView nomePagina ;
     private RecyclerView mRecyclerView;
-    private ProgressBar progressBar;
     private MyRecyclerViewAdapter adapter;
     private LinearLayout adicionarServico;
     private LinearLayout verTaxasAnuncio ;
@@ -72,7 +75,8 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
     private SharedPreferences mPrefs;
     private Profissional profissional;
     private ServicoProfissional novoServicoProfissional;
-    private Integer idServico = 1;
+    private RelativeLayout layoutProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,7 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
         getProfissional();
         carregarCardProfgissional();
+        layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -138,8 +143,6 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
         actionBar.setCustomView(v);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_servicos);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.GONE);
     }
 
     private void carregarCardProfgissional() {
@@ -168,7 +171,7 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
     }
 
     private void abrirDialogAdicionarServico() {
-        novoServicoProfissional = new ServicoProfissional();
+        novoServicoProfissional = new ServicoProfissional(profissional);
         novoServicoProfissional.setEspecialidade(profissional.getEspecialidade());
         dialogAdicionarServico = new Dialog(this);
         dialogAdicionarServico.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -188,11 +191,9 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
                     novoServicoProfissional.setDescricao(descricaoServico.getEditableText().toString());
                     novoServicoProfissional.setValor(Double.parseDouble(valorServico.getEditableText().toString()));
                     novoServicoProfissional.setTempo(Integer.parseInt(tempoServico.getEditableText().toString()));
-                    novoServicoProfissional.setId(idServico++);
-                    profissional.getServicos().add(novoServicoProfissional);
-                    servicos = getServicosProfissional();
-                    new ServicosAsyncTask(getApplicationContext(), servicos, progressBar, mRecyclerView, adapter, TAG).execute(URL_GET_SERVICOS);
-                    dialogAdicionarServico.dismiss();
+                    new ProgressDialogAsyncTask(ProfissionalActivity.this, layoutProgress, ProfissionalActivity.this).execute();
+                    //new ServicosAsyncTask(getApplicationContext(), servicos, progressBar, mRecyclerView, adapter, TAG).execute(URL_GET_SERVICOS);
+
                 }catch (Exception e){
                     ToastUtils.show(ProfissionalActivity.this, "Verifique os valores informados", ToastUtils.ERROR);
                 }
@@ -286,5 +287,45 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
     @Override
     public void onRecyclerViewItemClicked(int position, int id) {
 
+    }
+
+    @Override
+    public void executaProgressoDialog() {
+
+        try{
+            if(ConexaoUtils.isConexao(getApplicationContext())){
+                try {
+                    servicos = ExecutorMetodoService.invoke(new ServicoProfissionalService(this), "salvarServicoProfissional", novoServicoProfissional);
+                } catch (RetrofitError error) {
+                    ToastUtils.showErro(this, error.getResponse());
+                } catch (RuntimeException erro) {
+                    this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtils.show(ProfissionalActivity.this, getResources().getString(R.string.error_nao_encontrado), ToastUtils.ERROR);
+                        }
+                    });
+                }
+            }else {
+                ToastUtils.show(this, getResources().getString(R.string.error_conexao_internet), ToastUtils.ERROR);
+            }
+        }catch (RetrofitError error){
+            ToastUtils.showErro(this, error.getResponse());
+        }
+    }
+
+    @Override
+    public boolean isAddedValidation() {
+        return true;
+    }
+
+    @Override
+    public void onPostExecute() {
+        if (servicos != null && !servicos.isEmpty()) {
+            adapter = new MyRecyclerViewAdapter(ProfissionalActivity.this, servicos, new Filtro());
+            mRecyclerView.setAdapter(adapter);
+            adapter.setOnItemClickListener(ProfissionalActivity.this);
+            profissional.setServicosPorServicoCard(servicos);
+        }dialogAdicionarServico.dismiss();
     }
 }

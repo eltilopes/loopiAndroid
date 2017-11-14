@@ -22,8 +22,26 @@ public class ServicoProfissional implements Serializable {
     private Integer tempo;
     @Expose
     private Especialidade especialidade;
+    @Expose
+    private Profissional profissional;
 
     public ServicoProfissional() {}
+
+    public ServicoProfissional(Profissional profissional) {
+        setProfissional(profissional);
+        setEspecialidade(profissional.getEspecialidade());
+    }
+
+    public ServicoProfissional(ServicoCard servicoCard) {
+        setProfissional(servicoCard.getProfissional());
+        setEspecialidade(servicoCard.getEspecialidade());
+        setId(servicoCard.getId().intValue());
+        setNome(servicoCard.getTitle());
+        setDescricao(servicoCard.getDescricao());
+        setTempo(servicoCard.getTempo());
+        setValor(servicoCard.getPreco());
+    }
+
     public ServicoProfissional(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
@@ -76,4 +94,12 @@ public class ServicoProfissional implements Serializable {
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
+    public Profissional getProfissional() {
+        return profissional;
+    }
+
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
+    }
+
 }

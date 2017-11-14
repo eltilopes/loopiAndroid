@@ -1,6 +1,5 @@
 package br.com.aio.utils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -55,70 +54,5 @@ public class FiltroUtils {
         return servicoCardList;
     }
 
-    public static List<ServicoCard> pesquisaToolbar(List<ServicoCard> servicoCardList, Filtro filtro) {
-        List<ServicoCard> resultado = new ArrayList<ServicoCard>();
-        if(filtro.getPesquisaToolbar()!=null && !filtro.getPesquisaToolbar().isEmpty()){
-            for(ServicoCard s : servicoCardList){
-                s.setPesquisaOtimizada(getPesquisaOtimizada(s));
-                if(s.getPesquisaOtimizada().toUpperCase().contains(filtro.getPesquisaToolbar().toUpperCase())){
-                    resultado.add(s);
-                }
-            }
-        }else {
-            resultado = servicoCardList;
-        }
-        return resultado;
-    }
 
-    private static String getPesquisaOtimizada(ServicoCard s) {
-        return  s.getTitle() + " - " +
-                s.getCategoria().getDescricao() + " - " +
-                s.getSubCategoria().getDescricao() + " - " +
-                s.getEspecialidade().getDescricao() + " - " +
-                s.getCategoria().getDescricao() + " - " +
-                s.getDescricao() + " - " +
-                s.getDistancia();
-    }
-
-    public static List<ServicoCard> filtrarPorCategoria(List<ServicoCard> servicoCardList, Filtro filtro) {
-        List<ServicoCard> resultado = new ArrayList<ServicoCard>();
-        if(filtro.getCategoria()!=null && filtro.getSubCategoria()==null && filtro.getEspecialidade()==null  ){
-            for(ServicoCard s : servicoCardList){
-                if(s.getCategoria().equals(filtro.getCategoria())){
-                    resultado.add(s);
-                }
-            }
-        }else {
-            resultado = servicoCardList;
-        }
-        return resultado;
-    }
-
-    public static List<ServicoCard> filtrarPorSubCategoria(List<ServicoCard> servicoCardList, Filtro filtro) {
-        List<ServicoCard> resultado = new ArrayList<ServicoCard>();
-        if(filtro.getSubCategoria()!=null && filtro.getEspecialidade()==null ){
-            for(ServicoCard s : servicoCardList){
-                if(s.getSubCategoria().equals(filtro.getSubCategoria())){
-                    resultado.add(s);
-                }
-            }
-        }else {
-            resultado = servicoCardList;
-        }
-        return resultado;
-    }
-
-    public static List<ServicoCard> filtrarPorEspecialidade(List<ServicoCard> servicoCardList, Filtro filtro) {
-        List<ServicoCard> resultado = new ArrayList<ServicoCard>();
-        if(filtro.getEspecialidade()!=null ){
-            for(ServicoCard s : servicoCardList){
-                if(s.getEspecialidade().equals(filtro.getEspecialidade())){
-                    resultado.add(s);
-                }
-            }
-        }else {
-            resultado = servicoCardList;
-        }
-        return resultado;
-    }
 }

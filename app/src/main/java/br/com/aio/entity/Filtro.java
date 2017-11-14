@@ -17,8 +17,10 @@ public class Filtro implements Serializable {
     private SubCategoria subCategoria;
     @Expose
     private Especialidade especialidade;
+    @Expose
     private Boolean menorValor;
     private Boolean distanciaMenor;
+    @Expose
     private Boolean ordemAlfabeticaCrescente;
     @Expose
     private String pesquisaToolbar;
@@ -87,4 +89,5 @@ public class Filtro implements Serializable {
     public void setPesquisaToolbar(String pesquisaToolbar) {
         this.pesquisaToolbar = pesquisaToolbar;
     }
+
 }

@@ -43,6 +43,7 @@ public class ServicoCard implements Serializable {
     private SubCategoria subCategoria;
     @Expose
     private Especialidade especialidade;
+    private Profissional profissional;
 
     public Integer getDistanciaMetros() {
         return distanciaMetros;
@@ -252,4 +253,11 @@ public class ServicoCard implements Serializable {
         this.descricao = descricao;
     }
 
+    public Profissional getProfissional() {
+        return profissional;
+    }
+
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
+    }
 }

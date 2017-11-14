@@ -3,6 +3,7 @@ package br.com.aio.entity;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,8 +22,8 @@ public class Profissional implements Serializable{
     private SubCategoria subCategoria;
     @Expose
     private Especialidade especialidade;
-    @Expose
     private List<ServicoProfissional> servicos;
+    private Localizacao localizacao;
 
     public Profissional(Integer id, UsuarioSession usuario) {
         this.id = id;
@@ -77,12 +78,24 @@ public class Profissional implements Serializable{
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
+    public Localizacao getLocalizacao() {
+        return localizacao;
+    }
 
+    public void setLocalizacao(Localizacao localizacao) {
+        this.localizacao = localizacao;
+    }
     public List<ServicoProfissional> getServicos() {
         return servicos;
     }
 
     public void setServicos(List<ServicoProfissional> servicos) {
         this.servicos = servicos;
+    }
+    public void setServicosPorServicoCard(List<ServicoCard> servicosCard) {
+        setServicos(new ArrayList<ServicoProfissional>());
+        for(ServicoCard servicoCard : servicosCard){
+               servicos.add(new ServicoProfissional(servicoCard));
+        }
     }
 }

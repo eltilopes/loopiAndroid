@@ -13,6 +13,7 @@ import br.com.aio.endpoint.ServicoProfissionalEndPoint;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.GoogleDirectionsResponse;
 import br.com.aio.entity.ServicoCard;
+import br.com.aio.entity.ServicoProfissional;
 import br.com.aio.utils.DirectionUtils;
 import br.com.aio.utils.FiltroUtils;
 import br.com.aio.utils.JsonUtils;
@@ -30,6 +31,15 @@ public class ServicoProfissionalService extends ValidadorCallBack {
     public ServicoProfissionalService(Context context) {
         super(context);
         service = restAdapter.create(ServicoProfissionalEndPoint.class);
+    }
+
+    public List<ServicoCard>  salvarServicoProfissional(ServicoProfissional servicoProfissional) {
+        Response response = service.salvarServicoProfissional(servicoProfissional);
+        JsonUtils<List<ServicoCard>> json = new JsonUtils<List<ServicoCard>>();
+        List<ServicoCard> servicos = json.converteObject(response, new TypeToken<List<ServicoCard>>() {
+        }.getType());
+        return servicos;
+
     }
 
     public List<ServicoCard> getServicoCardPorFiltro(Filtro filtro) {/*
@@ -54,9 +64,7 @@ public class ServicoProfissionalService extends ValidadorCallBack {
                 sc.setDistanciaMetros(googleDirectionsResponse != null ? googleDirectionsResponse.getDistanceMeters() : 0);
 
             }
-            servicos = FiltroUtils.ordenarServicosPorValor(servicos, filtro);
             servicos = FiltroUtils.ordenarServicosPorDistancia(servicos, filtro);
-            servicos = FiltroUtils.ordenarServicosPorNomePrestador(servicos, filtro);
         }
         return servicos;
     }
