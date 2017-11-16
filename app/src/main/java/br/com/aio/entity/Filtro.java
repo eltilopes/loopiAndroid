@@ -24,7 +24,7 @@ public class Filtro implements Serializable {
     private Boolean ordemAlfabeticaCrescente;
     @Expose
     private String pesquisaToolbar;
-    private LatLng minhaLatLng = new LatLng(-3.741395,-38.499196);
+    private LatLng minhaLatLng ;
 
     public LatLng getMinhaLatLng() {
         return minhaLatLng;

@@ -26,7 +26,6 @@ import retrofit.client.Response;
 public class ServicoProfissionalService extends ValidadorCallBack {
 
     public static ServicoProfissionalEndPoint service;
-    public static final String URL_GET_SERVICOS = ValidadorCallBack.API_URL + "/servico/listar";
 
     public ServicoProfissionalService(Context context) {
         super(context);
@@ -50,6 +49,7 @@ public class ServicoProfissionalService extends ValidadorCallBack {
         List<ServicoCard> servicos = json.converteObject(response, new TypeToken<List<ServicoCard>>() {
         }.getType());
         servicos = servicos == null ? new ArrayList<ServicoCard>() : servicos;
+
         return prepareServicoCards(servicos,getCtx(), filtro );
     }
 

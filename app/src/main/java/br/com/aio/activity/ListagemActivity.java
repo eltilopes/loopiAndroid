@@ -1,11 +1,17 @@
 package br.com.aio.activity;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -32,7 +38,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
+import java.util.Locale;
 
 import br.com.aio.R;
 import br.com.aio.adapter.MyRecyclerViewAdapter;
@@ -47,8 +56,10 @@ import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;
 import br.com.aio.service.ExecutorMetodoService;
+import br.com.aio.service.GoogleService;
 import br.com.aio.service.ServicoProfissionalService;
 import br.com.aio.utils.ConexaoUtils;
+import br.com.aio.utils.PermissionsUtils;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.ProgressDialogAsyncTask;
@@ -58,12 +69,19 @@ import retrofit.RetrofitError;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
+import static br.com.aio.utils.PermissionsUtils.ACESSO_LOCALIZACAO_NECESSARIO;
+import static br.com.aio.utils.PermissionsUtils.ACESSO_LOCALIZACAO_PERMITIDO;
+import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_LOCATION_ID;
 
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                    MyRecyclerViewAdapter.OnRecyclerViewItemClickListener,
                    View.OnClickListener
         , ProgressDialogAsyncTask.IProgressActivity  {
+
+    //Localizacao
+    private boolean permissaoGPS;
+    private Geocoder geocoder;
 
     private static final String TAG = "RecyclerViewListagem";
     public static final int idCard = -1;
@@ -97,6 +115,7 @@ public class ListagemActivity extends AppCompatActivity
     private CheckBox checkboxDistanciaMenor;
     private MenuItem menuSpinnerCategoria;
     private MenuItem menuPesquisar;
+    private Context context;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -107,9 +126,20 @@ public class ListagemActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
+        context = getApplicationContext();
         layoutProgress = (RelativeLayout) findViewById(R.id.dialog_progress);
         filtro =  new Filtro();
         mPrefs = getSharedPreferences(PREFS_NAME, 0);
+        geocoder = new Geocoder(this, Locale.getDefault());
+        if (PermissionsUtils.checkPlayServices(context)) {
+            if (!PermissionsUtils.isDeviceLocationGranted(context)) {
+                PermissionsUtils.requestPermissions(context, PERMISSIONS_REQUEST_LOCATION_ID,
+                        Manifest.permission.ACCESS_FINE_LOCATION, new String[]{Manifest.permission.ACCESS_FINE_LOCATION});
+            }else{
+                permissaoGPS = true;
+                startServiceGoocle();
+            }
+        }
         getUsuarioLogado();
         setButtonFiltro();
         setButtonEspecialidade();
@@ -447,9 +477,12 @@ public class ListagemActivity extends AppCompatActivity
 
             try{
                 if(ConexaoUtils.isConexao(getApplicationContext())){
-
                     try {
-                        servicoCards = ExecutorMetodoService.invoke(new ServicoProfissionalService(this), "getServicoCardPorFiltro", filtro);
+                        if(filtro.getMinhaLatLng()==null){
+                            ToastUtils.show(ListagemActivity.this, getResources().getString(R.string.informar_localizacao), ToastUtils.WARNING);
+                        }else {
+                            servicoCards = ExecutorMetodoService.invoke(new ServicoProfissionalService(this), "getServicoCardPorFiltro", filtro);
+                        }
                     } catch (RetrofitError error) {
                         ToastUtils.showErro(this, error.getResponse());
                     } catch (RuntimeException erro) {
@@ -636,5 +669,49 @@ public class ListagemActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_LOCATION_ID:
+                permissaoGPS = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (permissaoGPS) {
+                    ToastUtils.show(ListagemActivity.this, ACESSO_LOCALIZACAO_PERMITIDO, ToastUtils.INFORMATION);
+                    startServiceGoocle();
+                } else {
+                    ToastUtils.show(ListagemActivity.this, ACESSO_LOCALIZACAO_NECESSARIO, ToastUtils.WARNING);
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            localizacaoMapa = SessionUtils.getLocalizacaoMapa(mPrefs);
+            filtro.setMinhaLatLng(new LatLng(localizacaoMapa.getLatitude(), localizacaoMapa.getLongitude()));
+            new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
+            ToastUtils.show(ListagemActivity.this,getResources().getString(R.string.localizacao) + ": " + localizacaoMapa.getNome(), ToastUtils.INFORMATION);
+
+        }
+    };
+
+    private void startServiceGoocle(){
+        Intent intent = new Intent(context, GoogleService.class);
+        startService(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver, new IntentFilter(GoogleService.receiver));
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
 
 }

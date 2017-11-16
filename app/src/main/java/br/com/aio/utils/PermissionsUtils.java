@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import br.com.aio.R;
 
 /**
@@ -20,10 +23,11 @@ import br.com.aio.R;
 
 public class PermissionsUtils {
 
-    public static final int PERMISSIONS_REQUEST_LOCATION = 99;
+    public static final int PERMISSIONS_REQUEST_LOCATION_ID = 99;
     public static final int PERMISSIONS_REQUEST_CAMERA_ID = 96;
     public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 98;
     public static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID = 97;
+    public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     public static final int PICKFILE_RESULT_CODE = 1;
 
@@ -45,7 +49,7 @@ public class PermissionsUtils {
             case PERMISSIONS_REQUEST_CAMERA_ID:
                 tituloPermissao = ACESSO_CAMERA_NECESSARIO;
                 break;
-            case PERMISSIONS_REQUEST_LOCATION:
+            case PERMISSIONS_REQUEST_LOCATION_ID:
                 tituloPermissao = ACESSO_LOCALIZACAO_NECESSARIO;
                 break;
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID:
@@ -64,7 +68,7 @@ public class PermissionsUtils {
             case PERMISSIONS_REQUEST_CAMERA_ID:
                 iconDialog = R.drawable.ic_camera;
                 break;
-            case PERMISSIONS_REQUEST_LOCATION:
+            case PERMISSIONS_REQUEST_LOCATION_ID:
                 iconDialog = R.drawable.ic_edit_location;
                 break;
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID:
@@ -104,6 +108,20 @@ public class PermissionsUtils {
 
     public static boolean isDeviceCameraGranted(Context context) {
         return checkPermission(context, Manifest.permission.CAMERA);
+    }
+
+    public static boolean checkPlayServices(Context context) {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, (Activity) context,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                //finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     public static void requestPermissions(Object o, final int permissionId, String permission, final String... permissions) {

@@ -59,12 +59,12 @@ import br.com.aio.utils.SessionUtils;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_MAPS;
 import static br.com.aio.utils.BundleUtils.PREFS_NAME;
-import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_LOCATION;
+import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_LOCATION_ID;
+import static br.com.aio.utils.PermissionsUtils.PLAY_SERVICES_RESOLUTION_REQUEST;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static String TAG = "MAP LOCATION";
     private Context mContext;
     private TextView mLocationMarkerText;
@@ -173,7 +173,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 //Prompt the user once explanation has been shown
                                 ActivityCompat.requestPermissions(MapsActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        PERMISSIONS_REQUEST_LOCATION);
+                                        PERMISSIONS_REQUEST_LOCATION_ID);
                             }
                         })
                         .create()
@@ -184,7 +184,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        PERMISSIONS_REQUEST_LOCATION);
+                        PERMISSIONS_REQUEST_LOCATION_ID);
             }
         }
         fabLayoutDigitar = (LinearLayout) findViewById(R.id.fabLayoutDigitar);

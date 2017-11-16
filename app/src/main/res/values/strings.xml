@@ -140,6 +140,7 @@
     <string name="no_address_found">Nenhuma localização encontrada</string>
     <string name="digitar_endereco">Clique para digitar o endereço</string>
     <string name="imagem_carregada">IMAGEM CARREGADA</string>
+    <string name="sem_endereco_localizacao">Sem endereço da localização</string>
 
     <string name="servico_nome">Nome</string>
     <string name="servico_valor">Valor</string>

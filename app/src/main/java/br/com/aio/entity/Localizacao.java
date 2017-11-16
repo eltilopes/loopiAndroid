@@ -3,6 +3,8 @@ package br.com.aio.entity;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Date;
 
 import br.com.aio.enumeration.TipoLocalizacao;
 
@@ -19,14 +21,45 @@ public class Localizacao implements Serializable {
     private Double latitude;
     @Expose
     private Double longitude;
+    private Date dataLocalizacao;
+    private String ultimaLocalizacao;
     private TipoLocalizacao tipoLocalizacao;
+
+    public Localizacao() {   }
 
     public Localizacao(Long id, String nome,Double latitude, Double longitude) {
         this.id = id;
         this.nome = nome;
         this.latitude = latitude;
         this.longitude = longitude;
+        dataLocalizacao = new Date();
+        ultimaLocalizacao = DateFormat.getTimeInstance().format(dataLocalizacao);
         tipoLocalizacao = TipoLocalizacao.INFORMADA;
+    }
+
+    public Localizacao(Double latitude, Double longitude, String nome) {
+        dataLocalizacao = new Date();
+        ultimaLocalizacao = DateFormat.getTimeInstance().format(dataLocalizacao);
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.nome = nome;
+    }
+
+
+    public Date getDataLocalizacao() {
+        return dataLocalizacao;
+    }
+
+    public void setDataLocalizacao(Date dataLocalizacao) {
+        this.dataLocalizacao = dataLocalizacao;
+    }
+
+    public String getUltimaLocalizacao() {
+        return ultimaLocalizacao;
+    }
+
+    public void setUltimaLocalizacao(String ultimaLocalizacao) {
+        this.ultimaLocalizacao = ultimaLocalizacao;
     }
 
     public Long getId() {

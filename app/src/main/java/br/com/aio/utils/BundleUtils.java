@@ -27,6 +27,5 @@ public class BundleUtils {
     public static final String DYNAMIC_LINK_MEU_PERFIL= "http://aio.com.br/meu_perfil";
     public static final String DEEP_LINK_FIREBASE= "DEEP_LINK_FIREBASE";
 
-    public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 }
