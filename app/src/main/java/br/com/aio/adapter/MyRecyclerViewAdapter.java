@@ -21,6 +21,7 @@ import br.com.aio.activity.ListagemActivity;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
+import br.com.aio.fonts.RobotoTextView;
 
 /**
  * Created by elton on 24/07/2017.
@@ -82,14 +83,22 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         customViewHolder.localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         customViewHolder.subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
         customViewHolder.especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade().getDescricao()));
-        customViewHolder.favorito.setImageResource(servicoCard.getFavorito()? R.drawable.ic_favorite_full : R.drawable.ic_favorite_empty);
+        customViewHolder.favorito.setImageResource(servicoCard.getFavorito()? R.drawable.ic_thumb_up_full : R.drawable.ic_thumb_up_empty);
         customViewHolder.estrela1.setText(servicoCard.getEstrelas()>0? R.string.material_icon_star : R.string.material_icon_star_border);
         customViewHolder.estrela2.setText(servicoCard.getEstrelas()>1? R.string.material_icon_star : R.string.material_icon_star_border);
         customViewHolder.estrela3.setText(servicoCard.getEstrelas()>2? R.string.material_icon_star : R.string.material_icon_star_border);
         customViewHolder.estrela4.setText(servicoCard.getEstrelas()>3? R.string.material_icon_star : R.string.material_icon_star_border);
         customViewHolder.estrela5.setText(servicoCard.getEstrelas()>4? R.string.material_icon_star : R.string.material_icon_star_border);
-
+        customViewHolder.favoritoQuantidade.setText(servicoCard.getQuantidadeFavorito()+"");
         customViewHolder.favorito.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onRecyclerViewItemClicked(i, v.getId());
+            }
+        });
+        customViewHolder.favoritoQuantidade.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -124,6 +133,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         TextView tempo;
         TextView localizacao;
         TextView preco;
+        RobotoTextView favoritoQuantidade;
         MaterialDesignIconsTextView estrela1;
         MaterialDesignIconsTextView estrela2;
         MaterialDesignIconsTextView estrela3;
@@ -148,7 +158,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             this.estrela3 = (MaterialDesignIconsTextView) view.findViewById(R.id.card_estrela_3);
             this.estrela4 = (MaterialDesignIconsTextView) view.findViewById(R.id.card_estrela_4);
             this.estrela5 = (MaterialDesignIconsTextView) view.findViewById(R.id.card_estrela_5);
-
+            this.favoritoQuantidade = (RobotoTextView) view.findViewById(R.id.card_favorito_quantidade);
         }
 
 

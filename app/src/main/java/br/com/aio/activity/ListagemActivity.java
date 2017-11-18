@@ -29,8 +29,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -40,6 +42,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -95,6 +98,7 @@ public class ListagemActivity extends AppCompatActivity
     private TextView nomeUsuario;
     private MaterialDesignIconsTextView imagemUsuario;
     private Dialog dialogMostrarFiltro;
+    private Dialog dialogFavoritosServico;
     private Dialog dialogSubCategoria;
     private SpinnerActionsHeader spinnerSubCategoria;
     private Dialog dialogEspecialidade;
@@ -454,14 +458,46 @@ public class ListagemActivity extends AppCompatActivity
         switch(id) {
             case R.id.card_favorito:
                 servicoCard.setFavorito(!servicoCard.getFavorito());
+                if(servicoCard.getFavorito()){
+                    servicoCard.setQuantidadeFavorito(servicoCard.getQuantidadeFavorito()+1);
+                }else{
+                    servicoCard.setQuantidadeFavorito(servicoCard.getQuantidadeFavorito()-1);
+                }
                 myRecyclerViewAdapter.deleteItem(position);
                 myRecyclerViewAdapter.addItem(servicoCard,position);
+                break;
+            case R.id.card_favorito_quantidade:
+                mostrarFavoritosServico();
                 break;
             case idCard:
                 abrirPedido(servicoCard);
                 break;
         }
     }
+
+    private void mostrarFavoritosServico() {
+        dialogFavoritosServico = new Dialog(this);
+        dialogFavoritosServico.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogFavoritosServico.setContentView(R.layout.dialog_favoritos_servico);
+        dialogFavoritosServico.show();
+        TextView alertTitle=(TextView)dialogFavoritosServico.getWindow().getDecorView().findViewById(R.id.dialog_title);
+        ListView listaFavoritosServico = (ListView) dialogFavoritosServico.findViewById(R.id.lista_favoritos);
+        List<String> favoritosServico = new ArrayList<String>();
+        favoritosServico.add("Elton Lopes");
+        favoritosServico.add("Marlon Moraes");
+        favoritosServico.add("Ricardo Rocha");
+        favoritosServico.add("Rodger Urso");
+        favoritosServico.add("Renan Ferreira");
+        listaFavoritosServico.setAdapter(new ArrayAdapter(this, R.layout.list_row_favorito_servico, favoritosServico));
+        listaFavoritosServico.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                dialogFavoritosServico.dismiss();
+            }
+        });
+    }
+
 
     public void getUsuarioLogado() {
         usuarioSession = new UsuarioSession(1,"Rodger Maia","92871259372");

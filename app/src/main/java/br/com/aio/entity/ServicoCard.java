@@ -29,6 +29,7 @@ public class ServicoCard implements Serializable {
     private Double longitude;
     private String distancia = "Distância não calculada";
     private Integer distanciaMetros = 0;
+    private Integer quantidadeFavorito = 0;
     private String duracao = "Tempo não calculado";
     private String pesquisaOtimizada;
     @Expose
@@ -44,6 +45,14 @@ public class ServicoCard implements Serializable {
     @Expose
     private Especialidade especialidade;
     private Profissional profissional;
+
+    public Integer getQuantidadeFavorito() {
+        return quantidadeFavorito;
+    }
+
+    public void setQuantidadeFavorito(Integer quantidadeFavorito) {
+        this.quantidadeFavorito = quantidadeFavorito;
+    }
 
     public Integer getDistanciaMetros() {
         return distanciaMetros;

@@ -116,6 +116,7 @@
     <string name="filtro">FILTRO</string>
     <string name="historico">HISTÓRICO</string>
     <string name="nova_solicitacao">NOVA SOLICITAÇÃO</string>
+    <string name="favoritos">Favoritos</string>
 
     <string name="taxas_anuncio">Taxas de Anúncio</string>
     <string name="saldo">Saldo CashBack</string>

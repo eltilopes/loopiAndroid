@@ -116,7 +116,7 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements Adapte
         localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
         especialidade.setText(Html.fromHtml(servicoCard.getEspecialidade().getDescricao()));
-        favorito.setImageResource(servicoCard.getFavorito()? R.drawable.ic_favorite_full : R.drawable.ic_favorite_empty);
+        favorito.setImageResource(servicoCard.getFavorito()? R.drawable.ic_thumb_up_full : R.drawable.ic_thumb_up_empty);
         estrela1.setText(servicoCard.getEstrelas()>0? R.string.material_icon_star : R.string.material_icon_star_border);
         estrela2.setText(servicoCard.getEstrelas()>1? R.string.material_icon_star : R.string.material_icon_star_border);
         estrela3.setText(servicoCard.getEstrelas()>2? R.string.material_icon_star : R.string.material_icon_star_border);
