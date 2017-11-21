@@ -3,9 +3,9 @@ package br.com.aio.service;
 import android.content.Context;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
@@ -514,13 +514,13 @@ public class ServicoProfissionalService extends ValidadorCallBack {
     public List<ServicoCard> getServicoCardPorFiltro(Filtro filtro) {/*
         String token = UsuarioSharedUtils.getElementoSalvo(ctx, UsuarioSharedUtils.Preferences.PREFERENCES_TOKEN);
         String login = UsuarioSharedUtils.getElementoSalvo(ctx, UsuarioSharedUtils.Preferences.PREFERENCES_LOGIN);*/
-        /*Response response = service.getServicoCardPorFiltro( filtro);
+        Response response = service.getServicoCardPorFiltro( filtro);
         JsonUtils<List<ServicoCard>> json = new JsonUtils<List<ServicoCard>>();
         List<ServicoCard> servicos = json.converteObject(response, new TypeToken<List<ServicoCard>>() {
         }.getType());
-        servicos = servicos == null ? new ArrayList<ServicoCard>() : servicos;*/
-        Gson gson = new Gson();
-        List<ServicoCard> servicos = gson.fromJson(SERVICOS, new TypeToken<List<ServicoCard>>() {}.getType());
+        servicos = servicos == null ? new ArrayList<ServicoCard>() : servicos;
+        /*Gson gson = new Gson();
+        List<ServicoCard> servicos = gson.fromJson(SERVICOS, new TypeToken<List<ServicoCard>>() {}.getType());*/
         return prepareServicoCards(servicos,getCtx(), filtro );
     }
 
