@@ -191,7 +191,7 @@ public class AceitarServicoFirebaseActivity extends AppCompatActivity implements
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.aceitar:
-                SessionUtils.setServicoCard(mPrefs,ServicoCard.getServicos().get(2));
+                SessionUtils.setServicoCard(mPrefs,ServicoCard.getServicosCard().get(2));
                 Intent newActivity0 = new Intent(AceitarServicoFirebaseActivity.this, IniciarAtendimentoActivity.class);
                 startActivity(newActivity0);
                 break;

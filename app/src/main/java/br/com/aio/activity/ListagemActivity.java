@@ -144,6 +144,10 @@ public class ListagemActivity extends AppCompatActivity
                 startServiceGoocle();
             }
         }
+        localizacaoMapa = new Localizacao(1L,"Localização Casa",-3.741395,-38.499196);
+        filtro.setMinhaLatLng(new LatLng(localizacaoMapa.getLatitude(), localizacaoMapa.getLongitude()));
+        ToastUtils.show(this,getResources().getString(R.string.localizacao) + ": " + localizacaoMapa.getNome(), ToastUtils.INFORMATION);
+
         getUsuarioLogado();
         setButtonFiltro();
         setButtonEspecialidade();

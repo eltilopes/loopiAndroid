@@ -45,6 +45,16 @@ public class ServicoCard implements Serializable {
     @Expose
     private Especialidade especialidade;
     private Profissional profissional;
+    @Expose
+    private List<ServicoProfissional> servicos;
+
+    public void setServicos(List<ServicoProfissional> servicos) {
+        this.servicos = servicos;
+    }
+
+    public List<ServicoProfissional> getServicos() {
+        return servicos;
+    }
 
     public Integer getQuantidadeFavorito() {
         return quantidadeFavorito;
@@ -203,7 +213,7 @@ public class ServicoCard implements Serializable {
         return title;
     }
 
-    public static List<ServicoCard> getServicos(){
+    public static List<ServicoCard> getServicosCard(){
 //        ServicoCard servicoCard1 = new ServicoCard("Serviço Judiciário" ,"http://www.alvestambelli.adv.br/public/img/default/servicos-de-advogados/home/direito-civel.jpg");
 //        ServicoCard servicoCard2 = new ServicoCard("Serviço Bombeiro Hidáulico" ,"http://img.olx.com.br/images/41/418516038337171.jpg");
 //        ServicoCard servicoCard3 = new ServicoCard("Serviço Eletricista" ,"http://www.hertzinstalacoeseletricas.com.br/images/instalacoes+eletricas+comercial+sp.jpg");

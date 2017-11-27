@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <ScrollView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true">
 
@@ -46,12 +46,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_margin="4dp"
-                            android:padding="4dp"
-                            android:background="@drawable/border_text">
+                            android:padding="4dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -96,6 +104,23 @@
                                         android:text="Nome do Prestador"
                                         android:textColor="@color/textColorCard"
                                         android:textSize="18dp"
+                                        android:textStyle="bold" />
+                                </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:id="@+id/card_descricao"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:maxLines="3"
+                                        android:elegantTextHeight="true"
+                                        android:layout_marginLeft="12dp"
+                                        android:text="Descriçao Serviço"
+                                        android:textColor="@color/textColorCard"
+                                        android:textSize="16dp"
                                         android:textStyle="bold" />
                                 </RelativeLayout>
 
@@ -296,17 +321,57 @@
                             </LinearLayout>
 
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                            <LinearLayout
+                                android:id="@+id/layout_lista_servicos"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_margin="10dp">
 
-                    <android.support.v7.widget.CardView
-                        xmlns:cardview="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        cardview:cardCornerRadius="2dp"
-                        cardview:cardElevation="3dp"
-                        cardview:cardPreventCornerOverlap="false"
-                        cardview:cardUseCompatPadding="true"  >
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorPrimary"
+                                    android:layout_margin="5dp"
+                                    android:textStyle="bold"
+                                    android:textAllCaps="true"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:paddingLeft="5dp"
+                                    android:background="@drawable/background_edit_text"
+                                    android:textSize="18dp"
+                                    android:text="@string/servicos" />
+                                <br.com.aio.view.ExpandedListView
+                                    android:id="@+id/card_lista_servicos"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:scrollbars="none"
+                                    android:padding="0px"/>
 
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:id="@+id/total_lista_servicos"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorPrimary"
+                                    android:layout_margin="5dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:paddingRight="5dp"
+                                    android:layout_gravity="right"
+                                    android:gravity="right"
+                                    android:textSize="16dp"
+                                    android:text="@string/total"
+                                    android:background="@drawable/background_edit_text"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_margin="4dp"
+                                android:padding="4dp"
+                                android:background="@color/colorPrimary" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -315,8 +380,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_margin="4dp"
-                            android:padding="4dp"
-                            android:background="@drawable/border_text">
+                            android:padding="4dp">
 
                             <br.com.aio.fonts.MaterialDesignIconsTextView
                                 android:id="@+id/logo"
@@ -346,23 +410,90 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="4dp"
+                            android:padding="4dp"
+                            android:background="@color/colorPrimary" />
 
-                    <android.support.v7.widget.CardView
-                        xmlns:cardview="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        cardview:cardCornerRadius="2dp"
-                        cardview:cardElevation="3dp"
-                        cardview:cardPreventCornerOverlap="false"
-                        cardview:cardUseCompatPadding="true"  >
 
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
                             android:padding="4dp"
-                            android:background="@drawable/border_text"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:padding="5dp" >
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:text="@string/saldo"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="121,55 R$"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@color/textColorCinzaEscuro"
+                                    android:textSize="24dp"/>
+
+                                <br.com.aio.fonts.RobotoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:text="@string/usar_saldo"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/edit_text_usar_saldo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLength="17"
+                                    android:layout_marginLeft="5dp"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:scrollHorizontally="true"
+                                    android:ellipsize="start"
+                                    android:background="@drawable/background_edit_text"
+                                    android:gravity="right"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@color/textColorCinzaEscuro"
+                                    android:textSize="24dp" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="4dp"
+                            android:padding="4dp"
+                            android:background="@color/colorPrimary" />
+
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:padding="4dp"
                             android:orientation="vertical">
 
                             <LinearLayout
@@ -376,122 +507,69 @@
                                 <br.com.aio.fonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:text="@string/cartao_credito"
                                     android:textColor="@color/colorPrimary"
                                     android:textSize="14dp"
-                                    android:textStyle="bold"
-                                    android:padding="3dp"
-                                    android:text="@string/saldo"/>
-
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorCinza"
-                                    android:text="121,55 R$"
-                                    android:paddingLeft="3dp"
-                                    android:textSize="13dp" />
-
-                                <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/colorPrimary"
-                                    android:text="@string/usar_saldo"
-                                    android:textSize="14dp"
-                                    android:textStyle="bold"
-                                    android:padding="3dp" />
+                                    android:textStyle="bold" />
 
                                 <EditText
-                                    android:layout_width="wrap_content"
+                                    android:id="@+id/edit_text_cartao_credito"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorCinza"
-                                    android:inputType="numberDecimal"
-                                    android:minWidth="100dp"
-                                    android:layout_marginLeft="3dp"
+                                    android:maxLength="17"
+                                    android:layout_marginLeft="5dp"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:scrollHorizontally="true"
+                                    android:ellipsize="start"
                                     android:background="@drawable/background_edit_text"
-                                    android:textSize="13dp"/>
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        xmlns:cardview="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        cardview:cardCornerRadius="2dp"
-                        cardview:cardElevation="3dp"
-                        cardview:cardPreventCornerOverlap="false"
-                        cardview:cardUseCompatPadding="true"  >
-
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:padding="4dp"
-                            android:background="@drawable/border_text"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_marginRight="15dp"
-                                android:layout_marginLeft="15dp"
-                                android:padding="5dp" >
-
-                            <br.com.aio.fonts.RobotoTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="14dp"
-                                    android:textStyle="bold"
-                                    android:padding="3dp"
-                                    android:text="@string/cartao_credito" />
-
-                                <EditText
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorCinza"
+                                    android:gravity="right"
                                     android:inputType="numberDecimal"
-                                    android:minWidth="100dp"
-                                    android:layout_marginLeft="3dp"
-                                    android:background="@drawable/background_edit_text"
-                                    android:textSize="13dp"/>
+                                    android:textColor="@color/textColorCinzaEscuro"
+                                    android:textSize="24dp" />
 
                                 <br.com.aio.fonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:text="@string/total"
                                     android:textColor="@color/colorPrimary"
                                     android:textSize="14dp"
-                                    android:textStyle="bold"
-                                    android:padding="3dp"
-                                    android:text="@string/total"/>
+                                    android:textStyle="bold" />
 
                                 <br.com.aio.fonts.RobotoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/textColorCinza"
                                     android:text="121,55 R$"
-                                    android:paddingLeft="3dp"
-                                    android:textSize="13dp" />
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@color/textColorCinzaEscuro"
+                                    android:textSize="24dp"/>
+
+
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:gravity="center_horizontal">
-
-                                    <br.com.aio.fonts.RobotoTextView
-                                        android:layout_width="wrap_content"
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/textColorInfoAzul"
-                                        android:drawableLeft="@drawable/ic_info"
-                                        android:drawablePadding="3dp"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textSize="12dp"
-                                        android:paddingTop="5dp"
-                                        android:text="@string/cashback_gerado"/>
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center_horizontal">
+                                        <br.com.aio.fonts.RobotoTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/textColorInfoAzul"
+                                            android:drawableLeft="@drawable/ic_info"
+                                            android:drawablePadding="3dp"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
+                                            android:paddingTop="5dp"
+                                            android:text="@string/cashback_gerado"/>
+                                    </RelativeLayout>
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -515,10 +593,8 @@
                                     android:text="@string/solicitar"
                                     android:textColor="@android:color/white"/>
                             </br.com.aio.view.MaterialRippleLayout>
-
-
                         </LinearLayout>
-
+                    </LinearLayout>
 
                     </android.support.v7.widget.CardView>
 

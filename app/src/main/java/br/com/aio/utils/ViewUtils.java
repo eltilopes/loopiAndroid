@@ -110,4 +110,8 @@ public class ViewUtils {
         return validacao!=null ? new EditTextValidation(validacao,forcaSenha, context) : null;
     }
 
+    public static String getValorFormatado(Double valor){
+        return String.format( "R$ %.2f", valor );
+    }
+
 }

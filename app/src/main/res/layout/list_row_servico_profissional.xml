@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/nome_servico_profissional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:textColor="@color/textColorCinzaEscuro"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:text="@string/aceitar_servico"/>
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/valor_servico_profissional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:text="R$ 55,24"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+            <br.com.aio.fonts.RobotoTextView
+                android:id="@+id/descricao_servico_profissional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:textColor="@color/textColorCinza"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:text="@string/codigoConvite"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right">
+                <CheckBox android:id="@+id/selecionar_servico_profissional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:shadowColor="@color/colorPrimary"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:buttonTint="@color/colorPrimary"
+                    android:textColor="@color/colorPrimary"/>
+            </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

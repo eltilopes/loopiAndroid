@@ -475,6 +475,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             if (mStateOutput != null) mLocationMarkerText.setText(mStateOutput);
             localizacao = new Localizacao(1L,mStateOutput,location.getLatitude(),location.getLongitude());
+            SessionUtils.setLocalizacaoMapa(mPrefs,localizacao);
+            SessionUtils.setActivityAnterior(mPrefs,ACTIVITY_MAPS);
             startIntentService(location);
 
 

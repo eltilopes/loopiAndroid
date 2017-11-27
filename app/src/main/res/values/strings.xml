@@ -148,6 +148,8 @@
     <string name="servico_descricao">Descrição</string>
     <string name="servico">Serviço</string>
     <string name="servico_tempo_inicio">Tempo para início</string>
+    <string name="servicos">Serviços</string>
+    <string name="servicos_selecionados">Serviços Selecionados</string>
 
     <string name="confirmado">CONFIRMADO</string>
     <string name="endereco">Endereço</string>

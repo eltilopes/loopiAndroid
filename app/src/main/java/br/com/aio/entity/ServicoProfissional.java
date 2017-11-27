@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 
+import br.com.aio.utils.ViewUtils;
+
 /**
  * Created by elton on 23/09/2017.
  */
@@ -75,6 +77,10 @@ public class ServicoProfissional implements Serializable {
         return valor;
     }
 
+    public String getValorFormatado() {
+        return ViewUtils.getValorFormatado(valor);
+    }
+
     public void setValor(Double valor) {
         this.valor = valor;
     }
@@ -102,4 +108,8 @@ public class ServicoProfissional implements Serializable {
         this.profissional = profissional;
     }
 
+    @Override
+    public String toString() {
+        return descricao + " - R$" + valor;
+    }
 }

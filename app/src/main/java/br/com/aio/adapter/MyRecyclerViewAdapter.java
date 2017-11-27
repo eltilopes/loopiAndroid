@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 import br.com.aio.R;
@@ -22,6 +21,7 @@ import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;
+import br.com.aio.utils.ViewUtils;
 
 /**
  * Created by elton on 24/07/2017.
@@ -65,7 +65,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, final int i) {
         final ServicoCard servicoCard = servicoCardList.get(i);
-
+        boolean multiServicos = servicoCard.getServicos() != null ?
+                (servicoCard.getServicos().isEmpty() ? false : (servicoCard.getServicos().size() > 1 ? true : false)) : false;
         //Render image using Picasso library
         if (!TextUtils.isEmpty(servicoCard.getThumbnail())) {
             Picasso.with(mContext).load(servicoCard.getThumbnail())
@@ -76,9 +77,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         //Setting text view title
         customViewHolder.title.setText(Html.fromHtml(servicoCard.getTitle()));
-        customViewHolder.descricao.setText(Html.fromHtml(servicoCard.getDescricao()));
+        customViewHolder.descricao.setText(multiServicos ? "" :Html.fromHtml(servicoCard.getDescricao()));
         customViewHolder.categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
-        customViewHolder.preco.setText(Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
+        customViewHolder.preco.setText(multiServicos ? "" : Html.fromHtml(ViewUtils.getValorFormatado(servicoCard.getPreco())));
         customViewHolder.tempo.setText(Html.fromHtml(servicoCard.getDuracao()));
         customViewHolder.localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         customViewHolder.subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
@@ -139,7 +140,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         MaterialDesignIconsTextView estrela3;
         MaterialDesignIconsTextView estrela4;
         MaterialDesignIconsTextView estrela5;
-
         public CustomViewHolder(View view) {
             super(view);
             this.cardServico = (CardView) view.findViewById(R.id.card_servico);
