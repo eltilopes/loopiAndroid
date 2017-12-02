@@ -21,7 +21,6 @@ import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;
-import br.com.aio.utils.ViewUtils;
 
 /**
  * Created by elton on 24/07/2017.
@@ -77,9 +76,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         //Setting text view title
         customViewHolder.title.setText(Html.fromHtml(servicoCard.getTitle()));
-        customViewHolder.descricao.setText(multiServicos ? "" :Html.fromHtml(servicoCard.getDescricao()));
+        //customViewHolder.descricao.setText("");
+        //customViewHolder.descricao.setText(multiServicos ? "" :Html.fromHtml(servicoCard.getDescricao()));
         customViewHolder.categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
-        customViewHolder.preco.setText(multiServicos ? "" : Html.fromHtml(ViewUtils.getValorFormatado(servicoCard.getPreco())));
+        //customViewHolder.preco.setText(multiServicos ? "" : Html.fromHtml(ViewUtils.getValorFormatado(servicoCard.getPreco())));
+        customViewHolder.preco.setText("");
         customViewHolder.tempo.setText(Html.fromHtml(servicoCard.getDuracao()));
         customViewHolder.localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         customViewHolder.subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
@@ -127,7 +128,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ImageView thumbnail;
         ImageView favorito;
         TextView title;
-        TextView descricao;
+        //TextView descricao;
         TextView categoria;
         TextView subCategoria;
         TextView especialidade;
@@ -145,7 +146,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             this.cardServico = (CardView) view.findViewById(R.id.card_servico);
             this.thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             this.title = (TextView) view.findViewById(R.id.title);
-            this.descricao = (TextView) view.findViewById(R.id.card_descricao);
+            //this.descricao = (TextView) view.findViewById(R.id.card_descricao);
             this.categoria = (TextView) view.findViewById(R.id.card_categoria);
             this.tempo = (TextView) view.findViewById(R.id.card_tempo);
             this.localizacao = (TextView) view.findViewById(R.id.card_localizacao);

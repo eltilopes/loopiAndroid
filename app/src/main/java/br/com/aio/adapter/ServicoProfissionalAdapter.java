@@ -82,12 +82,10 @@ public class ServicoProfissionalAdapter  extends ArrayAdapter<ServicoProfissiona
                 @Override
                 public void onClick(View v)
                 {
-                    aceitar.setChecked(!aceitar.isChecked());
                     listener.OnItemClickListener(position, v.getId());
                 }
             });
-
-        vi.setMinimumHeight(parent.getHeight()/getCount());
+            vi.setMinimumHeight(parent.getHeight()/getCount());
 
         return vi;
     }

@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +102,7 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements View.O
                 (servicoCard.getServicos().isEmpty() ? false : (servicoCard.getServicos().size() > 1 ? true : false)) : false;
 
         thumbnail = (ImageView) findViewById(R.id.thumbnail);
-        descricao = (TextView) findViewById(R.id.card_descricao);
+        //descricao = (TextView) findViewById(R.id.card_descricao);
         title = (TextView) findViewById(R.id.title);
         categoria = (TextView) findViewById(R.id.card_categoria);
         tempo = (TextView) findViewById(R.id.card_tempo);
@@ -128,9 +127,11 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements View.O
 
         //Setting text view title
         title.setText(Html.fromHtml(servicoCard.getTitle()));
-        descricao.setText(multiServicos ? "" :Html.fromHtml(servicoCard.getDescricao()));
+        //descricao.setText("");
+        /*descricao.setText(multiServicos ? "" :Html.fromHtml(servicoCard.getDescricao()));*/
         categoria.setText(Html.fromHtml(servicoCard.getCategoria().getDescricao()));
-        preco.setText(multiServicos ? "" :Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
+        preco.setText("");
+        //preco.setText(multiServicos ? "" :Html.fromHtml(NumberFormat.getCurrencyInstance().format((servicoCard.getPreco()/100))));
         tempo.setText(Html.fromHtml(servicoCard.getDuracao()));
         localizacao.setText(Html.fromHtml(servicoCard.getDistancia()));
         subCategoria.setText(Html.fromHtml(servicoCard.getSubCategoria().getDescricao()));
@@ -141,7 +142,7 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements View.O
         estrela3.setText(servicoCard.getEstrelas()>2? R.string.material_icon_star : R.string.material_icon_star_border);
         estrela4.setText(servicoCard.getEstrelas()>3? R.string.material_icon_star : R.string.material_icon_star_border);
         estrela5.setText(servicoCard.getEstrelas()>4? R.string.material_icon_star : R.string.material_icon_star_border);
-        if(multiServicos){
+        /*if(multiServicos){*/
             layoutListaServicos.setVisibility(View.VISIBLE);
             servicoSelecionados = new ArrayList<>();
             listaServicos = (ExpandedListView) findViewById(R.id.card_lista_servicos);
@@ -151,7 +152,7 @@ public class SolicitarPedidoActivity extends AppCompatActivity implements View.O
             listaServicos.setAdapter(servicoProfissionalAdapter);
             servicoProfissionalAdapter.setOnItemClickListener(SolicitarPedidoActivity.this);
             setTotalListaServicos();
-        }
+        /*}*/
 
     }
 
