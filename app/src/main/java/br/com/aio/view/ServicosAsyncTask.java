@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.adapter.ServicoCardRecyclerViewAdapter;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
 
@@ -33,10 +33,10 @@ public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
     private List<ServicoCard> servicos;
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
-    private MyRecyclerViewAdapter myRecyclerViewAdapter;
+    private ServicoCardRecyclerViewAdapter myRecyclerViewAdapter;
 
     public ServicosAsyncTask(Context context, List<ServicoCard> servicoCardList, ProgressBar progressBar,
-                             RecyclerView mRecyclerView,MyRecyclerViewAdapter adapter,String tag){
+                             RecyclerView mRecyclerView, ServicoCardRecyclerViewAdapter adapter, String tag){
         this.context = context;
         this.servicoCardList = servicoCardList;
         servicos = servicoCardList;
@@ -84,9 +84,9 @@ public class ServicosAsyncTask extends AsyncTask<String, Void, Integer> {
         progressBar.setVisibility(View.GONE);
 
         if (result == 1) {
-            myRecyclerViewAdapter = new MyRecyclerViewAdapter(context, servicoCardList, new Filtro());
+            myRecyclerViewAdapter = new ServicoCardRecyclerViewAdapter(context, servicoCardList, new Filtro());
             mRecyclerView.setAdapter(myRecyclerViewAdapter);
-            myRecyclerViewAdapter.setOnItemClickListener(new MyRecyclerViewAdapter.OnRecyclerViewItemClickListener() {
+            myRecyclerViewAdapter.setOnItemClickListener(new ServicoCardRecyclerViewAdapter.OnRecyclerViewItemClickListener() {
                 @Override
                 public void onRecyclerViewItemClicked(int position, int id) {
 

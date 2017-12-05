@@ -28,7 +28,7 @@ import java.util.List;
 import br.com.aio.R;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.ServicoCard;
-import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.adapter.ServicoCardRecyclerViewAdapter;
 import br.com.aio.fonts.RobotoTextView;
 
 /**
@@ -42,7 +42,7 @@ public class MeusPedidosActivity extends AppCompatActivity {
     private RobotoTextView nomePagina ;
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
-    private MyRecyclerViewAdapter adapter;
+    private ServicoCardRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class MeusPedidosActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                adapter = new MyRecyclerViewAdapter(MeusPedidosActivity.this, feedsList, new Filtro());
+                adapter = new ServicoCardRecyclerViewAdapter(MeusPedidosActivity.this, feedsList, new Filtro());
                 mRecyclerView.setAdapter(adapter);
             } else {
                 Toast.makeText(MeusPedidosActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();

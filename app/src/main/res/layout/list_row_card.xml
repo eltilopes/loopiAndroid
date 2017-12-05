@@ -72,9 +72,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/textColorCard"
                     android:layout_marginLeft="12dp"
-                    android:textSize="15dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/textColorAzul"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_finger_clickable"
+                    android:drawableTint="@color/textColorAzul"
                     android:text="Categoria"/>
 
             </RelativeLayout>
@@ -88,8 +93,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/textColorCard"
-                    android:textSize="15dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/textColorAzul"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_finger_clickable"
+                    android:drawableTint="@color/textColorAzul"
                     android:layout_marginLeft="12dp"
                     android:text="Sub Categoria"/>
             </RelativeLayout>
@@ -100,20 +110,25 @@
 
                 <TextView
                     android:id="@+id/card_especialidade"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/textColorCard"
-                    android:textSize="13dp"
+                    android:textColor="@color/textColorAzul"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_finger_clickable"
+                    android:drawableTint="@color/textColorAzul"
+                    android:drawablePadding="2dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="16dp"
                     android:text="Especialidade"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="12dp">
 
             <TextView
                 android:id="@+id/card_tempo"

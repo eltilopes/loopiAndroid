@@ -23,6 +23,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -31,12 +32,10 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,17 +46,16 @@ import java.util.List;
 import java.util.Locale;
 
 import br.com.aio.R;
-import br.com.aio.adapter.MyRecyclerViewAdapter;
-import br.com.aio.adapter.SpinnerAdapter;
+import br.com.aio.adapter.CategoriaCardRecyclerViewAdapter;
+import br.com.aio.adapter.ServicoCardRecyclerViewAdapter;
 import br.com.aio.entity.Categoria;
-import br.com.aio.entity.Especialidade;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.Localizacao;
 import br.com.aio.entity.ServicoCard;
-import br.com.aio.entity.SubCategoria;
 import br.com.aio.entity.UsuarioSession;
 import br.com.aio.fonts.MaterialDesignIconsTextView;
 import br.com.aio.fonts.RobotoTextView;
+import br.com.aio.service.CategoriaService;
 import br.com.aio.service.ExecutorMetodoService;
 import br.com.aio.service.GoogleService;
 import br.com.aio.service.ServicoProfissionalService;
@@ -66,7 +64,6 @@ import br.com.aio.utils.PermissionsUtils;
 import br.com.aio.utils.SessionUtils;
 import br.com.aio.utils.ToastUtils;
 import br.com.aio.view.ProgressDialogAsyncTask;
-import br.com.aio.view.SpinnerActionsHeader;
 import retrofit.RetrofitError;
 
 import static br.com.aio.utils.BundleUtils.ACTIVITY_LISTAGEM;
@@ -78,7 +75,8 @@ import static br.com.aio.utils.PermissionsUtils.PERMISSIONS_REQUEST_LOCATION_ID;
 
 public class ListagemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-                   MyRecyclerViewAdapter.OnRecyclerViewItemClickListener,
+        ServicoCardRecyclerViewAdapter.OnRecyclerViewItemClickListener,
+        CategoriaCardRecyclerViewAdapter.OnRecyclerViewCategoriaItemClickListener,
                    View.OnClickListener
         , ProgressDialogAsyncTask.IProgressActivity  {
 
@@ -89,25 +87,21 @@ public class ListagemActivity extends AppCompatActivity
     private static final String TAG = "RecyclerViewListagem";
     public static final int idCard = -1;
     private List<ServicoCard> servicoCards;
+    private List<Categoria> categoriaCards;
     private RecyclerView mRecyclerView;
-    private MyRecyclerViewAdapter myRecyclerViewAdapter;
+    private ServicoCardRecyclerViewAdapter myRecyclerViewAdapter;
+    private RecyclerView mRecyclerViewCategoria;
+    private CategoriaCardRecyclerViewAdapter myRecyclerViewAdapterCategoria;
     private RelativeLayout layoutProgress;
-    private LinearLayout buttonFiltro;
-    private LinearLayout buttonEspecialidade;
-    private LinearLayout buttonSubCategoria;
     private TextView nomeUsuario;
     private MaterialDesignIconsTextView imagemUsuario;
     private Dialog dialogMostrarFiltro;
     private Dialog dialogFavoritosServico;
-    private Dialog dialogSubCategoria;
-    private SpinnerActionsHeader spinnerSubCategoria;
-    private Dialog dialogEspecialidade;
-    private SpinnerActionsHeader spinnerEspecialidade;
     private SearchView.OnQueryTextListener queryTextListener;
     private SearchView searchView;
-    private Spinner spinnerCategoria;
     private SharedPreferences mPrefs;
     private Localizacao localizacaoMapa;
+    private RobotoTextView localizacao;
     private UsuarioSession usuarioSession;
     private Filtro filtro;
     private RadioGroup radioGroupValor;
@@ -117,9 +111,12 @@ public class ListagemActivity extends AppCompatActivity
     private RadioButton radioButtonAZ;
     private RadioButton radioButtonZA;
     private CheckBox checkboxDistanciaMenor;
-    private MenuItem menuSpinnerCategoria;
+    private MenuItem menuFiltro;
     private MenuItem menuPesquisar;
     private Context context;
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -144,28 +141,27 @@ public class ListagemActivity extends AppCompatActivity
                 startServiceGoocle();
             }
         }
+        localizacao = (RobotoTextView) findViewById(R.id.localizacao);
         localizacaoMapa = new Localizacao(1L,"Localização Casa",-3.741395,-38.499196);
         filtro.setMinhaLatLng(new LatLng(localizacaoMapa.getLatitude(), localizacaoMapa.getLongitude()));
         ToastUtils.show(this,getResources().getString(R.string.localizacao) + ": " + localizacaoMapa.getNome(), ToastUtils.INFORMATION);
-
+        localizacao.setText(localizacaoMapa.getNome());
         getUsuarioLogado();
-        setButtonFiltro();
-        setButtonEspecialidade();
-        setButtonSubCategoria();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        setDrawerState(true);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
         nomeUsuario = (TextView) header.findViewById(R.id.nome_usuario);
         nomeUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirMeuPerfil();
+                ToastUtils.show(ListagemActivity.this,"v.getId() : " + v.getId(), ToastUtils.INFORMATION);
             }
         });
         imagemUsuario = (MaterialDesignIconsTextView) header.findViewById(R.id.image_usuario);
@@ -178,30 +174,19 @@ public class ListagemActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewCategoria = (RecyclerView) findViewById(R.id.recycler_view_categoria);
+        mRecyclerViewCategoria.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         new ProgressDialogAsyncTask(this, layoutProgress, this).execute();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         if(ACTIVITY_MAPS.equals(SessionUtils.getNomeActivityAnterior(mPrefs))){
             localizacaoMapa = SessionUtils.getLocalizacaoMapa(mPrefs);
+            localizacao.setText(localizacaoMapa.getNome());
             ToastUtils.show(this,getResources().getString(R.string.localizacao) + ": " + localizacaoMapa.getNome(), ToastUtils.INFORMATION);
         }
-
+        localizacao.setOnClickListener(this);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (spinnerSubCategoria != null && !hasFocus && spinnerSubCategoria.isEnabled()){
-            spinnerSubCategoria.setDropDownMenuShown(true);
-            spinnerSubCategoria.setActivated(true);
-        }
-        if (spinnerEspecialidade != null && !hasFocus && spinnerEspecialidade.isEnabled()){
-            spinnerEspecialidade.setDropDownMenuShown(true);
-            spinnerEspecialidade.setActivated(true);
-        }
-
-
-    }
     private void abrirMeuPerfil() {
         Intent newActivity = new Intent(ListagemActivity.this, MeuPerfilActivity.class);
         startActivity(newActivity);
@@ -212,17 +197,6 @@ public class ListagemActivity extends AppCompatActivity
         SessionUtils.setServicoCard(mPrefs,servicoCard);
         Intent newActivity = new Intent(ListagemActivity.this, SolicitarPedidoActivity.class);
         startActivity(newActivity);
-    }
-
-    private void setButtonFiltro() {
-        View v = findViewById(R.id.button_filtro);
-        buttonFiltro = (LinearLayout) v;
-        buttonFiltro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarFiltro();
-            }
-        });
     }
 
     public void mostrarFiltro() {
@@ -312,150 +286,6 @@ public class ListagemActivity extends AppCompatActivity
         });
     }
 
-    private void mostrarSubCategorias() {
-        dialogSubCategoria.show();
-        spinnerSubCategoria.performClick();
-    }
-
-    private void mostrarEspecialidades() {
-        dialogEspecialidade.show();
-        spinnerEspecialidade.performClick();
-    }
-
-    private void setButtonEspecialidade() {
-        View v = findViewById(R.id.button_especialidade);
-        buttonEspecialidade = (LinearLayout) v;
-        buttonEspecialidade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(filtro.getSubCategoria()==null){
-                    ToastUtils.show(ListagemActivity.this,
-                            getString(R.string.alert_select_sub_categoria) ,ToastUtils.WARNING);
-                }else {
-                    mostrarEspecialidades();
-                }
-            }
-        });
-        dialogEspecialidade = new Dialog(this);
-        dialogEspecialidade.setCancelable(true);
-        dialogEspecialidade.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogEspecialidade.setContentView(R.layout.dialog_button_header);
-        RobotoTextView dialogTitle=(RobotoTextView)dialogEspecialidade.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        dialogTitle.setText(getString(R.string.especialidade));
-        RobotoTextView title=(RobotoTextView) dialogEspecialidade.findViewById(R.id.dialog_title);
-        title.setText(getString(R.string.especialidade));
-        spinnerEspecialidade = (SpinnerActionsHeader) dialogEspecialidade.findViewById(R.id.spinner_button_header);
-        spinnerEspecialidade.setPrompt(getString(R.string.especialidade));
-        final SpinnerAdapter adapterEspecialidade = new SpinnerAdapter(getApplicationContext(),
-                SessionUtils.getEspecialidades(mPrefs, filtro.getSubCategoria()), Especialidade.class, R.id.spinner_button_header);
-        spinnerEspecialidade.setAdapter(adapterEspecialidade);
-        spinnerEspecialidade.setSpinnerEventsListener(new SpinnerActionsHeader.OnSpinnerEventsListener() {
-            @Override
-            public void onSpinnerOpened(Spinner spinner) {
-                spinnerEspecialidade.setActivated(false);
-            }
-
-            @Override
-            public void onSpinnerClosed(Spinner spinner) {
-                spinnerEspecialidade.setActivated(false);
-                spinnerEspecialidade.clearFocus();
-                Window window = dialogEspecialidade.getWindow();
-                window.getDecorView().setVisibility(View.INVISIBLE);
-            }
-        });
-        spinnerEspecialidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position>0) {
-                    adapterEspecialidade.setItemChecked(view, position);
-                    Especialidade especialidade = (Especialidade) adapterEspecialidade.getItemAtPosition(position);
-                    if(especialidade.getId()!=0){
-                        filtro.setEspecialidade(especialidade);
-                    }
-                    ToastUtils.show(ListagemActivity.this,
-                            "Selecionado : " + especialidade.getDescricao(),ToastUtils.INFORMATION);
-                    dialogEspecialidade.dismiss();
-                }else{
-                    filtro.setEspecialidade(null);
-                }
-                new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                dialogEspecialidade.dismiss();
-            }
-        });
-
-    }
-
-    private void setButtonSubCategoria() {
-        View v = findViewById(R.id.button_sub_categoria);
-        buttonSubCategoria = (LinearLayout) v;
-        buttonSubCategoria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(filtro.getCategoria()==null){
-                    ToastUtils.show(ListagemActivity.this,
-                            getString(R.string.alert_select_categoria) ,ToastUtils.WARNING);
-                }else {
-                    mostrarSubCategorias();
-                }
-            }
-        });
-        dialogSubCategoria = new Dialog(this);
-        dialogSubCategoria.setCancelable(true);
-        dialogSubCategoria.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogSubCategoria.setContentView(R.layout.dialog_button_header);
-        TextView alertTitle=(TextView)dialogSubCategoria.getWindow().getDecorView().findViewById(R.id.dialog_title);
-        spinnerSubCategoria = (SpinnerActionsHeader) dialogSubCategoria.findViewById(R.id.spinner_button_header);
-        final SpinnerAdapter adapterSub = new SpinnerAdapter(getApplicationContext(),
-                SessionUtils.getSubCategorias(mPrefs, filtro.getCategoria()), SubCategoria.class, R.id.spinner_button_header);
-        spinnerSubCategoria.setAdapter(adapterSub);
-        spinnerSubCategoria.setSpinnerEventsListener(new SpinnerActionsHeader.OnSpinnerEventsListener() {
-            @Override
-            public void onSpinnerOpened(Spinner spinner) {
-                spinnerSubCategoria.setActivated(false);
-            }
-
-            @Override
-            public void onSpinnerClosed(Spinner spinner) {
-                spinnerSubCategoria.setActivated(false);
-                spinnerSubCategoria.clearFocus();
-                Window window = dialogSubCategoria.getWindow();
-                window.getDecorView().setVisibility(View.INVISIBLE);
-            }
-        });
-        spinnerSubCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position>0) {
-                    adapterSub.setItemChecked(view, position);
-                    SubCategoria subCategoria = (SubCategoria) adapterSub.getItemAtPosition(position);
-                    if(subCategoria.getId()!=0){
-                        filtro.setSubCategoria(subCategoria);
-                        setButtonEspecialidade();
-                    }
-                    ToastUtils.show(ListagemActivity.this,
-                            "Selecionado : " + ((SubCategoria) adapterSub.getItemAtPosition(position)).getDescricao(),
-                            ToastUtils.INFORMATION);
-                    dialogSubCategoria.dismiss();
-                }else{
-                    filtro.setSubCategoria(null);
-                    filtro.setEspecialidade(null);
-                    setButtonEspecialidade();
-                }
-                new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                dialogSubCategoria.dismiss();
-            }
-        });
-
-    }
-
     @Override
     public void onRecyclerViewItemClicked(int position, int id) {
         ServicoCard servicoCard = servicoCards.get(position);
@@ -473,10 +303,31 @@ public class ListagemActivity extends AppCompatActivity
             case R.id.card_favorito_quantidade:
                 mostrarFavoritosServico();
                 break;
+            case R.id.card_categoria:
+                filtro.setCategoria(servicoCard.getCategoria());
+                pesquisarAposClickCard(servicoCard.getCategoria().getDescricao());
+                break;
+            case R.id.card_sub_categoria:
+                filtro.setSubCategoria(servicoCard.getSubCategoria());
+                pesquisarAposClickCard(servicoCard.getSubCategoria().getDescricao());
+                break;
+            case R.id.card_especialidade:
+                filtro.setEspecialidade(servicoCard.getEspecialidade());
+                pesquisarAposClickCard(servicoCard.getEspecialidade().getDescricao());
+                break;
             case idCard:
                 abrirPedido(servicoCard);
                 break;
         }
+    }
+
+    private void pesquisarAposClickCard(String selecionado) {
+        myRecyclerViewAdapter = new ServicoCardRecyclerViewAdapter(ListagemActivity.this, new ArrayList<ServicoCard>(), filtro);
+        mRecyclerView.setAdapter(myRecyclerViewAdapter);
+        new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
+        ToastUtils.show(ListagemActivity.this,
+                selecionado + " " + getString(R.string.selecionado) ,
+                ToastUtils.INFORMATION);
     }
 
     private void mostrarFavoritosServico() {
@@ -509,6 +360,15 @@ public class ListagemActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.localizacao) {
+            SessionUtils.setActivityAnterior(mPrefs, ACTIVITY_LISTAGEM);
+            startActivity(new Intent(this, MapsActivity.class));
+        }else if (v.getId() == R.id.nome_pagina) {
+            filtro.setCategoria(null);
+            setDrawerState(true);
+            new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
+
+        }
         finish();
     }
 
@@ -521,6 +381,7 @@ public class ListagemActivity extends AppCompatActivity
                         if(filtro.getMinhaLatLng()==null){
                             ToastUtils.show(ListagemActivity.this, getResources().getString(R.string.informar_localizacao), ToastUtils.WARNING);
                         }else {
+                            categoriaCards = ExecutorMetodoService.invoke(new CategoriaService(this), "getCategorias");
                             servicoCards = ExecutorMetodoService.invoke(new ServicoProfissionalService(this), "getServicoCardPorFiltro", filtro);
                         }
                     } catch (RetrofitError error) {
@@ -549,9 +410,13 @@ public class ListagemActivity extends AppCompatActivity
     @Override
     public void onPostExecute() {
         if (servicoCards != null && !servicoCards.isEmpty()) {
-            myRecyclerViewAdapter = new MyRecyclerViewAdapter(ListagemActivity.this, servicoCards, filtro);
+            myRecyclerViewAdapter = new ServicoCardRecyclerViewAdapter(ListagemActivity.this, servicoCards, filtro);
             mRecyclerView.setAdapter(myRecyclerViewAdapter);
             myRecyclerViewAdapter.setOnItemClickListener(ListagemActivity.this);
+        }if (categoriaCards != null && !categoriaCards.isEmpty()) {
+            myRecyclerViewAdapterCategoria = new CategoriaCardRecyclerViewAdapter(ListagemActivity.this, categoriaCards);
+            mRecyclerViewCategoria.setAdapter(myRecyclerViewAdapterCategoria);
+            myRecyclerViewAdapterCategoria.setOnItemClickListener(ListagemActivity.this);
         }
     }
 
@@ -564,11 +429,7 @@ public class ListagemActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        menuSpinnerCategoria = menu.findItem(R.id.action_spinner_header_categoria);
-        spinnerCategoria = (Spinner) MenuItemCompat.getActionView(menuSpinnerCategoria);
-        spinnerCategoria.setBackground(null);
-        final SpinnerAdapter spinAdapter = new SpinnerAdapter(getApplicationContext(), SessionUtils.getCategorias(mPrefs), Categoria.class, R.id.action_spinner_header_categoria);
-        spinnerCategoria.setAdapter(spinAdapter);
+        menuFiltro= menu.findItem(R.id.action_filtro);
         menuPesquisar = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(menuPesquisar);
         SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
@@ -582,7 +443,6 @@ public class ListagemActivity extends AppCompatActivity
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MenuItemCompat.collapseActionView(menuSpinnerCategoria);
                 searchView.requestFocus();
             }
         });
@@ -613,38 +473,6 @@ public class ListagemActivity extends AppCompatActivity
             searchView.setOnQueryTextListener(queryTextListener);
         }
 
-        spinnerCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapter, View v,int position, long id) {
-                if(position>0) {
-                    spinAdapter.setItemChecked(v, position);
-                    Categoria categoria = (Categoria) spinAdapter.getItemAtPosition(position);
-                    if(categoria.getId()!=0){
-                        filtro.setCategoria(categoria);
-                        setButtonSubCategoria();
-                    }
-                    ToastUtils.show(ListagemActivity.this,
-                            "Selecionado : " + ((Categoria) spinAdapter.getItemAtPosition(position)).getDescricao(),
-                            ToastUtils.INFORMATION);
-                }else{
-                    filtro.setCategoria(null);
-                    filtro.setSubCategoria(null);
-                    filtro.setEspecialidade(null);
-                    setButtonSubCategoria();
-                    setButtonEspecialidade();
-                }
-                new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -656,15 +484,11 @@ public class ListagemActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_location) {
-            SessionUtils.setActivityAnterior(mPrefs, ACTIVITY_LISTAGEM);
-            startActivity(new Intent(this, MapsActivity.class));
-            return true;
-        }else if(id == R.id.action_search) {
-            MenuItemCompat.collapseActionView(menuSpinnerCategoria);
+        if(id == R.id.action_search) {
             return false;
-        }else if(id == R.id.action_spinner_header_categoria) {
+        }else if(id == R.id.action_filtro) {
             MenuItemCompat.collapseActionView(menuPesquisar);
+            mostrarFiltro();
             return false;
         }
 
@@ -673,7 +497,6 @@ public class ListagemActivity extends AppCompatActivity
     }
 
     private void fecharMenu(){
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
 
@@ -731,6 +554,7 @@ public class ListagemActivity extends AppCompatActivity
             localizacaoMapa = SessionUtils.getLocalizacaoMapa(mPrefs);
             filtro.setMinhaLatLng(new LatLng(localizacaoMapa.getLatitude(), localizacaoMapa.getLongitude()));
             new ProgressDialogAsyncTask(ListagemActivity.this, layoutProgress, ListagemActivity.this).execute();
+            localizacao.setText(localizacaoMapa.getNome());
             ToastUtils.show(ListagemActivity.this,getResources().getString(R.string.localizacao) + ": " + localizacaoMapa.getNome(), ToastUtils.INFORMATION);
 
         }
@@ -754,4 +578,38 @@ public class ListagemActivity extends AppCompatActivity
         unregisterReceiver(broadcastReceiver);
     }
 
+    @Override
+    public void onRecyclerViewCategoriaItemClicked(int position, int id) {
+        Categoria categoriaCard = categoriaCards.get(position);
+        filtro.setCategoria(categoriaCard);
+        pesquisarAposClickCard(categoriaCard.getDescricao());
+        setDrawerState(false);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setIcon(R.drawable.arrow_back_white);
+        LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflator.inflate(R.layout.custom_title_bar, null);
+        RobotoTextView nomePagina = (RobotoTextView) v.findViewById(R.id.nome_pagina);
+        nomePagina.setText(categoriaCard.getDescricao() );
+        actionBar.setCustomView(v);
+        actionBar.getCustomView().setOnClickListener(this);
+    }
+
+    public void setDrawerState(boolean isEnabled) {
+        if ( isEnabled ) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            toggle.onDrawerStateChanged(DrawerLayout.LOCK_MODE_UNLOCKED);
+            toggle.setDrawerIndicatorEnabled(true);
+            toggle.syncState();
+
+        }
+        else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            toggle.onDrawerStateChanged(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            toggle.setDrawerIndicatorEnabled(false);
+            toggle.syncState();
+        }
+    }
 }

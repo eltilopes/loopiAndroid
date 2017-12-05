@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:filterTouchesWhenObscured="true"
+    android:background="@color/backgroundLayout"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="br.com.aio.activity.ListagemActivity"
     tools:showIn="@layout/app_bar_listagem">
@@ -29,22 +30,46 @@
                 <View
                     android:id="@+id/activity_transition_header"
                     android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:layout_alignBottom="@+id/actions"
                     android:background="@color/colorButtonHeader"
                     android:transitionName="holder1" />
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/backgroundLayout"
                     android:layout_below="@id/activity_transition_header">
-
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:padding="10dp">
+
+                        <br.com.aio.fonts.RobotoTextView
+                            android:id="@+id/localizacao"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_corner_localizacao"
+                            android:layout_gravity="left|center_vertical"
+                            android:gravity="center_vertical"
+                            android:drawableRight="@drawable/ic_edit_location"
+                            android:drawableTint="@color/colorPrimary"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/minha_localizacao"
+                            android:textColor="@color/colorPrimary" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view_categoria"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:divider="@null"
+                            android:orientation="horizontal"
+                            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                            android:layout_marginBottom="5dp"/>
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recycler_view"
@@ -60,45 +85,12 @@
                 <LinearLayout
                     android:id="@+id/actions"
                     android:layout_width="fill_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="0dp"
                     android:layout_gravity="center_vertical"
                     android:background="@color/colorButtonHeader"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <include
-                        android:id="@+id/button_sub_categoria"
-                        layout="@layout/button_sub_categoria"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="fill_parent"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@color/branco" />
-
-                    <include
-                        android:id="@+id/button_especialidade"
-                        layout="@layout/button_especialidade"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="fill_parent"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@color/branco" />
-
-                    <include
-                        android:id="@+id/button_filtro"
-                        layout="@layout/button_filtro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
 
 
                 </LinearLayout>

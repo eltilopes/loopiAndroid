@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.aio.R;
-import br.com.aio.adapter.MyRecyclerViewAdapter;
+import br.com.aio.adapter.ServicoCardRecyclerViewAdapter;
 import br.com.aio.entity.Filtro;
 import br.com.aio.entity.Profissional;
 import br.com.aio.entity.ServicoCard;
@@ -58,14 +58,14 @@ import static br.com.aio.utils.PermissionsUtils.PICKFILE_RESULT_CODE;
  * Created by elton on 17/07/2017.
  */
 
-public class ProfissionalActivity extends AppCompatActivity implements MyRecyclerViewAdapter.OnRecyclerViewItemClickListener, ProgressDialogAsyncTask.IProgressActivity {
+public class ProfissionalActivity extends AppCompatActivity implements ServicoCardRecyclerViewAdapter.OnRecyclerViewItemClickListener, ProgressDialogAsyncTask.IProgressActivity {
 
     private static final String TAG = "ProfissionalActivity";
     private RobotoTextView continuar ;
     private List<ServicoCard> servicos;
     private RobotoTextView nomePagina ;
     private RecyclerView mRecyclerView;
-    private MyRecyclerViewAdapter adapter;
+    private ServicoCardRecyclerViewAdapter adapter;
     private LinearLayout adicionarServico;
     private LinearLayout verTaxasAnuncio ;
     private Dialog dialogTaxasAnuncio ;
@@ -322,7 +322,7 @@ public class ProfissionalActivity extends AppCompatActivity implements MyRecycle
     @Override
     public void onPostExecute() {
         if (servicos != null && !servicos.isEmpty()) {
-            adapter = new MyRecyclerViewAdapter(ProfissionalActivity.this, servicos, new Filtro());
+            adapter = new ServicoCardRecyclerViewAdapter(ProfissionalActivity.this, servicos, new Filtro());
             mRecyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener(ProfissionalActivity.this);
             profissional.setServicosPorServicoCard(servicos);

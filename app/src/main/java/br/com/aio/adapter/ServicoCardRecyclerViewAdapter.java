@@ -26,7 +26,7 @@ import br.com.aio.fonts.RobotoTextView;
  * Created by elton on 24/07/2017.
  */
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.CustomViewHolder> {
+public class ServicoCardRecyclerViewAdapter extends RecyclerView.Adapter<ServicoCardRecyclerViewAdapter.CustomViewHolder> {
     private List<ServicoCard> servicoCardList;
     private Context mContext;
     private OnRecyclerViewItemClickListener listener;
@@ -38,7 +38,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     {
         this.listener = listener;
     }
-    public MyRecyclerViewAdapter(Context context, List<ServicoCard> servicoCardList, Filtro filtro) {
+    public ServicoCardRecyclerViewAdapter(Context context, List<ServicoCard> servicoCardList, Filtro filtro) {
         this.mContext = context;
         this.servicoCardList = servicoCardList;
     }
@@ -114,6 +114,30 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             public void onClick(View v)
             {
                 listener.onRecyclerViewItemClicked(i, ListagemActivity.idCard);
+            }
+        });
+        customViewHolder.categoria.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onRecyclerViewItemClicked(i, v.getId());
+            }
+        });
+        customViewHolder.subCategoria.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onRecyclerViewItemClicked(i, v.getId());
+            }
+        });
+        customViewHolder.especialidade.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener.onRecyclerViewItemClicked(i, v.getId());
             }
         });
     }

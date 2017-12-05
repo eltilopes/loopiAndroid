@@ -8,6 +8,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_location">Localização</string>
+    <string name="action_filtro">Filtro</string>
 
     <string name="regional_1">Regional 1</string>
     <string name="regional_2">Regional 2</string>
@@ -151,6 +152,7 @@
     <string name="servicos">Serviços</string>
     <string name="servicos_selecionados">Serviços Selecionados</string>
 
+    <string name="selecionado">Selecionado(a)</string>
     <string name="confirmado">CONFIRMADO</string>
     <string name="endereco">Endereço</string>
 
